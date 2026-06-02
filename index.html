@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Elixia Parfum · Decants de Autor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --ink: #0A0A0A; --ink-soft: #1C1C1C; --ink-dim: #3D3D3D;
+            --mist: #8A8A8A; --silver: #C8C8C8; --fog: #E8E8E8;
+            --cloud: #F4F4F2; --white: #FAFAF8; --pure: #FFFFFF;
+            --gold: #C9A96E; --gold-lt: #E8D5B0; --gold-dk: #9E7D48;
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans: 'DM Sans', system-ui, sans-serif;
+            --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+            --sp-5: 40px; --sp-6: 56px; --sp-7: 72px; --sp-8: 96px; --sp-9: 128px;
+            --max: 1360px; --nav-h: 68px;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --t-fast: 0.18s; --t-mid: 0.38s; --t-slow: 0.6s;
+            --sh-xs: 0 1px 2px rgba(0,0,0,0.06); --sh-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --sh-md: 0 8px 24px rgba(0,0,0,0.10); --sh-lg: 0 24px 64px rgba(0,0,0,0.12);
+            --sh-xl: 0 40px 100px rgba(0,0,0,0.16);
+            --r-xs: 2px; --r-sm: 4px; --r-md: 8px; --r-lg: 16px; --r-pill: 999px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: var(--sans); background: var(--white); color: var(--ink-soft);
+            line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh;
+        }
+        body::before {
+            content: ''; position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999; opacity: 0.35;
+        }
+        h1, h2, h3, h4, .serif { font-family: var(--serif); font-weight: 400; color: var(--ink); letter-spacing: -0.025em; }
+        h1 { font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.0; }
+        h2 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); line-height: 1.1; }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.75rem); line-height: 1.2; }
+        .eyebrow { font-family: var(--sans); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); }
+        .container { max-width: var(--max); margin: 0 auto; padding: 0 var(--sp-4); }
+        @media (max-width: 768px) { .container { padding: 0 var(--sp-2); } }
+        .header { position: sticky; top: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(250,250,248,0.88); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border-bottom: 1px solid transparent; transition: border-color var(--t-mid), background var(--t-mid), box-shadow var(--t-mid); }
+        .header.scrolled { border-bottom-color: var(--fog); box-shadow: 0 1px 0 var(--fog); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--sp-4); gap: var(--sp-4); }
+        .logo { font-family: var(--serif); font-size: 1.55rem; font-weight: 500; letter-spacing: 0.12em; color: var(--ink); text-decoration: none; cursor: pointer; flex-shrink: 0; position: relative; }
+        .logo::after { content: '·'; font-size: 0.5em; vertical-align: super; margin-left: 3px; color: var(--mist); }
+        .logo:hover { opacity: 0.6; }
+        .logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+.logo-name {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+.logo-brand .logo-text {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  display: none; /* se muestra si falla la imagen */
+}
+/* Quitá el pseudo-elemento ::after del logo anterior para evitar el punto */
+.logo-brand::after {
+  display: none;
+}
+        .nav-links { display: flex; gap: var(--sp-5); list-style: none; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--mist); font-size: 0.82rem; font-weight: 400; letter-spacing: 0.03em; cursor: pointer; position: relative; transition: color var(--t-fast); padding: 6px 0; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 0; height: 1px; background: var(--ink); transition: width var(--t-mid) var(--ease-out); }
+        .nav-links a:hover { color: var(--ink-soft); }
+        .nav-links a.active { color: var(--ink); }
+        .nav-links a.active::after, .nav-links a:hover::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: var(--sp-2); }
+        .cart-btn { position: relative; background: none; border: none; cursor: pointer; padding: var(--sp-1); transition: opacity var(--t-fast); line-height: 0; }
+        .cart-btn:hover { opacity: 0.55; }
+        .cart-btn svg { width: 22px; height: 22px; stroke: var(--ink-soft); fill: none; stroke-width: 1.4; }
+        .cart-badge { position: absolute; top: 1px; right: 1px; background: var(--ink); color: var(--white); font-size: 0.58rem; font-weight: 600; width: 16px; height: 16px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+        .cart-badge.pulse { animation: badgePulse 0.4s var(--ease-out); }
+        @keyframes badgePulse { 0%,100%{transform:scale(1);} 45%{transform:scale(1.5);} }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: var(--sp-1); }
+        .hamburger span { display: block; width: 20px; height: 1px; background: var(--ink-soft); transition: all var(--t-fast) var(--ease-out); }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: var(--nav-h); left: 0; right: 0; background: rgba(250,250,248,0.97); backdrop-filter: blur(24px); flex-direction: column; gap: 0; padding: var(--sp-2) 0; border-bottom: 1px solid var(--fog); z-index: 99; }
+            .nav-links.open { display: flex; }
+            .nav-links a { padding: 14px var(--sp-4); font-size: 0.95rem; }
+            .hamburger { display: flex; }
+        }
+        .page { display: none; min-height: 60vh; }
+        .page.active { display: block; }
+        .hero { min-height: calc(100vh - var(--nav-h)); display: grid; grid-template-columns: 1fr 1fr; align-items: center; position: relative; overflow: hidden; }
+        .hero-left { padding: var(--sp-8) var(--sp-6) var(--sp-8) max(var(--sp-4), calc((100vw - var(--max))/2 + var(--sp-4))); max-width: 680px; }
+        .hero-eyebrow { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+        .hero-eyebrow-line { width: 32px; height: 1px; background: var(--silver); }
+        .hero h1 { font-style: italic; margin-bottom: var(--sp-3); }
+        .hero h1 em { font-style: normal; color: var(--mist); }
+        .hero-desc { font-size: 1.05rem; color: var(--ink-dim); font-weight: 300; line-height: 1.75; max-width: 420px; margin-bottom: var(--sp-5); }
+        .hero-cta-row { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+        .hero-right { height: 100%; min-height: calc(100vh - var(--nav-h)); background: var(--cloud); position: relative; overflow: hidden; }
+        .hero-visual { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        .hero-circle { width: 420px; height: 420px; border-radius: 50%; background: linear-gradient(135deg, var(--fog) 0%, var(--cloud) 100%); border: 1px solid var(--silver); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .hero-bottle { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); }
+        .bottle-svg { width: 180px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.10)); }
+        .hero-label { text-align: center; padding: var(--sp-2) var(--sp-3); background: var(--white); border: 1px solid var(--fog); border-radius: var(--r-sm); }
+        .hero-label-brand { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); font-weight: 500; }
+        .hero-label-name { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); }
+        .hero-float { position: absolute; font-family: var(--serif); font-style: italic; color: var(--silver); pointer-events: none; user-select: none; }
+        .hero-float-1 { font-size: 8rem; top: 8%; right: 5%; opacity: 0.2; }
+        .hero-float-2 { font-size: 4rem; bottom: 12%; left: 8%; opacity: 0.15; }
+        .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--fog); border-top: 1px solid var(--fog); margin-top: var(--sp-6); }
+        .hero-stat { background: var(--white); padding: var(--sp-3) var(--sp-4); text-align: center; }
+        .hero-stat-num { font-family: var(--serif); font-size: 1.8rem; color: var(--ink); display: block; line-height: 1; margin-bottom: 4px; }
+        .hero-stat-label { font-size: 0.7rem; color: var(--mist); letter-spacing: 0.06em; text-transform: uppercase; }
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left { padding: var(--sp-7) var(--sp-4) var(--sp-5); max-width: none; margin: 0; }
+            .hero-right { min-height: 50vw; }
+        }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-1); font-family: var(--sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; border: 1px solid transparent; cursor: pointer; transition: all var(--t-mid) var(--ease-out); text-decoration: none; white-space: nowrap; border-radius: var(--r-xs); padding: 13px 28px; position: relative; overflow: hidden; }
+        .btn::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.12); opacity: 0; transition: opacity var(--t-fast); }
+        .btn:active::after { opacity: 1; }
+        .btn-primary { background: var(--ink); color: var(--white); border-color: var(--ink); }
+        .btn-primary:hover { background: var(--ink-dim); border-color: var(--ink-dim); transform: translateY(-1px); box-shadow: var(--sh-md); }
+        .btn-outline { background: transparent; color: var(--ink-soft); border-color: var(--fog); }
+        .btn-outline:hover { border-color: var(--ink-soft); }
+        .btn-ghost { background: transparent; color: var(--mist); border-color: transparent; padding: 13px 4px; }
+        .btn-ghost:hover { color: var(--ink-soft); }
+        .btn-sm { padding: 9px 20px; font-size: 0.7rem; }
+        .btn-lg { padding: 16px 40px; font-size: 0.85rem; }
+        .section { padding: var(--sp-8) 0; }
+        .section-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--sp-6); flex-wrap: wrap; gap: var(--sp-3); border-bottom: 1px solid var(--fog); padding-bottom: var(--sp-4); }
+        .section-head-left { display: flex; flex-direction: column; gap: var(--sp-1); }
+        .section-num { font-family: var(--serif); font-size: 0.75rem; color: var(--silver); font-style: italic; }
+        .marquee-strip { border-top: 1px solid var(--fog); border-bottom: 1px solid var(--fog); overflow: hidden; padding: 14px 0; background: var(--cloud); position: relative; }
+        .marquee-strip::before, .marquee-strip::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+        .marquee-strip::before { left: 0; background: linear-gradient(90deg, var(--cloud), transparent); }
+        .marquee-strip::after  { right: 0; background: linear-gradient(-90deg, var(--cloud), transparent); }
+        .marquee-track { display: flex; gap: 0; width: max-content; animation: marqueeScroll 28s linear infinite; }
+        .marquee-item { font-family: var(--serif); font-style: italic; font-size: 0.85rem; color: var(--mist); padding: 0 var(--sp-5); white-space: nowrap; position: relative; }
+        .marquee-item::after { content: '·'; position: absolute; right: -2px; color: var(--silver); }
+        @keyframes marqueeScroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+        .benefits-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--fog); border-top: 1px solid var(--fog); border-bottom: 1px solid var(--fog); }
+        @media (max-width: 600px) { .benefits-strip { grid-template-columns: 1fr; } }
+        .benefit-cell { background: var(--white); padding: var(--sp-5) var(--sp-4); display: flex; align-items: flex-start; gap: var(--sp-3); }
+        .benefit-icon-wrap { width: 36px; height: 36px; border: 1px solid var(--fog); border-radius: var(--r-xs); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .benefit-icon-wrap svg { width: 16px; height: 16px; stroke: var(--ink-dim); fill: none; stroke-width: 1.5; }
+        .benefit-body h4 { font-family: var(--serif); font-size: 1rem; margin-bottom: 3px; }
+        .benefit-body p { font-size: 0.78rem; color: var(--mist); font-weight: 300; line-height: 1.5; }
+        .filters-wrap { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-1); margin-bottom: var(--sp-5); }
+        .filter-chip { padding: 8px 18px; font-size: 0.75rem; border: 1px solid var(--fog); background: var(--white); color: var(--mist); cursor: pointer; border-radius: var(--r-pill); transition: all var(--t-fast); font-family: var(--sans); line-height: 1; }
+        .filter-chip:hover { border-color: var(--ink-soft); color: var(--ink-soft); }
+        .filter-chip.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--sp-4); }
+        .product-card { background: var(--white); cursor: pointer; position: relative; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: box-shadow var(--t-mid), border-color var(--t-mid); border: 1px solid transparent; border-radius: var(--r-sm); overflow: hidden; }
+        .product-card:hover { box-shadow: var(--sh-md); border-color: var(--fog); }
+        .product-img { aspect-ratio: 4/5; background: var(--cloud); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .product-img::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,0,0,0.015) 20px, rgba(0,0,0,0.015) 21px); }
+        .product-glyph { font-family: var(--serif); font-style: italic; font-size: 2.4rem; color: var(--silver); z-index: 1; transition: transform var(--t-slow), color var(--t-mid); user-select: none; }
+        .product-card:hover .product-glyph { transform: scale(1.08) translateY(-4px); color: var(--mist); }
+        .product-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(10,10,10,0.55)); padding: var(--sp-3) var(--sp-2) var(--sp-2); transform: translateY(100%); transition: transform var(--t-mid); display: flex; justify-content: center; }
+        .product-card:hover .product-overlay { transform: translateY(0); }
+        .product-badge { position: absolute; top: var(--sp-2); left: var(--sp-2); background: var(--white); font-size: 0.58rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; padding: 3px 9px; border-radius: var(--r-xs); color: var(--ink-soft); border: 1px solid var(--fog); z-index: 2; }
+        .product-info { padding: var(--sp-2) var(--sp-2) var(--sp-3); flex: 1; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--fog); }
+        .product-brand { font-size: 0.62rem; letter-spacing: 0.09em; text-transform: uppercase; font-weight: 500; color: var(--mist); }
+        .product-name { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); line-height: 1.25; }
+        .product-notes { font-size: 0.74rem; color: var(--mist); font-weight: 300; line-height: 1.4; }
+        .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: var(--sp-2); padding-top: var(--sp-1); border-top: 1px solid var(--fog); }
+        .product-price { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+        .product-ml { font-size: 0.65rem; color: var(--silver); font-weight: 400; }
+        .btn-add { padding: 7px 16px; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em; background: transparent; border: 1px solid var(--fog); color: var(--ink-soft); cursor: pointer; border-radius: var(--r-xs); transition: all var(--t-fast); font-family: var(--sans); text-transform: uppercase; }
+        .btn-add:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+        .btn-add-overlay { padding: 9px 22px; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.07em; background: var(--white); border: none; color: var(--ink); cursor: pointer; border-radius: var(--r-xs); transition: all var(--t-fast); font-family: var(--sans); text-transform: uppercase; }
+        .btn-add-overlay:hover { background: var(--cloud); }
+        .quiz-section { background: var(--ink); padding: var(--sp-8) 0; position: relative; overflow: hidden; }
+        .quiz-section::before { content: ''; position: absolute; top: -60%; right: -10%; width: 600px; height: 600px; border: 1px solid rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none; }
+        .quiz-inner { max-width: 660px; margin: 0 auto; text-align: center; padding: 0 var(--sp-4); }
+        .quiz-inner .eyebrow { color: rgba(255,255,255,0.35); }
+        .quiz-inner h2 { color: var(--white); margin: var(--sp-2) 0 var(--sp-5); }
+        .quiz-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: var(--sp-6) var(--sp-5); border-radius: var(--r-md); backdrop-filter: blur(8px); }
+        .quiz-question { font-family: var(--serif); font-size: 1.5rem; color: var(--white); margin-bottom: var(--sp-4); font-style: italic; }
+        .quiz-options { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: var(--sp-3); }
+        .quiz-option { padding: 10px 22px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: rgba(255,255,255,0.7); cursor: pointer; border-radius: var(--r-pill); transition: all var(--t-fast); font-family: var(--sans); }
+        .quiz-option:hover { border-color: rgba(255,255,255,0.6); color: var(--white); }
+        .quiz-option.selected { background: var(--white); color: var(--ink); border-color: var(--white); }
+        .quiz-step-indicator { font-size: 0.68rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; text-transform: uppercase; }
+        .quiz-result { display: none; margin-top: var(--sp-4); animation: fadeUp 0.5s var(--ease-out); }
+        .quiz-result.visible { display: block; }
+        .rec-products { display: flex; gap: var(--sp-2); flex-wrap: wrap; justify-content: center; margin-top: var(--sp-3); }
+        .rec-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); text-align: left; cursor: pointer; transition: all var(--t-fast); flex: 1; min-width: 150px; max-width: 210px; }
+        .rec-chip:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+        .rec-chip .product-brand { color: rgba(255,255,255,0.4); }
+        .rec-chip .product-name { font-size: 0.95rem; color: var(--white); }
+        .rec-chip-price { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+        .promo-hero { position: relative; padding: var(--sp-8) var(--sp-6); background: var(--ink); border-radius: var(--r-md); overflow: hidden; margin-bottom: var(--sp-6); text-align: center; }
+        .promo-hero::before { content: ''; position: absolute; top: -40%; left: -10%; width: 600px; height: 600px; border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); pointer-events: none; }
+        .promo-hero-content { position: relative; z-index: 1; }
+        .promo-hero h2 { color: var(--white); font-size: clamp(2rem, 4vw, 3rem); margin: var(--sp-2) 0; }
+        .promo-hero p { color: rgba(255,255,255,0.55); font-size: 1rem; font-weight: 300; margin-bottom: var(--sp-4); max-width: 480px; margin-left: auto; margin-right: auto; }
+        .promo-hero .btn-primary { background: var(--white); color: var(--ink); border-color: var(--white); }
+        .promo-hero .btn-primary:hover { background: transparent; color: var(--white); }
+        .promo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-3); }
+        .promo-card { border: 1px solid var(--fog); padding: var(--sp-4) var(--sp-3); border-radius: var(--r-sm); background: var(--white); transition: all var(--t-mid); position: relative; overflow: hidden; }
+        .promo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform var(--t-mid); }
+        .promo-card:hover { box-shadow: var(--sh-sm); transform: translateY(-2px); }
+        .promo-card:hover::before { transform: scaleX(1); }
+        .promo-card h3 { font-size: 1.5rem; margin: var(--sp-1) 0; }
+        .promo-card p { font-size: 0.82rem; color: var(--mist); font-weight: 300; line-height: 1.6; }
+        .footer { background: var(--ink); color: rgba(255,255,255,0.55); padding: var(--sp-8) 0 var(--sp-4); margin-top: var(--sp-9); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--sp-6); margin-bottom: var(--sp-7); padding-bottom: var(--sp-7); border-bottom: 1px solid rgba(255,255,255,0.08); }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+        .footer-brand .logo { color: var(--white); font-size: 1.8rem; display: inline-block; margin-bottom: var(--sp-2); }
+        .footer-brand .logo::after { color: rgba(255,255,255,0.3); }
+        .footer-brand p { font-size: 0.82rem; font-weight: 300; line-height: 1.7; max-width: 280px; }
+        .footer-col h5 { font-family: var(--sans); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: var(--sp-3); }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .footer-col ul li a { text-decoration: none; color: rgba(255,255,255,0.55); font-size: 0.84rem; font-weight: 300; transition: color var(--t-fast); cursor: pointer; }
+        .footer-col ul li a:hover { color: var(--white); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: rgba(255,255,255,0.25); flex-wrap: wrap; gap: var(--sp-2); }
+        .cart-overlay { position: fixed; inset: 0; background: rgba(10,10,10,0.45); z-index: 200; opacity: 0; pointer-events: none; transition: opacity var(--t-mid); backdrop-filter: blur(2px); }
+        .cart-overlay.open { opacity: 1; pointer-events: auto; }
+        .cart-sidebar { position: fixed; top: 0; right: 0; width: 400px; max-width: 95vw; height: 100dvh; background: var(--white); z-index: 210; display: flex; flex-direction: column; transform: translateX(100%); transition: transform var(--t-slow); box-shadow: var(--sh-xl); }
+        .cart-sidebar.open { transform: translateX(0); }
+        .cart-head { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--fog); }
+        .cart-head h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; }
+        .cart-head-right { display: flex; align-items: center; gap: var(--sp-2); }
+        .cart-count-text { font-size: 0.72rem; color: var(--mist); }
+        .cart-close { background: none; border: none; cursor: pointer; padding: 6px; color: var(--mist); font-size: 1.1rem; line-height: 1; transition: color var(--t-fast); }
+        .cart-close:hover { color: var(--ink); }
+        .cart-items { flex: 1; overflow-y: auto; padding: var(--sp-2) var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-2); }
+        .cart-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-2); color: var(--mist); padding: var(--sp-7); text-align: center; }
+        .cart-empty-icon { font-size: 2rem; opacity: 0.3; }
+        .cart-item { display: flex; gap: var(--sp-2); align-items: flex-start; padding: var(--sp-2) 0; border-bottom: 1px solid var(--fog); animation: fadeUp 0.3s var(--ease-out); }
+        .cart-item-thumb { width: 52px; height: 64px; background: var(--cloud); border-radius: var(--r-xs); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 0.85rem; color: var(--silver); }
+        .cart-item-body { flex: 1; min-width: 0; }
+        .cart-item-brand { font-size: 0.6rem; color: var(--mist); letter-spacing: 0.07em; text-transform: uppercase; }
+        .cart-item-name { font-family: var(--serif); font-size: 0.95rem; color: var(--ink); line-height: 1.3; margin: 2px 0 6px; }
+        .cart-item-controls { display: flex; align-items: center; gap: var(--sp-1); }
+        .qty-btn { width: 26px; height: 26px; border: 1px solid var(--fog); background: var(--white); border-radius: var(--r-xs); cursor: pointer; font-size: 1rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; transition: all var(--t-fast); }
+        .qty-btn:hover { border-color: var(--ink-soft); background: var(--cloud); }
+        .qty-val { font-size: 0.82rem; min-width: 20px; text-align: center; }
+        .cart-item-remove { background: none; border: none; font-size: 0.68rem; color: var(--silver); cursor: pointer; text-transform: uppercase; padding: 2px 0; transition: color var(--t-fast); }
+        .cart-item-remove:hover { color: var(--ink-soft); }
+        .cart-item-price { font-weight: 500; font-size: 0.88rem; flex-shrink: 0; padding-top: 2px; }
+        .cart-foot { padding: var(--sp-3) var(--sp-4); border-top: 1px solid var(--fog); display: none; flex-direction: column; gap: var(--sp-2); }
+        .cart-subtotal { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--mist); }
+        .cart-total-row { display: flex; justify-content: space-between; align-items: baseline; padding-top: var(--sp-1); border-top: 1px solid var(--fog); }
+        .cart-total-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; }
+        .cart-total-amount { font-family: var(--serif); font-size: 1.4rem; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(10,10,10,0.5); z-index: 300; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); opacity: 0; pointer-events: none; transition: opacity var(--t-mid); backdrop-filter: blur(4px); }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal { background: var(--white); border-radius: var(--r-md); padding: var(--sp-6) var(--sp-5); max-width: 480px; width: 100%; box-shadow: var(--sh-xl); position: relative; max-height: 88dvh; overflow-y: auto; transform: translateY(16px); transition: transform var(--t-mid); }
+        .modal-overlay.open .modal { transform: translateY(0); }
+        .modal-close { position: absolute; top: var(--sp-3); right: var(--sp-3); background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--mist); padding: 4px; transition: color var(--t-fast); }
+        .modal-close:hover { color: var(--ink); }
+        .modal h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: var(--sp-1); }
+        .modal-subtitle { font-size: 0.82rem; color: var(--mist); margin-bottom: var(--sp-4); }
+        .order-summary { background: var(--cloud); border-radius: var(--r-sm); padding: var(--sp-3); margin-bottom: var(--sp-4); display: flex; flex-direction: column; gap: 8px; }
+        .order-line { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--ink-soft); }
+        .order-line-name { color: var(--mist); }
+        .order-line.total { font-weight: 500; font-size: 0.92rem; padding-top: 8px; border-top: 1px solid var(--fog); color: var(--ink); }
+        .form-group { margin-bottom: var(--sp-2); }
+        .form-label { display: block; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mist); margin-bottom: 5px; font-weight: 500; }
+        .form-control { width: 100%; padding: 12px 14px; border: 1px solid var(--fog); border-radius: var(--r-xs); font-family: var(--sans); font-size: 0.9rem; color: var(--ink-soft); background: var(--white); transition: border-color var(--t-fast); outline: none; }
+        .form-control:focus { border-color: var(--ink-soft); }
+        .form-control::placeholder { color: var(--silver); }
+        .form-group.error .form-control { border-color: #c0392b; }
+        .form-error { color: #c0392b; font-size: 0.68rem; margin-top: 3px; display: none; }
+        .form-group.error .form-error { display: block; }
+        .toast { position: fixed; bottom: var(--sp-4); left: 50%; transform: translateX(-50%) translateY(calc(100% + 20px)); background: var(--ink); color: var(--white); padding: 11px 24px; border-radius: var(--r-pill); font-size: 0.8rem; z-index: 600; transition: transform var(--t-mid); white-space: nowrap; box-shadow: var(--sh-lg); display: flex; align-items: center; gap: 8px; }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(30px); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--fog); border-radius: 4px; }
+        ::selection { background: var(--ink); color: var(--white); }
+        :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        /* Modal de producto (Elixia style) */
+        .product-modal { background: var(--white); border-radius: var(--r-md); max-width: 820px; width: 100%; max-height: 90dvh; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; box-shadow: var(--sh-xl); transform: translateY(20px) scale(0.98); transition: transform var(--t-slow); }
+        .modal-overlay.open .product-modal { transform: translateY(0) scale(1); }
+        @media (max-width: 640px) { .product-modal { grid-template-columns: 1fr; } }
+        .product-modal-img { background: var(--cloud); display: flex; align-items: center; justify-content: center; min-height: 360px; position: relative; border-radius: var(--r-md) 0 0 var(--r-md); overflow: hidden; }
+        .product-modal-img img { width: 100%; height: 100%; object-fit: cover; }
+        .product-modal-glyph { font-family: var(--serif); font-style: italic; font-size: 4rem; color: var(--silver); }
+        .product-modal-body { padding: var(--sp-5) var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); position: relative; }
+        .modal-brand { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dk); font-weight: 600; }
+        .modal-name { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.1; margin-top: 2px; }
+        .modal-type-badge { display: inline-block; padding: 3px 10px; border: 1px solid var(--fog); border-radius: var(--r-pill); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); }
+        .modal-desc { font-size: 0.82rem; color: var(--ink-dim); line-height: 1.75; font-weight: 300; }
+        .modal-notes { display: flex; flex-direction: column; gap: var(--sp-1); }
+        .modal-notes-title { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); font-weight: 600; }
+        .notes-row { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+        .note-group { display: flex; flex-direction: column; gap: 2px; }
+        .note-label { font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--silver); }
+        .note-value { font-size: 0.76rem; color: var(--ink-soft); font-weight: 300; }
+        .ml-selector { display: flex; flex-direction: column; gap: var(--sp-1); }
+        .ml-selector-label { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); font-weight: 600; }
+        .ml-options { display: flex; gap: var(--sp-1); }
+        .ml-option { flex: 1; border: 1px solid var(--fog); background: var(--white); border-radius: var(--r-sm); padding: var(--sp-1) 4px; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; transition: all var(--t-fast); }
+        .ml-option.selected { border-color: var(--ink); background: var(--ink); }
+        .ml-option-size { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); transition: color var(--t-fast); }
+        .ml-option.selected .ml-option-size { color: var(--white); }
+        .ml-option-price { font-family: var(--serif); font-size: 0.85rem; color: var(--ink-dim); transition: color var(--t-fast); }
+        .ml-option.selected .ml-option-price { color: var(--white); }
+        .modal-cta { display: flex; gap: var(--sp-2); }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a class="logo logo-brand" onclick="navigateTo('inicio')" role="button" tabindex="0">
+  <img src="logo.webp" alt="Elixia Parfum" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+  <span class="logo-text" style="display:none">ELIXIA PARFUM</span>
+  <span class="logo-name">ELIXIA PARFUM</span>
+</a>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a onclick="navigateTo('inicio')" class="active" data-page="inicio">Inicio</a></li>
+                    <li><a onclick="navigateTo('catalogo')" data-page="catalogo">Catálogo</a></li>
+                    <li><a onclick="navigateTo('promociones')" data-page="promociones">Promociones</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">
+                    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+    <div class="page active" id="page-inicio">
+        <section class="hero">
+            <div class="hero-left">
+                <div class="hero-eyebrow" id="heroEyebrow"><div class="hero-eyebrow-line"></div><span class="eyebrow">Decants originales · Perfumería de autor</span></div>
+                <h1 id="heroTitle">El arte de<br><em>descubrir</em><br>tu esencia</h1>
+                <p class="hero-desc" id="heroDesc">Explorá las fragancias más exclusivas del mundo en formatos accesibles. Decants auténticos desde 2ml para que encuentres tu firma olfativa sin compromisos.</p>
+                <div class="hero-cta-row" id="heroCta">
+                    <button class="btn btn-primary btn-lg" onclick="navigateTo('catalogo')">Explorar Catálogo</button>
+                    <button class="btn btn-ghost" onclick="navigateTo('promociones')">Ver Ofertas →</button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-visual">
+                    <div class="hero-circle" id="heroCircle"></div>
+                    <div class="hero-bottle" id="heroBottle">
+                        <svg class="bottle-svg" viewBox="0 0 180 280" fill="none">
+                            <rect x="64" y="8" width="52" height="28" rx="3" fill="#1C1C1C"/>
+                            <rect x="74" y="36" width="32" height="20" rx="1" fill="#3D3D3D"/>
+                            <rect x="28" y="56" width="124" height="190" rx="8" fill="#F4F4F2" stroke="#C8C8C8" stroke-width="1"/>
+                            <rect x="42" y="70" width="18" height="160" rx="4" fill="white" opacity="0.6"/>
+                            <rect x="46" y="100" width="88" height="100" rx="3" fill="white" stroke="#E8E8E8" stroke-width="0.5"/>
+                            <text x="90" y="138" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#8A8A8A" text-anchor="middle">Elixia</text>
+                            <line x1="56" y1="150" x2="124" y2="150" stroke="#E8E8E8" stroke-width="0.5"/>
+                            <text x="90" y="165" font-family="sans-serif" font-size="7" fill="#C8C8C8" text-anchor="middle" letter-spacing="2">PARFUM · 5ml</text>
+                            <rect x="80" y="0" width="20" height="10" rx="2" fill="#0A0A0A"/>
+                        </svg>
+                        <div class="hero-label" id="heroLabel">
+                            <div class="hero-label-brand">Lattafa</div>
+                            <div class="hero-label-name">Khamrah Dukhan</div>
+                        </div>
+                    </div>
+                    <div class="hero-float hero-float-1">5ml</div>
+                    <div class="hero-float hero-float-2">oud</div>
+                </div>
+                <div class="hero-stats" id="heroStats">
+                    <div class="hero-stat"><span class="hero-stat-num">80+</span><span class="hero-stat-label">Fragancias</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Auténticas</span></div>
+                    <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">Formatos</span></div>
+                </div>
+            </div>
+        </section>
+        <div class="marquee-strip" aria-hidden="true">
+            <div class="marquee-track" id="marqueeTrack"></div>
+        </div>
+        <div class="benefits-strip">
+            <div class="benefit-cell reveal"><div class="benefit-icon-wrap"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div><div class="benefit-body"><h4>Autenticidad</h4><p>Decants 100% originales extraídos directamente del frasco oficial.</p></div></div>
+            <div class="benefit-cell reveal"><div class="benefit-icon-wrap"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 3H8L6 7h12l-2-4z"/></svg></div><div class="benefit-body"><h4>Envío Seguro</h4><p>Embalaje premium sellado. Entrega rápida a todo el país.</p></div></div>
+            <div class="benefit-cell reveal"><div class="benefit-icon-wrap"><svg viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="benefit-body"><h4>3 Formatos</h4><p>2ml, 5ml y 10ml. Elegí el tamaño perfecto para cada ocasión.</p></div></div>
+        </div>
+        <section class="section container">
+            <div class="section-head reveal">
+                <div class="section-head-left"><span class="section-num">01</span><div class="eyebrow">Destacados</div><h2>Más Solicitados</h2></div>
+                <button class="btn btn-outline" onclick="navigateTo('catalogo')">Ver Colección</button>
+            </div>
+            <div class="products-grid" id="featuredGrid"></div>
+        </section>
+        <!-- SECCIÓN RECOMENDADOR (movida al inicio) -->
+<div class="quiz-section" id="quizSectionEl">
+    <div class="quiz-inner">
+        <div class="eyebrow">Recomendador</div>
+        <h2>Encontrá tu fragancia ideal</h2>
+        <div class="quiz-box">
+            <p class="quiz-question" id="quizQuestion"></p>
+            <div class="quiz-options" id="quizOptions"></div>
+            <p class="quiz-step-indicator" id="quizStep"></p>
+            <div class="quiz-result" id="quizResult">
+                <p style="font-family:var(--serif);font-size:1.1rem;color:var(--white);margin-bottom:var(--sp-2);font-style:italic;">Te recomendamos</p>
+                <div class="rec-products" id="recProducts"></div>
+                <button class="btn btn-outline btn-sm" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);margin-top:var(--sp-3);" onclick="resetQuiz()">Reiniciar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <div class="page" id="page-catalogo">
+        <div class="container section">
+            <div class="section-head reveal">
+                <div class="section-head-left"><span class="section-num">02</span><div class="eyebrow">Colección</div><h2>Nuestros Decants</h2></div>
+                <span class="eyebrow" id="productCount"></span>
+            </div>
+            <div class="filters-wrap" id="filterTypeContainer"></div>
+            <div class="filters-wrap" id="filterGenderContainer"></div>
+            <div class="filters-wrap" id="filterOccasionContainer"></div>
+            <div class="filters-wrap" style="margin-bottom: var(--sp-5);"><input type="search" id="searchInput" placeholder="Buscar fragancia..." style="padding: 8px 16px; border: 1px solid var(--fog); border-radius: var(--r-pill); font-family: var(--sans); width: 220px;"></div>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+        <div class="quiz-section">
+            <div class="quiz-inner">
+                <div class="eyebrow">Recomendador</div><h2>Encontrá tu fragancia ideal</h2>
+                <div class="quiz-box">
+                    <p class="quiz-question" id="quizQuestion"></p>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <p class="quiz-step-indicator" id="quizStep"></p>
+                    <div class="quiz-result" id="quizResult">
+                        <p style="font-family:var(--serif);font-size:1.1rem;color:var(--white);margin-bottom:var(--sp-2);font-style:italic;">Te recomendamos</p>
+                        <div class="rec-products" id="recProducts"></div>
+                        <button class="btn btn-outline btn-sm" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);margin-top:var(--sp-3);" onclick="resetQuiz()">Reiniciar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="page-promociones">
+        <div class="container section">
+            <div class="section-head reveal"><div class="section-head-left"><span class="section-num">03</span><div class="eyebrow">Ofertas Exclusivas</div><h2>Promociones</h2></div></div>
+            <div class="promo-hero reveal"><div class="promo-hero-content"><span class="eyebrow" style="color:rgba(255,255,255,0.4);">Oferta del mes</span><h2>Pack Discovery · 3×2</h2><p>Elegí 3 decants de cualquier tamaño y pagá solo los 2 más caros. La mejor forma de explorar fragancias sin compromiso.</p><button class="btn btn-primary" onclick="navigateTo('catalogo')">Ver Productos</button></div></div>
+            <div class="promo-grid">
+                <div class="promo-card reveal"><span class="eyebrow">Envío Gratis</span><h3>Pedidos desde S/ 150</h3><p>Sin costo de envío en compras superiores a S/ 150. Todo el país incluido.</p></div>
+                <div class="promo-card reveal"><span class="eyebrow">Primera Compra</span><h3>10% OFF</h3><p>Usá el código <strong>ELIXIA10</strong> al finalizar tu primer pedido y accedé al descuento.</p></div>
+                <div class="promo-card reveal"><span class="eyebrow">Fidelidad</span><h3>Beneficios Exclusivos</h3><p>Acumulá puntos por cada compra y accedé a precios preferenciales y lanzamientos anticipados.</p></div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><a class="logo" onclick="navigateTo('inicio')">ELIXIA</a><p>Decants auténticos de perfumería árabe, nicho y diseñador. Tu firma olfativa en el formato que necesitás.</p></div>
+                <div class="footer-col"><h5>Navegar</h5><ul><li><a onclick="navigateTo('inicio')">Inicio</a></li><li><a onclick="navigateTo('catalogo')">Catálogo</a></li><li><a onclick="navigateTo('promociones')">Promociones</a></li></ul></div>
+                <div class="footer-col"><h5>Colecciones</h5><ul><li><a onclick="navigateTo('catalogo'); filterByType('arabe')">Árabes</a></li><li><a onclick="navigateTo('catalogo'); filterByType('nicho')">Nicho</a></li><li><a onclick="navigateTo('catalogo'); filterByType('disenador')">Diseñador</a></li></ul></div>
+                <div class="footer-col"><h5>Contacto</h5><ul><li><a href="https://wa.me/51948743183">WhatsApp 948 743 183</a></li><li><a href="mailto:elixiaparfumm@gmail.com">elixiaparfumm@gmail.com</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><span>© 2025 Elixia Parfum · Decants de Autor</span><span>Hecho con cuidado · Perú</span></div>
+        </div>
+    </footer>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-head"><h3>Tu Carrito</h3><div class="cart-head-right"><span class="cart-count-text" id="cartCountText"></span><button class="cart-close" onclick="toggleCart()">✕</button></div></div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-foot" id="cartFoot"><div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">S/ 0</span></div><div class="cart-total-row"><span class="cart-total-label">Total</span><span class="cart-total-amount" id="cartTotal">S/ 0</span></div><button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="openCheckout()">Finalizar Pedido →</button></div>
+    </aside>
+    <div class="modal-overlay" id="checkoutModalOverlay">
+        <div class="modal"><button class="modal-close" onclick="closeCheckout()">✕</button><h3>Finalizar Pedido</h3><p class="modal-subtitle">Revisá tu selección y envianos tu pedido por WhatsApp.</p><div class="order-summary" id="checkoutSummary"></div><form id="checkoutForm" onsubmit="submitOrder(event)" novalidate>
+            <div class="form-group" id="nameGroup"><label class="form-label">Nombre completo *</label><input class="form-control" type="text" id="checkoutName" placeholder="Tu nombre"><span class="form-error">Requerido</span></div>
+            <div class="form-group" id="phoneGroup"><label class="form-label">WhatsApp *</label><input class="form-control" type="tel" id="checkoutPhone" placeholder="948 743 183"><span class="form-error">Número inválido</span></div>
+            <div class="form-group"><label class="form-label">Notas</label><textarea class="form-control" id="checkoutNotes" rows="2"></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%">Enviar por WhatsApp</button>
+        </form></div>
+    </div>
+    <div class="modal-overlay" id="productModalOverlay" onclick="closeProductModal()"><div class="product-modal" id="productModalContent" onclick="event.stopPropagation()"></div></div>
+    <div class="toast" id="toast"></div>
+    <script>
+    (function() {
+        const PRODUCTS = [
+            {
+      id: 1, brand: 'Xerjoff', name: 'Erba Pura',
+      type: 'nicho', gender: 'unisex',
+      occasion: ['diario','noche','verano'],
+      top: 'Naranja siciliana, limón', heart: 'Jazmín, ylang-ylang, frutos blancos', base: 'Almizcle, vainilla, madera blanca',
+      desc: 'Una explosión de frutas mediterráneas sobre un corazón floral. Dulce, soleado y adictivo — uno de los nichos más amados del mercado.',
+      prices: { '2ml': 18, '5ml': 38, '10ml': 68 }, img: 'EP', badge: 'Best'
+    },
+    {
+      id: 2, brand: 'Xerjoff', name: 'Erba Gold',
+      type: 'nicho', gender: 'unisex',
+      occasion: ['noche','citas'],
+      top: 'Bergamota, naranja', heart: 'Rosa, jazmín, heliotropo', base: 'Vainilla, almizcle, cedro',
+      desc: 'La variante dorada de Erba Pura. Más cálida, envolvente y sensual — una firma olfativa de lujo inconfundible.',
+      prices: { '2ml': 22, '5ml': 45, '10ml': 82 }, img: 'EG'
+    },
+    {
+      id: 3, brand: 'Rasasi', name: 'Hawas',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['diario','verano','citas'],
+      top: 'Menta, piña, bergamota', heart: 'Jazmín, salvia, geranio', base: 'Patchouli, cedro, almizcle',
+      desc: 'Un acuático fresco y magnético con vocación mediterránea. Fresco en salida, sensual en fondo — ideal para el calor peruano.',
+      prices: { '2ml': 12, '5ml': 25, '10ml': 42 }, img: 'HW', badge: 'Pop'
+    },
+    {
+      id: 4, brand: 'Rasasi', name: 'Hawas Atlantis',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['diario','verano'],
+      top: 'Lima, ozono, bergamota', heart: 'Jazmín acuático, cardamomo', base: 'Cedro, almizcle, ámbar',
+      desc: 'Versión oceánica de Hawas. Más azul, más profundo — como zambullirse en el Mediterráneo en pleno verano.',
+      prices: { '2ml': 12, '5ml': 25, '10ml': 42 }, img: 'HA'
+    },
+    {
+      id: 5, brand: 'Maison Alhambra', name: 'Sceptre Malachite',
+      type: 'arabe', gender: 'unisex',
+      occasion: ['noche','citas'],
+      top: 'Bergamota, cardamomo verde', heart: 'Iris, rosa damascena', base: 'Vetiver, ámbar gris, almizcle',
+      desc: 'Inspirado en joyas orientales. Un floral amaderado de alta gama que combina elegancia occidental con profundidad árabe.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'SM'
+    },
+    {
+      id: 6, brand: 'Armaf', name: 'Club de Nuit Untold',
+      type: 'disenador', gender: 'unisex',
+      occasion: ['noche','citas','evento'],
+      top: 'Bergamota, limón, naranja', heart: 'Melocotón, ciruela, rosa', base: 'Cedro, patchouli, almizcle, oud',
+      desc: 'La joya de la colección Club de Nuit. Unisex y opulento — un oriental frutal de gran proyección para noches de alto impacto.',
+      prices: { '2ml': 14, '5ml': 30, '10ml': 55 }, img: 'CU', badge: 'New'
+    },
+    {
+      id: 7, brand: 'Armaf', name: 'Tag Uomo Rosso',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','noche'],
+      top: 'Limón, mandarina, grosella negra', heart: 'Lavanda, geranio, vetiver', base: 'Cedro, almizcle, ámbar',
+      desc: 'Un aromático fresco con un corazón masculino clásico. Elegante, seguro y con excelente duración — el traje invisible del hombre moderno.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 44 }, img: 'TU'
+    },
+    {
+      id: 8, brand: 'Versace', name: 'Eros Flame',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','citas','evento'],
+      top: 'Naranja de Calabria, limón, pomelo', heart: 'Rosa, geranio pimienta negra', base: 'Tonka, guayaco, almizcle',
+      desc: 'El lado oscuro y seductor de Eros. Oriental especiado con una fuerza ardiente — para la noche que no se olvida.',
+      prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, img: 'EF'
+    },
+    {
+      id: 9, brand: 'Valentino', name: 'Uomo Intense — Melancholia',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','invierno'],
+      top: 'Bergamota, cardamomo', heart: 'Iris, lavanda', base: 'Cedro de Virginia, cuero, vainilla',
+      desc: 'Austero y poético. Un hombre de iris y cuero que evoca el arte italiano — para momentos de introspección o encuentros memorables.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'VM'
+    },
+    {
+      id: 10, brand: 'Valentino', name: 'Born in Roma Intense',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','noche'],
+      top: 'Bergamota, jengibre', heart: 'Lavanda, salvia romana', base: 'Vetiver, vainilla, almizcle',
+      desc: 'Una oda a la masculinidad moderna romana. Especiado, cálido y dinámico — Born in Roma Intense es el aroma de quien llega y se hace notar.',
+      prices: { '2ml': 13, '5ml': 27, '10ml': 48 }, img: 'VI'
+    },
+    {
+      id: 11, brand: 'Valentino', name: 'Donna Born in Roma Coral Fantasy',
+      type: 'disenador', gender: 'femenino',
+      occasion: ['verano','diario'],
+      top: 'Mandarina, naranja sanguina', heart: 'Jazmín, osmanthus', base: 'Sándalo, almizcle cachemir',
+      desc: 'Una fantasía coral y mediterránea. Fresco, luminoso y femenino — el perfume de las vacaciones perfectas.',
+      prices: { '2ml': 13, '5ml': 27, '10ml': 48 }, img: 'VCF'
+    },
+    {
+      id: 12, brand: 'Valentino', name: 'Donna Born in Roma Extradose',
+      type: 'disenador', gender: 'femenino',
+      occasion: ['noche','citas'],
+      top: 'Bergamota, yuzu', heart: 'Rosa, iris, jazmín', base: 'Vainilla bourbon, madera, almizcle',
+      desc: 'La dosis extra de feminidad. Un floral más denso y sensorial — Extradose es la declaración de quienes no temen brillar.',
+      prices: { '2ml': 14, '5ml': 30, '10ml': 54 }, img: 'VE'
+    },
+    {
+      id: 13, brand: 'Valentino', name: 'Donna Born in Roma Extradose EDT',
+      type: 'disenador', gender: 'femenino',
+      occasion: ['diario','verano'],
+      top: 'Flor de azahar, bergamota', heart: 'Rosa italiana, jazmín blanco', base: 'Cedro, almizcle suave',
+      desc: 'La versión más ligera y veraniega de Extradose. Más fresca pero igual de irresistible — perfecta para el día a día limeño.',
+      prices: { '2ml': 12, '5ml': 25, '10ml': 44 }, img: 'VEedt'
+    },
+    {
+      id: 14, brand: 'Jean Paul Gaultier', name: 'Scandal Le Parfum EDT',
+      type: 'disenador', gender: 'femenino',
+      occasion: ['noche','citas','evento'],
+      top: 'Mandarina, jengibre', heart: 'Jazmín absoluto, miel', base: 'Patchouli, almizcle, madera',
+      desc: 'Escandaloso por naturaleza. Floral amielado con mucha actitud — la fragancia de la mujer que hace las reglas.',
+      prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, img: 'SC'
+    },
+    {
+      id: 15, brand: 'Emporio Armani', name: 'Stronger With You Absolutely',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','invierno','citas'],
+      top: 'Benjuí, cardamomo', heart: 'Flor de tónica, salvia', base: 'Vainilla bourbon, caramelo, almizcle',
+      desc: 'El más gourmand de la familia SWY. Dulce, caramelizado y voluminoso — perfecto para el frío y las noches de otoño.',
+      prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, img: 'SA', badge: 'Best'
+    },
+    {
+      id: 16, brand: 'Emporio Armani', name: 'Stronger With You Intensely',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','invierno'],
+      top: 'Castañuela, cardamomo', heart: 'Lavanda, rosa, salvia', base: 'Vainilla, cuero, almizcle',
+      desc: 'Más oscuro y más intenso. Un aromático amaderado de gran carácter — para el hombre que sabe exactamente lo que quiere.',
+      prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, img: 'SI'
+    },
+    {
+      id: 17, brand: 'Jean Paul Gaultier', name: 'Le Male Elixir EDT',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','citas'],
+      top: 'Cardamomo, lavanda', heart: 'Iris, vainilla', base: 'Madera de oud, almizcle, ámbar',
+      desc: 'La reinterpretación más oscura de Le Male. Oriental amaderado con una sensualidad magnética — el arquetipo del hombre seductor.',
+      prices: { '2ml': 15, '5ml': 32, '10ml': 58 }, img: 'LME', badge: 'Best'
+    },
+    {
+      id: 18, brand: 'Jean Paul Gaultier', name: 'Le Male Elixir Absolu',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','evento'],
+      top: 'Pimienta negra, cardamomo oscuro', heart: 'Oud, cuero, iris', base: 'Vainilla oscura, almizcle, madera de sándalo',
+      desc: 'La máxima expresión del Elixir. Denso, lujoso, piel contra piel — un perfume de autor que exige ser experimentado de cerca.',
+      prices: { '2ml': 18, '5ml': 38, '10ml': 70 }, img: 'LMA'
+    },
+    {
+      id: 19, brand: 'Jean Paul Gaultier', name: 'Le Male Le Parfum',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','citas'],
+      top: 'Lavanda, menta', heart: 'Iris, flor de azahar', base: 'Vainilla, almizcle, cedro',
+      desc: 'Le Male elevado a su máxima concentración. Más profundo y persistente que el original — la firma masculina de Gaultier en su forma definitiva.',
+      prices: { '2ml': 15, '5ml': 32, '10ml': 58 }, img: 'LMP'
+    },
+    {
+      id: 20, brand: 'Yves Saint Laurent', name: 'Y EDP',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','citas'],
+      top: 'Jengibre, bergamota, manzana', heart: 'Salvia, geranio, enebro', base: 'Cedro del Atlas, ámbar, vetiver',
+      desc: 'Moderno y confiado. Un aromático amaderado de gran proyección que encarna al hombre de hoy — dinámico, sensible y seguro.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'YYSL'
+    },
+    {
+      id: 21, brand: 'Giorgio Armani', name: 'Acqua di Giò Profondo EDP',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','verano'],
+      top: 'Bergamota, ozono marino, menta acuática', heart: 'Romero, salvia, lavanda marina', base: 'Patchouli, cedro, oud acuático',
+      desc: 'El acuático más vendido del mundo reinventado en profundidad. Marino y sofisticado — AdG Profondo conquista donde el original ya era rey.',
+      prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, img: 'ADG', badge: 'Best'
+    },
+    {
+      id: 22, brand: 'King of Kings', name: 'Chapter 1',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','evento'],
+      top: 'Bergamota, mandarina, aldehídos', heart: 'Rosa búlgara, geranio, oud', base: 'Sándalo, ámbar, almizcle animalico',
+      desc: 'El primer capítulo de una saga oriental. Suntuoso y majestuoso — un oud aromático que reivindica la grandeza de la perfumería árabe clásica.',
+      prices: { '2ml': 16, '5ml': 34, '10ml': 62 }, img: 'KK1'
+    },
+    {
+      id: 23, brand: 'King of Kings', name: 'Royal Crown',
+      type: 'arabe', gender: 'unisex',
+      occasion: ['noche','citas'],
+      top: 'Azafrán, pimienta rosa', heart: 'Rosa, oud, ámbar', base: 'Madera de oud, cuero, resina',
+      desc: 'La corona real. Un oud opulento con un corazón de rosas y azafrán que evoca los palacios de Oriente Medio con cada spray.',
+      prices: { '2ml': 18, '5ml': 38, '10ml': 70 }, img: 'KKR'
+    },
+    {
+      id: 24, brand: 'Jean Paul Gaultier', name: 'Le Beau Le Parfum',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','verano','citas'],
+      top: 'Cedro, limón, bergamota', heart: 'Nuez de coco, flor de azahar', base: 'Vetiver, almizcle blanco',
+      desc: 'Luminoso y paradisíaco. Le Beau alcanza su forma más concentrada con una combinación irresistible de madera fresca y coco solar.',
+      prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, img: 'LBP'
+    },
+    {
+      id: 25, brand: 'Azzaro', name: 'The Most Wanted Parfum',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','citas','evento'],
+      top: 'Mandarina italiana, lavanda', heart: 'Salvia, enebro, cardamomo', base: 'Madera de guayaco, almizcle, oud',
+      desc: 'El más buscado por una razón. Oriental amaderado con la masculinidad clásica de Azzaro reinterpretada para la noche contemporánea.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'AMW', badge: 'Pop'
+    },
+    {
+      id: 26, brand: 'Azzaro', name: 'The Most Wanted Intense EDP',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','invierno'],
+      top: 'Cardamomo, lavanda, bergamota', heart: 'Salvia, iris, orégano', base: 'Cedro del Atlas, madera de oud, ámbar',
+      desc: 'Más intenso. Más oscuro. Una versión crepuscular del More Wanted que amplifica el carácter amaderado hasta el máximo.',
+      prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, img: 'AMWI'
+    },
+    {
+      id: 27, brand: 'Paco Rabanne', name: 'Invictus Elixir',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['noche','evento','citas'],
+      top: 'Mandarina, menta, cardamomo', heart: 'Laurel, patchouli oscuro', base: 'Ámbar, almizcle, guayaco',
+      desc: 'El campeón se oscurece. Invictus Elixir es especiado, profundo y animal — una fragancia para quien nunca llega desapercibido.',
+      prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, img: 'IE', badge: 'Best'
+    },
+    {
+      id: 28, brand: 'Jo Milano', name: 'Full House',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','citas'],
+      top: 'Bergamota, aldehídos, pimienta', heart: 'Oud, rosa, sándalo', base: 'Cuero, ámbar, almizcle',
+      desc: 'Inspirado en el poker de alto nivel. Un oud poderoso y charismatico que llena cualquier habitación — literal y figurativamente.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'FH'
+    },
+    {
+      id: 29, brand: 'Jo Milano', name: 'Wildcard',
+      type: 'arabe', gender: 'unisex',
+      occasion: ['diario','noche'],
+      top: 'Bergamota, pomelo, pimienta blanca', heart: 'Geranio, rosa, oud', base: 'Cedro, pachulí, almizcle blanco',
+      desc: 'La carta comodín del juego. Un aromático frutal oriental que sorprende en cada fase — impredecible, versátil y adictivo.',
+      prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, img: 'WC'
+    },
+    {
+      id: 30, brand: 'Jo Milano', name: 'Royale',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['evento','noche'],
+      top: 'Azafrán, bergamota', heart: 'Rosa, oud real', base: 'Sándalo, ámbar, cuero',
+      desc: 'El rey de la colección. Azafrán y oud en perfecto equilibrio — un oriental de máxima categoría para ocasiones que lo merecen.',
+      prices: { '2ml': 16, '5ml': 34, '10ml': 62 }, img: 'ROY'
+    },
+    {
+      id: 31, brand: 'Jo Milano', name: 'Bonus',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['diario'],
+      top: 'Naranja, bergamota, menta', heart: 'Jazmín, geranio, manzana', base: 'Cedro, almizcle, madera',
+      desc: 'El bono diario. Un cítrico fresco oriental para el uso cotidiano — accesible, versátil y siempre agradable.',
+      prices: { '2ml': 12, '5ml': 22, '10ml': 40 }, img: 'BON'
+    },
+    {
+      id: 32, brand: 'Lattafa', name: 'Khamrah Clásico',
+      type: 'arabe', gender: 'unisex',
+      occasion: ['noche','citas','invierno'],
+      top: 'Bergamota, cardamomo, pimienta rosa', heart: 'Vainilla, jazmín, rosa', base: 'Oud, ámbar, almizcle, bálsamo de Perú',
+      desc: 'El más famoso de Lattafa. Un oriental gourmand intensamente adictivo — vainilla, oud y ámbar en un abrazo que no quieres que termine.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'KH', badge: 'Best'
+    },
+    {
+      id: 33, brand: 'Lattafa', name: 'Khamrah Dukhan',
+      type: 'arabe', gender: 'unisex',
+      occasion: ['noche','invierno'],
+      top: 'Cardamomo ahumado, azafrán', heart: 'Oud ahumado, rosa, sándalo', base: 'Ámbar oscuro, almizcle, brea',
+      desc: 'La versión ahumada. Dukhan añade una profundidad casi incensada a la base khamrahiana — para quienes aman lo oscuro y misterioso.',
+      prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, img: 'KD'
+    },
+    {
+      id: 34, brand: 'Rasasi', name: 'Hawas Kobra',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','citas'],
+      top: 'Pimienta negra, cardamomo', heart: 'Rosa, oud, geranio', base: 'Ámbar, patchouli, almizcle',
+      desc: 'La serpiente de Hawas. Más oscura y más venenosa — Kobra transforma el ADN acuático de Hawas en un oriental especiado de noches largas.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'HK'
+    },
+    {
+      id: 35, brand: 'Lattafa', name: 'Khamrah Qahwa',
+      type: 'arabe', gender: 'unisex',
+      occasion: ['diario','noche'],
+      top: 'Café árabe, cardamomo', heart: 'Vainilla, rosa, oud', base: 'Almizcle, madera oscura, ámbar',
+      desc: 'Inspirado en el café árabe. Qahwa mezcla la calidez del café con la profundidad del oud en un oriental gourmand de mañanas y noches.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'KQ'
+    },
+    {
+      id: 36, brand: 'Lattafa', name: 'Sublime',
+      type: 'arabe', gender: 'femenino',
+      occasion: ['noche','citas'],
+      top: 'Bergamota, pera, flor de azahar', heart: 'Rosa damascena, jazmín, iris', base: 'Sándalo, almizcle, vainilla ligera',
+      desc: 'Como su nombre promete. Un floral oriental femenino de alta elegancia — delicado en salida y profundo en fondo.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'SUB'
+    },
+    {
+      id: 37, brand: 'Lattafa', name: 'Honor & Glory',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['diario','citas'],
+      top: 'Bergamota, menta, limón', heart: 'Lavanda, rosa, salvia', base: 'Almizcle, ámbar, cedro, vainilla',
+      desc: 'Honor y gloria en un frasco. Un aromático clásico con proyección árabe — fresco y elegante para todo ocasión.',
+      prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, img: 'HG'
+    },
+    {
+      id: 38, brand: 'Lattafa', name: 'Asad Clásico',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['diario','noche'],
+      top: 'Bergamota, mandarina, pimienta', heart: 'Geranio, rosa, lavanda', base: 'Cedro, patchouli, almizcle, ámbar',
+      desc: 'El León. Un aromático amaderado oriental de carácter firme — confiado, masculino y de excelente relación calidad-precio.',
+      prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, img: 'AS'
+    },
+    {
+      id: 39, brand: 'Lattafa', name: 'Asad Bourbon',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','invierno'],
+      top: 'Bourbon, cardamomo, pimienta negra', heart: 'Oud, sándalo, rosa', base: 'Cuero, vainilla, almizcle oscuro',
+      desc: 'El León con whisky. Una variante amaderada gourmand del Asad original — más cálida, más audaz, perfecta para noches frías.',
+      prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, img: 'ASB'
+    },
+    {
+      id: 40, brand: 'Afnan', name: '9PM',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','citas'],
+      top: 'Mandarina, anís, cardamomo', heart: 'Caramelo, jazmín, rosa', base: 'Patchouli, vainilla, almizcle',
+      desc: 'Las 9PM: la hora del encuentro. Un oriental especiado-dulce de alta proyección que combina lo mejor de la perfumería árabe y occidental.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: '9PM', badge: 'Pop'
+    },
+    {
+      id: 41, brand: 'Afnan', name: '9PM Elixir',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','evento'],
+      top: 'Cardamomo oscuro, pimienta', heart: 'Oud, rosa, caramelo especiado', base: 'Cuero, ámbar, vainilla oscura',
+      desc: 'El elixir de medianoche. La versión intensificada de 9PM — más oud, más oscuridad, más magnetismo. Para la noche más especial.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: '9PE'
+    },
+    {
+      id: 42, brand: 'Afnan', name: '9PM Night Out',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','evento'],
+      top: 'Bergamota, mandarina, pimienta roja', heart: 'Flor de azahar, jazmín, geranio', base: 'Almizcle blanco, cedro, ámbar dorado',
+      desc: 'La noche de salida en esencia. Más fresco y más moderno que el original — el compañero ideal cuando el destino es una fiesta de altura.',
+      prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, img: '9PNO'
+    },
+    {
+      id: 43, brand: 'Afnan', name: '9AM Dive',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['diario','verano'],
+      top: 'Limón, bergamota, menta acuática', heart: 'Jazmín marino, manzana, rosa', base: 'Almizcle, cedro, ámbar claro',
+      desc: 'El salto matutino al mar. Acuático, fresco y energizante — el antídoto olfativo perfecto para las mañanas limeñas.',
+      prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, img: '9AMd'
+    },
+    {
+      id: 44, brand: 'Rasasi', name: 'Hawas Ice',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['verano','diario'],
+      top: 'Menta glacial, limón, bergamota', heart: 'Jazmín, salvia fría', base: 'Almizcle ártico, cedro',
+      desc: 'Hawas a temperatura bajo cero. La versión más helada y refrescante — ideal para los días más calurosos de Lima.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'HI'
+    },
+    {
+      id: 45, brand: 'Rasasi', name: 'Hawas Tropical',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['verano','diario'],
+      top: 'Piña, mango, bergamota tropical', heart: 'Flor de tiaré, jazmín', base: 'Coco, almizcle, madera clara',
+      desc: 'Un viaje instantáneo al Caribe. Hawas se viste de fruta exótica y flor tropical — ligero, jovial y extremadamente usable.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'HT'
+    },
+    {
+      id: 46, brand: 'Rasasi', name: 'Hawas Malibu',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['verano','diario'],
+      top: 'Coco, bergamota, sal marina', heart: 'Jazmín, gardenia, flor de azahar', base: 'Almizcle suave, sándalo, coco seco',
+      desc: 'California en una botella árabe. Coco bronceado y brisa oceánica — la esencia de un día en Malibu sin subir al avión.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'HML'
+    },
+    {
+      id: 47, brand: 'Rasasi', name: 'Hawas For Him',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['diario','citas'],
+      top: 'Menta, bergamota, piña', heart: 'Jazmín, geranio marino', base: 'Cedro, almizcle, ámbar suave',
+      desc: 'El Hawas original en toda su gloria. El acuático árabe más icónico — fresco, magnético y de proyección considerable.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'HFH'
+    },
+    {
+      id: 48, brand: 'Rasasi', name: 'Hawas Fire',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','invierno'],
+      top: 'Pimienta roja, cardamomo, azafrán', heart: 'Oud, rosa, geranio', base: 'Cuero, patchouli, almizcle ahumado',
+      desc: 'El Hawas que arde. Especiado, intenso y cálido — Fire lleva la familia Hawas al territorio del oriental de invierno.',
+      prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, img: 'HF'
+    },
+    {
+      id: 49, brand: 'Armaf', name: 'Mandarin Sky',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','verano'],
+      top: 'Mandarina italiana, bergamota, limón', heart: 'Lavanda, jazmín, manzana', base: 'Cedro, almizcle, vainilla suave',
+      desc: 'El cielo naranja de Armaf. Un cítrico aromático ligero y refrescante — perfecto para el calor y la frescura del día.',
+      prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, img: 'MS'
+    },
+    {
+      id: 50, brand: 'Armaf', name: 'Odyssey Aqua',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','verano'],
+      top: 'Bergamota, ozono, lima', heart: 'Lavanda acuática, geranio marino', base: 'Cedro azul, almizcle, ámbar acuático',
+      desc: 'La odisea oceánica de Armaf. Marino y moderno — un acuático de líneas limpias para el hombre que ama el frescor.',
+      prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, img: 'OA'
+    },
+    {
+      id: 51, brand: 'French Avenue', name: 'Rome Imagine Feu',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','evento'],
+      top: 'Bergamota, pimienta roja, azafrán', heart: 'Rosa, oud, sándalo', base: 'Cuero, ámbar, almizcle oscuro',
+      desc: 'Roma en llamas. Un oriental inspirado en la grandeza del Imperio — poderoso, suntuoso y con una estela que dura horas.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'RIF'
+    },
+    {
+      id: 52, brand: 'Armaf', name: 'Club de Nuit Iconic',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','noche'],
+      top: 'Bergamota, limón, piña', heart: 'Rosa, jazmín, geranio', base: 'Cedro, patchouli, vetiver, almizcle',
+      desc: 'La nueva cara icónica de Club de Nuit. Un chypre moderno de alta proyección que rinde homenaje a los grandes clásicos masculinos.',
+      prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, img: 'CDI'
+    },
+    {
+      id: 53, brand: 'Dumont Paris', name: 'Nitro Red',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','citas'],
+      top: 'Bergamota, pimienta roja, mandarina', heart: 'Oud rojo, rosa, madera de lichi', base: 'Ámbar, cuero, almizcle',
+      desc: 'Explosivo y rojo. Nitro Red es la fusión entre la intensidad árabe y la elegancia parisina — un oriental frutal de gran dramatismo.',
+      prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, img: 'NR'
+    },
+    {
+      id: 54, brand: 'Armaf', name: 'Club de Nuit Urban Man Elixir',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','citas'],
+      top: 'Piña, bergamota, manzana verde', heart: 'Rosa, jazmín, beitche', base: 'Madera de beitche, almizcle, cedro',
+      desc: 'El elixir del hombre urbano. Fresco y frutal con una base amaderada moderna — el perfume del profesional contemporáneo.',
+      prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, img: 'CUE'
+    },
+    {
+      id: 55, brand: 'Armaf', name: 'Club de Nuit Intense EDT',
+      type: 'disenador', gender: 'masculino',
+      occasion: ['diario','noche'],
+      top: 'Piña, bergamota, grosella negra', heart: 'Rosa, jazmín, beitche, violeta', base: 'Cedro, madera de beitche, almizcle',
+      desc: 'El hermano de Creed Aventus a precio accesible. Un frutal amaderado de proyección extrema — uno de los mejores value-for-money del mercado.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'CDN', badge: 'Pop'
+    },
+    {
+      id: 56, brand: 'Al Haramain', name: 'Amber Oud Gold Edition',
+      type: 'arabe', gender: 'unisex',
+      occasion: ['noche','citas','evento'],
+      top: 'Bergamota, azafrán, cardamomo', heart: 'Oud, rosa árabe, incienso', base: 'Ámbar gris, almizcle, resinas',
+      desc: 'El oro árabe en esencia pura. Amber Oud Gold es un oriental de máxima jerarquía — oud, ámbar y azafrán en perfecta armonía dorada.',
+      prices: { '2ml': 16, '5ml': 34, '10ml': 62 }, img: 'AOG', badge: 'New'
+    },
+    {
+      id: 57, brand: 'French Avenue', name: 'Vulcan Feu',
+      type: 'arabe', gender: 'masculino',
+      occasion: ['noche','invierno'],
+      top: 'Pimienta volcánica, azafrán', heart: 'Oud ahumado, cuero, incienso', base: 'Resinas oscuras, ámbar, almizcle',
+      desc: 'Vulcán en erupción. Un oriental ahumado de tremenda intensidad — para quien quiere dejar huella sin decir una palabra.',
+      prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, img: 'VF'
+    },
+    {
+      id: 58, brand: 'Lattafa', name: 'Yara Pink',
+      type: 'arabe', gender: 'femenino',
+      occasion: ['diario','citas','verano'],
+      top: 'Frambuesa, mandarina, cassis', heart: 'Rosa, jazmín, peonía', base: 'Almizcle blanco, sándalo, vainilla rosada',
+      desc: 'Rosa, dulce y femenina. Yara Pink es la fragancia de chica que huele a flores y que todo el mundo le pregunta qué usa.',
+      prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, img: 'YP', badge: 'Pop'
+    },
+    {
+      id: 59, brand: 'Lattafa', name: 'Eclaire',
+      type: 'arabe', gender: 'femenino',
+      occasion: ['noche','citas'],
+      top: 'Cassis, bergamota, durazno', heart: 'Rosa búlgara, iris, tuberosa', base: 'Vainilla, ámbar rosa, almizcle',
+      desc: 'El relámpago de Lattafa. Un floral oriental femenino de carácter poderoso — dulce sin ser empalagoso, floral sin ser tímido.',
+      prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, img: 'ECL'
+    },
+    {
+      id: 60, brand: 'Lattafa', name: 'Haya EDP',
+      type: 'arabe', gender: 'femenino',
+      occasion: ['diario','verano'],
+      top: 'Bergamota, pera fresca, rambután', heart: 'Rosa blanca, magnolia, jacinto', base: 'Almizcle cachemir, sándalo, ámbar blanco',
+      desc: 'Modestia fragante. Haya es el perfume femenino árabe más cercano al estilo occidental — elegante, suave y extremadamente versátil.',
+      prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, img: 'HYP'
+    }
+  ];
+        let cart = JSON.parse(localStorage.getItem('elixia_cart_v5') || '[]');
+        let stateFilter = { type:'todos', gender:'todos', occasion:'todos', search:'' };
+        const $ = id => document.getElementById(id);
+        function navigateTo(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = $('page-'+page); if (target) target.classList.add('active');
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            const active = document.querySelector(`.nav-links a[data-page="${page}"]`);
+            if (active) active.classList.add('active');
+            window.scrollTo({ top:0, behavior:'smooth' });
+            if (page==='inicio') renderFeatured();
+            if (page === 'inicio' && typeof window.resetQuiz === 'function') {
+    window.resetQuiz();
+}
+            if (page==='catalogo') renderProducts();
+            document.getElementById('navLinks').classList.remove('open');
+        }
+        function renderFeatured() {
+    const grid = $('featuredGrid'); if (!grid) return;
+    // Tomamos productos con badge "Best", y si no alcanzan 4, completamos con el resto
+    let feat = PRODUCTS.filter(p => p.badge === 'Best');
+    if (feat.length < 4) {
+        const others = PRODUCTS.filter(p => !feat.includes(p));
+        feat = [...feat, ...others.slice(0, 4 - feat.length)];
+    } else {
+        feat = feat.slice(0, 4);
+    }
+    grid.innerHTML = feat.map(p => productCard(p)).join('');
+    gsap.fromTo('#featuredGrid .product-card', { opacity:0, y:28 }, { opacity:1, y:0, duration:0.6, stagger:0.1, clearProps:'transform' });
+}
+        function productCard(p) {
+            const minPrice = Math.min(...Object.values(p.prices));
+            const badge = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
+            const typeLabel = { arabe:'Árabe', nicho:'Nicho', disenador:'Diseñador' }[p.type] || '';
+            return `<div class="product-card" data-id="${p.id}" onclick="openProductModal(${p.id})">
+                <div class="product-img">${badge}<span class="product-glyph">${p.img.slice(0,2)}</span>
+                    <div class="product-overlay"><button class="btn-add-overlay" onclick="event.stopPropagation(); quickAddToCart(${p.id})">+ Agregar</button></div>
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">${p.brand} · ${typeLabel}</span>
+                    <span class="product-name">${p.name}</span>
+                    <span class="product-notes">${p.top}</span>
+                    <div class="product-footer">
+                        <div><span class="product-price">S/ ${minPrice}</span><span class="product-ml"> desde</span></div>
+                        <button class="btn-add" onclick="event.stopPropagation(); quickAddToCart(${p.id})">+ Add</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+        function getFilteredProducts() {
+            return PRODUCTS.filter(p => {
+                if (stateFilter.type!=='todos' && p.type!==stateFilter.type) return false;
+                if (stateFilter.gender!=='todos' && p.gender!==stateFilter.gender) return false;
+                if (stateFilter.occasion!=='todos' && !p.occasion.includes(stateFilter.occasion)) return false;
+                const q = stateFilter.search.toLowerCase();
+                if (q && !p.name.toLowerCase().includes(q) && !p.brand.toLowerCase().includes(q)) return false;
+                return true;
+            });
+        }
+        function renderProducts() {
+            const grid = $('productsGrid'); const countEl = $('productCount');
+            const filtered = getFilteredProducts();
+            if (countEl) countEl.textContent = `${filtered.length} productos`;
+            grid.innerHTML = filtered.map(p => productCard(p)).join('');
+            gsap.fromTo('.products-grid .product-card', { opacity:0, y:28 }, { opacity:1, y:0, duration:0.55, stagger:0.07, clearProps:'transform' });
+        }
+        function openProductModal(id) {
+            const p = PRODUCTS.find(x => x.id===id); if (!p) return;
+            let mlState = '5ml';
+            const overlay = $('productModalOverlay');
+            overlay.querySelector('#productModalContent').innerHTML = `
+                <div class="product-modal-img"><span class="product-modal-glyph">${p.img.slice(0,2)}</span></div>
+                <div class="product-modal-body">
+                    <button class="modal-close" onclick="closeProductModal()">✕</button>
+                    <div><div class="modal-brand">${p.brand}</div><div class="modal-name">${p.name}</div>
+                        <div style="display:flex;gap:6px;margin-top:8px"><span class="modal-type-badge">${ {arabe:'Árabe',nicho:'Nicho',disenador:'Diseñador'}[p.type] }</span><span class="modal-type-badge">${p.gender}</span></div>
+                    </div>
+                    <p class="modal-desc">${p.desc}</p>
+                    <div class="modal-notes"><div class="modal-notes-title">Pirámide olfativa</div><div class="notes-row">
+                        <div class="note-group"><span class="note-label">Salida</span><span class="note-value">${p.top}</span></div>
+                        <div class="note-group"><span class="note-label">Corazón</span><span class="note-value">${p.heart}</span></div>
+                        <div class="note-group"><span class="note-label">Fondo</span><span class="note-value">${p.base}</span></div>
+                    </div></div>
+                    <div class="ml-selector"><div class="ml-selector-label">Tamaño</div><div class="ml-options" id="modalMlOptions">
+                        ${Object.entries(p.prices).map(([ml,price]) => `<div class="ml-option ${ml===mlState?'selected':''}" data-ml="${ml}" onclick="selectMl('${ml}')"><span class="ml-option-size">${ml}</span><span class="ml-option-price">S/ ${price}</span></div>`).join('')}
+                    </div></div>
+                    <div class="modal-cta"><button class="btn btn-primary" onclick="addToCartModal(${id})">Agregar</button><button class="btn btn-outline" onclick="closeProductModal()">Cerrar</button></div>
+                </div>`;
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            window.selectedModalMl = mlState;
+        }
+        function closeProductModal() { $('productModalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+        function selectMl(ml) {
+            document.querySelectorAll('#modalMlOptions .ml-option').forEach(o => o.classList.toggle('selected', o.dataset.ml===ml));
+            window.selectedModalMl = ml;
+        }
+        function addToCartModal(id) {
+            const ml = window.selectedModalMl || '5ml';
+            addToCart(id, ml);
+            closeProductModal();
+        }
+        function quickAddToCart(id) { addToCart(id, '5ml'); }
+        function addToCart(id, ml) {
+            const p = PRODUCTS.find(x => x.id===id); if (!p || !p.prices[ml]) return;
+            const key = `${id}_${ml}`;
+            const existing = cart.find(i => i.key===key);
+            if (existing) existing.qty++;
+            else cart.push({ key, id, ml, qty:1 });
+            saveCart(); updateCartUI(); showToast(`${p.name} (${ml}) agregado ✓`); pulseBadge();
+        }
+        function removeFromCart(key) { cart = cart.filter(i => i.key!==key); saveCart(); updateCartUI(); }
+        function updateQty(key, delta) {
+            const item = cart.find(i => i.key===key); if (!item) return;
+            item.qty = Math.max(0, item.qty + delta);
+            if (item.qty===0) removeFromCart(key); else { saveCart(); updateCartUI(); }
+        }
+        function saveCart() { localStorage.setItem('elixia_cart_v5', JSON.stringify(cart)); }
+        function getCartTotal() { return cart.reduce((sum,i) => { const p = PRODUCTS.find(x => x.id===i.id); return sum + (p?.prices[i.ml]||0)*i.qty; }, 0); }
+        function getCartCount() { return cart.reduce((s,i) => s + i.qty, 0); }
+        function updateCartUI() {
+            const count = getCartCount(); const total = getCartTotal();
+            const badge = $('cartBadge'); badge.textContent = count; badge.style.display = count>0 ? 'flex' : 'none';
+            $('cartCountText').textContent = count>0 ? `${count} ${count===1?'item':'items'}` : '';
+            const itemsEl = $('cartItems');
+            if (cart.length===0) {
+                itemsEl.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">◦</div><p>Tu carrito está vacío</p><button class="btn btn-outline btn-sm" onclick="toggleCart();navigateTo('catalogo')">Ver Catálogo</button></div>`;
+                $('cartFoot').style.display = 'none';
+            } else {
+                itemsEl.innerHTML = cart.map(i => {
+                    const p = PRODUCTS.find(x => x.id===i.id); if (!p) return '';
+                    return `<div class="cart-item"><div class="cart-item-thumb">${p.img.slice(0,2)}</div><div class="cart-item-body"><div class="cart-item-brand">${p.brand}</div><div class="cart-item-name">${p.name}</div><div class="cart-item-ml">${i.ml}</div><div class="cart-item-controls"><button class="qty-btn" onclick="updateQty('${i.key}',-1)">−</button><span class="qty-val">${i.qty}</span><button class="qty-btn" onclick="updateQty('${i.key}',1)">+</button><button class="cart-item-remove" onclick="removeFromCart('${i.key}')">Eliminar</button></div></div><div class="cart-item-price">S/ ${p.prices[i.ml]*i.qty}</div></div>`;
+                }).join('');
+                $('cartFoot').style.display = 'flex';
+                $('cartSubtotal').textContent = `S/ ${total}`;
+                $('cartTotal').textContent = `S/ ${total}`;
+            }
+        }
+        function toggleCart() {
+            const sidebar = $('cartSidebar'); const overlay = $('cartOverlay');
+            const isOpen = sidebar.classList.contains('open');
+            if (isOpen) { sidebar.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; }
+            else { sidebar.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; updateCartUI(); }
+        }
+        function pulseBadge() { const b = $('cartBadge'); b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); }
+        function openCheckout() {
+            if (cart.length===0) { showToast('Tu carrito está vacío'); return; }
+            const summary = $('checkoutSummary');
+            summary.innerHTML = cart.map(i => { const p = PRODUCTS.find(x => x.id===i.id); return p ? `<div class="order-line"><span class="order-line-name">${p.brand} ${p.name} ${i.ml} ×${i.qty}</span><span>S/ ${p.prices[i.ml]*i.qty}</span></div>` : ''; }).join('') + `<div class="order-line total"><span>Total</span><span>S/ ${getCartTotal()}</span></div>`;
+            $('checkoutModalOverlay').classList.add('open'); document.body.style.overflow = 'hidden';
+            toggleCart();
+        }
+        function closeCheckout() { $('checkoutModalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+        function submitOrder(e) {
+            e.preventDefault();
+            const name = $('checkoutName').value.trim(); const phone = $('checkoutPhone').value.trim(); const notes = $('checkoutNotes').value.trim();
+            let valid = true;
+            ['nameGroup','phoneGroup'].forEach(id => $(id).classList.remove('error'));
+            if (!name) { $('nameGroup').classList.add('error'); valid = false; }
+            if (!phone || phone.length<7) { $('phoneGroup').classList.add('error'); valid = false; }
+            if (!valid) return;
+            let msg = `✨ *PEDIDO ELIXIA*\n👤 ${name}\n📱 ${phone}\n`;
+            if (notes) msg += `📝 ${notes}\n`;
+            msg += `\n📦 *Productos:*\n`;
+            cart.forEach(i => { const p = PRODUCTS.find(x => x.id===i.id); if (p) msg += `· ${p.brand} ${p.name} ${i.ml} ×${i.qty}  S/ ${p.prices[i.ml]*i.qty}\n`; });
+            msg += `\n💰 *TOTAL: S/ ${getCartTotal()}*`;
+            window.open(`https://wa.me/51948743183?text=${encodeURIComponent(msg)}`, '_blank');
+            cart = []; saveCart(); updateCartUI(); closeCheckout(); showToast('¡Pedido enviado! ✓');
+        }
+        function filterByType(type) { stateFilter.type = type; document.querySelectorAll('#filterTypeContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter===type)); renderProducts(); }
+        function showToast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400); }
+        function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+        function buildMarquee() {
+            const brands = ['Xerjoff','Rasasi','Lattafa','Armaf','Jean Paul Gaultier','Versace','Valentino','Armani','Paco Rabanne','Al Haramain','Jo Milano','Afnan','Azzaro','French Avenue','Dumont','King of Kings','Maison Alhambra'];
+            const all = [...brands, ...brands];
+            $('marqueeTrack').innerHTML = all.map(b => `<span class="marquee-item">${b}</span>`).join('');
+        }
+        function initFilters() {
+            const typeContainer = $('filterTypeContainer');
+            typeContainer.innerHTML = ['todos','arabe','nicho','disenador'].map(t => `<button class="filter-chip ${t==='todos'?'active':''}" data-filter="${t}" onclick="filterByType('${t}')">${t==='todos'?'Todos':{arabe:'Árabe',nicho:'Nicho',disenador:'Diseñador'}[t]}</button>`).join('');
+            const genderContainer = $('filterGenderContainer');
+            genderContainer.innerHTML = ['todos','masculino','femenino','unisex'].map(g => `<button class="filter-chip ${g==='todos'?'active':''}" data-gender="${g}" onclick="filterByGender('${g}')">${g==='todos'?'Todos':g.charAt(0).toUpperCase()+g.slice(1)}</button>`).join('');
+            const occasionContainer = $('filterOccasionContainer');
+            occasionContainer.innerHTML = ['todos','diario','noche','citas','verano'].map(o => `<button class="filter-chip ${o==='todos'?'active':''}" data-occasion="${o}" onclick="filterByOccasion('${o}')">${o==='todos'?'Todas':o.charAt(0).toUpperCase()+o.slice(1)}</button>`).join('');
+            $('searchInput').addEventListener('input', (e) => { stateFilter.search = e.target.value; renderProducts(); });
+        }
+        function filterByGender(g) {
+            stateFilter.gender = g;
+            document.querySelectorAll('#filterGenderContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.gender===g));
+            renderProducts();
+        }
+        function filterByOccasion(o) {
+            stateFilter.occasion = o;
+            document.querySelectorAll('#filterOccasionContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.occasion===o));
+            renderProducts();
+        }
+        window.filterByType = filterByType; window.filterByGender = filterByGender; window.filterByOccasion = filterByOccasion;
+        window.openProductModal = openProductModal; window.closeProductModal = closeProductModal; window.selectMl = selectMl;
+        window.addToCartModal = addToCartModal; window.quickAddToCart = quickAddToCart;
+        window.addToCart = addToCart; window.removeFromCart = removeFromCart; window.updateQty = updateQty;
+        window.toggleCart = toggleCart; window.openCheckout = openCheckout; window.closeCheckout = closeCheckout;
+        window.submitOrder = submitOrder; window.navigateTo = navigateTo; window.toggleMobileMenu = toggleMobileMenu;
+        function initQuiz() {
+            const steps = [
+                { q:'¿Qué estilo preferís?', opts:['Dulce','Fresco','Intenso'], key:'pref' },
+                { q:'¿Ocasión principal?', opts:['Diario','Noche','Citas'], key:'occa' },
+                { q:'¿Clima?', opts:['Cálido','Templado','Frío'], key:'clima' }
+            ];
+            let quizState = { step:0, pref:null, occa:null, clima:null };
+            function renderStep() {
+                $('quizResult').classList.remove('visible');
+                if (quizState.step >= steps.length) { showResult(); return; }
+                const s = steps[quizState.step];
+                $('quizQuestion').textContent = s.q;
+                $('quizStep').textContent = `Paso ${quizState.step+1} de 3`;
+                $('quizOptions').innerHTML = s.opts.map(o => `<button class="quiz-option" data-val="${o}">${o}</button>`).join('');
+                document.querySelectorAll('#quizOptions .quiz-option').forEach(btn => btn.addEventListener('click', function() {
+                    this.parentElement.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    quizState[s.key] = this.dataset.val;
+                    setTimeout(() => { quizState.step++; renderStep(); }, 300);
+                }));
+            }
+            function showResult() {
+                $('quizResult').classList.add('visible');
+                const scored = PRODUCTS.map(p => {
+                    let score = 0;
+                    if (quizState.pref==='Dulce' && p.occasion.includes('noche')) score+=2;
+                    if (quizState.pref==='Fresco' && p.occasion.includes('diario')) score+=2;
+                    if (quizState.pref==='Intenso' && (p.occasion.includes('noche')||p.occasion.includes('citas'))) score+=2;
+                    if (quizState.occa==='Diario' && p.occasion.includes('diario')) score+=3;
+                    if (quizState.occa==='Noche' && p.occasion.includes('noche')) score+=3;
+                    if (quizState.occa==='Citas' && p.occasion.includes('citas')) score+=3;
+                    return { ...p, score };
+                });
+                scored.sort((a,b) => b.score-a.score);
+                $('recProducts').innerHTML = scored.slice(0,3).map(p => `<div class="rec-chip" onclick="quickAddToCart(${p.id})"><div class="product-brand">${p.brand}</div><div class="product-name">${p.name}</div><div class="rec-chip-price">S/ ${Math.min(...Object.values(p.prices))}</div></div>`).join('');
+            }
+            window.resetQuiz = () => { quizState = { step:0, pref:null, occa:null, clima:null }; renderStep(); };
+            renderStep();
+        }
+        function initHeroAnimation() {
+            gsap.registerPlugin(ScrollTrigger);
+            const tl = gsap.timeline({ defaults:{ ease:'power3.out' } });
+            tl.from('#heroEyebrow', { opacity:0, y:20, duration:0.7 })
+              .from('#heroTitle', { opacity:0, y:40, duration:0.9 }, '-=0.4')
+              .from('#heroDesc', { opacity:0, y:20, duration:0.7 }, '-=0.55')
+              .from('#heroCta', { opacity:0, y:16, duration:0.6 }, '-=0.5')
+              .from('#heroCircle', { opacity:0, scale:0.85, duration:1.2, ease:'power2.out' }, 0.2)
+              .from('#heroBottle', { opacity:0, y:40, duration:1.0 }, 0.45)
+              .from('#heroLabel', { opacity:0, y:10, duration:0.5 }, '-=0.2')
+              .from('#heroStats .hero-stat', { opacity:0, y:16, stagger:0.12, duration:0.5 }, '-=0.3');
+        }
+        function initScrollTriggers() {
+            gsap.utils.toArray('.reveal').forEach(el => {
+                gsap.fromTo(el, { opacity:0, y:30 }, { opacity:1, y:0, duration:0.8, ease:'power2.out', clearProps:'transform', scrollTrigger:{ trigger:el, start:'top 82%', once:true } });
+            });
+        }
+        function init() {
+            buildMarquee();
+            renderFeatured();
+            updateCartUI();
+            initFilters();
+            initQuiz();
+            navigateTo('inicio');
+            gsap.registerPlugin(ScrollTrigger);
+            initHeroAnimation();
+            setTimeout(initScrollTriggers, 400);
+            window.addEventListener('scroll', () => { $('header').classList.toggle('scrolled', window.scrollY>20); }, { passive:true });
+        }
+        if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+    })();
+    </script>
+</body>
+</html>
