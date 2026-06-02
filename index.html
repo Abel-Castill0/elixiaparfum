@@ -392,9 +392,8 @@
     }
 
     .hero-left {
-      padding: var(--sp-8) var(--sp-6) var(--sp-8) max(var(--sp-4), calc((100vw - var(--max))/2 + var(--sp-4)));
-      max-width: 680px;
-    }
+  padding: var(--sp-4) var(--sp-6) var(--sp-8) max(var(--sp-4), calc((100vw - var(--max)) / 2 + var(--sp-4)));
+}
 
     .hero-eyebrow {
       display: flex;
@@ -755,13 +754,13 @@
       }
     }
 
-    .benefit-cell {
-      background: var(--white);
-      padding: var(--sp-5) var(--sp-4);
-      display: flex;
-      align-items: flex-start;
-      gap: var(--sp-3);
-    }
+   .benefit-cell {
+  background: var(--white);
+  padding: var(--sp-3) var(--sp-4);   /* antes era var(--sp-5) var(--sp-4) */
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
 
     .benefit-icon-wrap {
       width: 36px;
@@ -1255,11 +1254,11 @@
     }
 
     .footer {
-      background: var(--ink);
-      color: rgba(255, 255, 255, 0.55);
-      padding: var(--sp-8) 0 var(--sp-4);
-      margin-top: var(--sp-9);
-    }
+  background: var(--ink);
+  color: rgba(255,255,255,0.55);
+  padding: var(--sp-8) 0 var(--sp-4);
+  margin-top: var(--sp-4);   /* antes era var(--sp-9) */
+}
 
     .footer-grid {
       display: grid;
@@ -2030,6 +2029,66 @@
     .decant-options {
       margin-top: var(--sp-2);
     }
+    /* ═══ PROMO MARQUEE (debajo del nav) ═══ */
+.promo-marquee-strip {
+  background: var(--ink-soft);           /* fondo oscuro elegante */
+  color: rgba(255,255,255,0.8);
+  border-bottom: 1px solid var(--fog);
+  overflow: hidden;
+  padding: 10px 0;
+  position: relative;
+  z-index: 90;
+}
+.promo-marquee-strip::before,
+.promo-marquee-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+.promo-marquee-strip::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--ink-soft), transparent);
+}
+.promo-marquee-strip::after {
+  right: 0;
+  background: linear-gradient(-90deg, var(--ink-soft), transparent);
+}
+.promo-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: promoScroll 34s linear infinite;
+  gap: 0;
+}
+.promo-marquee-track:hover {
+  animation-play-state: paused;
+}
+.promo-marquee-item {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  padding: 0 var(--sp-4);
+  color: inherit;
+}
+.promo-marquee-item strong {
+  color: var(--gold-lt);
+  font-weight: 600;
+}
+.promo-marquee-sep {
+  font-size: 0.9rem;
+  color: var(--gold);
+  opacity: 0.6;
+  padding: 0 2px;
+  user-select: none;
+}
+@keyframes promoScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
   </style>
 </head>
 
@@ -2063,6 +2122,28 @@
       </div>
     </div>
   </header>
+<!-- PROMO MARQUEE -->
+<div class="promo-marquee-strip" aria-label="Promociones vigentes">
+  <div class="promo-marquee-track">
+    <span class="promo-marquee-item">🚚 Envío gratis en pedidos desde S/ 150</span>
+    <span class="promo-marquee-sep">·</span>
+    <span class="promo-marquee-item">⭐ Clientes frecuentes: precios preferenciales</span>
+    <span class="promo-marquee-sep">·</span>
+    <span class="promo-marquee-item">🎁 Código <strong>ELIXIA10</strong> – 10% OFF en tu primera compra</span>
+    <span class="promo-marquee-sep">·</span>
+    <span class="promo-marquee-item">💬 Asesoría personalizada sin costo</span>
+    <span class="promo-marquee-sep">·</span>
+    <!-- Duplicado para scroll infinito -->
+    <span class="promo-marquee-item">🚚 Envío gratis en pedidos desde S/ 150</span>
+    <span class="promo-marquee-sep">·</span>
+    <span class="promo-marquee-item">⭐ Clientes frecuentes: precios preferenciales</span>
+    <span class="promo-marquee-sep">·</span>
+    <span class="promo-marquee-item">🎁 Código <strong>ELIXIA10</strong> – 10% OFF en tu primera compra</span>
+    <span class="promo-marquee-sep">·</span>
+    <span class="promo-marquee-item">💬 Asesoría personalizada sin costo</span>
+    <span class="promo-marquee-sep">·</span>
+  </div>
+</div>
 
   <div class="page active" id="page-inicio">
     <section class="hero">
