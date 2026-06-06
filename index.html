@@ -131,8 +131,22 @@ h3 { font-size: clamp(1.3rem,2.5vw,1.75rem); line-height: 1.2; }
 .hero-card-info { display: flex; flex-direction: column; gap: 3px; padding: 0 4px; }
 .hero-card-brand { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dk); font-weight: 600; }
 .hero-card-name { font-family: var(--serif); font-size: 1.45rem; color: var(--ink); line-height: 1.1; }
-.hero-card-notes { font-size: 0.74rem; color: var(--mist); font-weight: 300; line-height: 1.45; margin-top: 2px; }
+.hero-card-notes { font-size: 0.74rem; color: var(--mist); font-weight: 300; line-height: 1.45; margin-top: 2px;display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden; }
 .hero-stats-modern { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--fog); border-radius: var(--r-sm); overflow: hidden; border: 1px solid var(--fog); }
+/* Versión de 4 columnas para el hero */
+.hero-stats-4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Ajuste para que no se rompa en pantallas pequeñas */
+@media (max-width: 600px) {
+  .hero-stats-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .hero-stat-m { background: var(--white); padding: var(--sp-2) 6px; text-align: center; display: flex; flex-direction: column; gap: 2px; }
 .hero-stat-m-num { font-family: var(--serif); font-size: 1.3rem; color: var(--ink); line-height: 1; }
 .hero-stat-m-label { font-size: 0.56rem; color: var(--mist); letter-spacing: 0.07em; text-transform: uppercase; }
@@ -202,7 +216,7 @@ h3 { font-size: clamp(1.3rem,2.5vw,1.75rem); line-height: 1.2; }
 
 /* PRODUCTS */
 .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: var(--sp-4); }
-.product-card { background: var(--white); cursor: pointer; position: relative; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: box-shadow var(--t-mid), border-color var(--t-mid), transform var(--t-mid); border: 1px solid transparent; border-radius: var(--r-sm); overflow: hidden; }
+.product-card { background: var(--white); cursor: pointer; position: relative; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: box-shadow var(--t-mid), border-color var(--t-mid), transform var(--t-mid); border: 2px solid rgba(0, 0, 0, 0.12); border-radius: var(--r-sm); overflow: hidden; }
 .product-card:hover { box-shadow: var(--sh-md); border-color: var(--fog); }
 .product-img { aspect-ratio: 4/5; background: var(--cloud); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .product-img::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,0,0,0.015) 20px, rgba(0,0,0,0.015) 21px); }
@@ -885,38 +899,38 @@ img, svg, video, canvas, iframe {
         </div>
       </div>
       <div class="hero-right">
-        <div class="hero-float hero-float-1">5ml</div>
-        <div class="hero-float hero-float-2">oud</div>
-        <div class="hero-card" id="heroCard">
-          <div class="hero-card-media">
-            <span class="hero-chip">Decant · 5ml</span>
-            <span class="hero-chip-gold">Best</span>
-            <svg class="bottle-svg" viewBox="0 0 180 280" fill="none">
-              <rect x="64" y="8" width="52" height="28" rx="3" fill="#1C1C1C" />
-              <rect x="74" y="36" width="32" height="20" rx="1" fill="#3D3D3D" />
-              <rect x="28" y="56" width="124" height="190" rx="8" fill="#F4F4F2" stroke="#C8C8C8" stroke-width="1" />
-              <rect x="42" y="70" width="18" height="160" rx="4" fill="white" opacity="0.6" />
-              <rect x="46" y="100" width="88" height="100" rx="3" fill="white" stroke="#E8E8E8" stroke-width="0.5" />
-              <text x="90" y="138" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#8A8A8A"
-                text-anchor="middle">Elixia</text>
-              <line x1="56" y1="150" x2="124" y2="150" stroke="#E8E8E8" stroke-width="0.5" /><text x="90" y="165"
-                font-family="sans-serif" font-size="7" fill="#C8C8C8" text-anchor="middle" letter-spacing="2">PARFUM ·
-                5ml</text>
-              <rect x="80" y="0" width="20" height="10" rx="2" fill="#0A0A0A" />
-            </svg>
-          </div>
-          <div class="hero-card-info">
-            <span class="hero-card-brand">Lattafa</span>
-            <span class="hero-card-name">Khamrah Dukhan</span>
-            <span class="hero-card-notes">Cardamomo ahumado · Oud · Ámbar oscuro</span>
-          </div>
-          <div class="hero-stats-modern">
-            <div class="hero-stat-m"><span class="hero-stat-m-num">80+</span><span class="hero-stat-m-label">Fragancias</span></div>
-            <div class="hero-stat-m"><span class="hero-stat-m-num">100%</span><span class="hero-stat-m-label">Auténticas</span></div>
-            <div class="hero-stat-m"><span class="hero-stat-m-num">3</span><span class="hero-stat-m-label">Formatos</span></div>
-          </div>
+      <div class="hero-float hero-float-1">5ml</div>
+      <div class="hero-float hero-float-2">oud</div>
+      <div class="hero-card" id="heroCard">
+        <div class="hero-card-media">
+          <span class="hero-chip">Decant · 5ml</span>
+          <span class="hero-chip-gold">Best</span>
+          <!-- SVG de la botella optimizado -->
+          <svg class="bottle-svg" viewBox="0 0 180 280" fill="none">
+            <rect x="64" y="8" width="52" height="28" rx="3" fill="#1C1C1C" />
+            <rect x="74" y="36" width="32" height="20" rx="1" fill="#3D3D3D" />
+            <rect x="28" y="56" width="124" height="190" rx="8" fill="#F4F4F2" stroke="#C8C8C8" stroke-width="1" />
+            <rect x="42" y="70" width="18" height="160" rx="4" fill="white" opacity="0.6" />
+            <rect x="46" y="100" width="88" height="100" rx="3" fill="white" stroke="#E8E8E8" stroke-width="0.5" />
+            <text x="90" y="138" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#8A8A8A" text-anchor="middle">Elixia</text>
+            <line x1="56" y1="150" x2="124" y2="150" stroke="#E8E8E8" stroke-width="0.5" />
+            <text x="90" y="165" font-family="sans-serif" font-size="7" fill="#C8C8C8" text-anchor="middle" letter-spacing="2">PARFUM · 5ml</text>
+            <rect x="80" y="0" width="20" height="10" rx="2" fill="#0A0A0A" />
+          </svg>
+        </div>
+        <div class="hero-card-info">
+          <span class="hero-card-brand">Calidad Garantizada</span>
+          <span class="hero-card-name">Tu esencia, nuestra pasión</span>
+          <span class="hero-card-notes">Atención personalizada, autenticidad absoluta y envíos seguros para que cada elección sea única.</span>
+        </div>
+        <div class="hero-stats-modern hero-stats-4col">
+          <div class="hero-stat-m"><span class="hero-stat-m-num">80+</span><span class="hero-stat-m-label">Fragancias</span></div>
+          <div class="hero-stat-m"><span class="hero-stat-m-num">100%</span><span class="hero-stat-m-label">Auténticas</span></div>
+          <div class="hero-stat-m"><span class="hero-stat-m-num">3-4</span><span class="hero-stat-m-label">Formatos</span></div>
+          <div class="hero-stat-m"><span class="hero-stat-m-num">+500</span><span class="hero-stat-m-label">Clientes</span></div>
         </div>
       </div>
+    </div>
     </section>
 
     <div class="marquee-strip" aria-hidden="true">
