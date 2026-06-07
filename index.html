@@ -447,6 +447,17 @@ h3 { font-size: clamp(1.3rem,2.5vw,1.75rem); line-height: 1.2; }
 .form-group.error .form-error { display: block; }
 .toast { position: fixed; bottom: var(--sp-4); left: 50%; transform: translateX(-50%) translateY(calc(100% + 20px)); background: var(--ink); color: var(--white); padding: 11px 24px; border-radius: var(--r-pill); font-size: 0.8rem; z-index: 600; transition: transform var(--t-mid); white-space: nowrap; box-shadow: var(--sh-lg); display: flex; align-items: center; gap: 8px; }
 .toast.show { transform: translateX(-50%) translateY(0); }
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
 @keyframes fadeUp { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
 .reveal { opacity: 0; transform: translateY(30px); }
 ::-webkit-scrollbar { width: 4px; }
@@ -845,6 +856,11 @@ img, svg, video, canvas, iframe {
   line-height: 1.5;
   margin-top: 6px;
 }
+@media (max-width: 480px) {
+  .modal [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
   </style>
 </head>
 
@@ -892,7 +908,7 @@ img, svg, video, canvas, iframe {
         </div>
         <h1 id="heroTitle">Haz de tu<br><em>aroma</em><br>una firma</h1>
         <p class="hero-desc" id="heroDesc">Explora las fragancias más exclusivas del mundo en formatos accesibles.
-          Decants auténticos desde 2ml para que encuentres tu firma olfativa sin compromisos.</p>
+          Decants auténticos desde 3ml para que encuentres tu firma olfativa sin compromisos.</p>
         <div class="hero-cta-row" id="heroCta">
           <button class="btn btn-primary btn-lg" onclick="navigateTo('catalogo')">Explorar Catálogo</button>
           <button class="btn btn-ghost" onclick="navigateTo('promociones')">Ver Ofertas →</button>
@@ -1181,34 +1197,71 @@ img, svg, video, canvas, iframe {
     </div>
   </aside>
 
-  <div class="modal-overlay" id="checkoutModalOverlay">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-      <button class="modal-close" onclick="closeCheckout()" aria-label="Cerrar">✕</button>
-      <h3 id="checkoutTitle">Completá tus datos</h3>
-      <p class="modal-subtitle">Toda la información es confidencial y solo se usa para coordinar la entrega.</p>
-      <div class="order-summary" id="checkoutSummary"></div>
-      <form id="checkoutForm" onsubmit="submitOrder(event)" novalidate>
-        <div class="form-group" id="nameGroup"><label class="form-label">Nombre *</label><input class="form-control"
-            type="text" id="checkoutName" placeholder="Tu nombre" autocomplete="given-name"><span
-            class="form-error">Campo requerido</span></div>
-        <div class="form-group" id="lastNameGroup"><label class="form-label">Apellido *</label><input
-            class="form-control" type="text" id="checkoutLastName" placeholder="Tu apellido"
-            autocomplete="family-name"><span class="form-error">Campo requerido</span></div>
-        <div class="form-group" id="dniGroup"><label class="form-label">DNI / Documento *</label><input
-            class="form-control" type="text" id="checkoutDni" placeholder="12345678" autocomplete="off"><span
-            class="form-error">Ingresá un DNI válido (8 dígitos)</span></div>
-        <div class="form-group" id="phoneGroup"><label class="form-label">WhatsApp *</label><input class="form-control"
-            type="tel" id="checkoutPhone" placeholder="948 743 183" autocomplete="tel"><span class="form-error">Número
-            inválido</span></div>
-        <div class="form-group"><label class="form-label">Dirección de envío *</label><input class="form-control"
-            type="text" id="checkoutAddress" placeholder="Calle, número, distrito, referencia"
-            autocomplete="street-address"></div>
-        <div class="form-group"><label class="form-label">Notas adicionales</label><textarea class="form-control"
-            id="checkoutNotes" rows="2" placeholder="Horario de entrega, instrucciones..."></textarea></div>
-        <button type="submit" class="btn btn-primary" style="width:100%;">Enviar por WhatsApp</button>
-      </form>
-    </div>
+<div class="modal-overlay" id="checkoutModalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" style="max-width:580px;">
+    <button class="modal-close" onclick="closeCheckout()" aria-label="Cerrar">✕</button>
+    <h3 id="checkoutTitle">Completá tus datos</h3>
+    <p class="modal-subtitle">Toda la información es confidencial y solo se usa para coordinar la entrega.</p>
+    <div class="order-summary" id="checkoutSummary"></div>
+    <form id="checkoutForm" onsubmit="submitOrder(event)" novalidate>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2);">
+        <div class="form-group" id="nameGroup">
+          <label class="form-label">Nombre *</label>
+          <input class="form-control" type="text" id="checkoutName" placeholder="Tu nombre" autocomplete="given-name" required>
+          <span class="form-error">Campo requerido</span>
+        </div>
+        <div class="form-group" id="lastNameGroup">
+          <label class="form-label">Apellido *</label>
+          <input class="form-control" type="text" id="checkoutLastName" placeholder="Tu apellido" autocomplete="family-name" required>
+          <span class="form-error">Campo requerido</span>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2);">
+        <div class="form-group" id="dniGroup">
+          <label class="form-label">DNI / Documento *</label>
+          <input class="form-control" type="text" id="checkoutDni" placeholder="12345678" autocomplete="off" required>
+          <span class="form-error">Ingresá un DNI válido (8 dígitos)</span>
+        </div>
+        <div class="form-group" id="phoneGroup">
+          <label class="form-label">WhatsApp *</label>
+          <input class="form-control" type="tel" id="checkoutPhone" placeholder="948 743 183" autocomplete="tel" required>
+          <span class="form-error">Número inválido</span>
+        </div>
+      </div>
+      <div class="form-group" id="emailGroup">
+        <label class="form-label">Correo electrónico (opcional)</label>
+        <input class="form-control" type="email" id="checkoutEmail" placeholder="tu@email.com" autocomplete="email">
+        <span class="form-error">Ingresá un correo válido</span>
+      </div>
+      <div class="form-group" id="addressGroup">
+        <label class="form-label">Dirección de envío *</label>
+        <input class="form-control" type="text" id="checkoutAddress" placeholder="Calle, número, dpto/oficina" autocomplete="street-address" required>
+        <span class="form-error">Campo requerido</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2);">
+        <div class="form-group" id="districtGroup">
+          <label class="form-label">Distrito *</label>
+          <input class="form-control" type="text" id="checkoutDistrict" placeholder="Ej: Miraflores" required>
+          <span class="form-error">Campo requerido</span>
+        </div>
+        <div class="form-group" id="provinceGroup">
+          <label class="form-label">Provincia *</label>
+          <input class="form-control" type="text" id="checkoutProvince" placeholder="Ej: Lima" required>
+          <span class="form-error">Campo requerido</span>
+        </div>
+      </div>
+      <div class="form-group" id="referenceGroup">
+        <label class="form-label">Referencia (opcional)</label>
+        <input class="form-control" type="text" id="checkoutReference" placeholder="Ej: frente al parque, color de casa...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notas adicionales</label>
+        <textarea class="form-control" id="checkoutNotes" rows="2" placeholder="Horario de entrega, instrucciones..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Enviar por WhatsApp</button>
+    </form>
   </div>
+</div>
 
   <div class="modal-overlay" id="productModalOverlay" onclick="closeProductModal()">
     <div class="product-modal" id="productModalContent" onclick="event.stopPropagation()"></div>
@@ -1221,67 +1274,67 @@ img, svg, video, canvas, iframe {
   <script>
     (function () {
 const PRODUCTS = [
-  { id: 1, brand: 'Xerjoff', name: 'Erba Pura', type: 'nicho', gender: 'unisex', occasion: ['diario', 'noche', 'verano'], top: 'Naranja siciliana, bergamota de Calabria, limón siciliano', heart: 'Cesta de frutas mediterráneas', base: 'Almizcle blanco, ámbar, vainilla de Madagascar', desc: 'Una explosión de cítricos y frutas mediterráneas sobre una base cálida y sensual. Dulce, radiante y extremadamente adictivo.', prices: { '2ml': 18, '5ml': 38, '10ml': 68 }, fullPrice: 520, img: 'EP', badge: 'Best' },
-  { id: 2, brand: 'Xerjoff', name: 'Erba Gold', type: 'nicho', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Naranja brasileña, limón de Amalfi, jengibre, bergamota', heart: 'Manzana, melón, pera, cardamomo, canela, clavos de olor', base: 'Almizcle blanco, ámbar, vainilla de Madagascar, notas amaderadas', desc: 'La variante dorada y especiada de Erba Pura. Más cálida, frutal y envolvente — una firma olfativa de lujo inconfundible.', prices: { '2ml': 22, '5ml': 45, '10ml': 82 }, fullPrice: 560, img: 'EG' },
-  { id: 3, brand: 'Versace', name: 'Eros EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche', 'citas', 'verano'], top: 'Menta, manzana acaramelada, limón, mandarina', heart: 'Ambroxan, geranio, esclarea', base: 'Vainilla, cedro, sándalo, naranja amarga, pachulí, cuero', desc: 'La esencia del amor y el deseo. Un fougère oriental vibrante y magnético — fresco al abrir, dulce y amaderado en la estela. Ideal para el hombre que deja huella.', prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, fullPrice: 380, img: 'VEros', badge: 'Best' },
-  { id: 4, brand: 'Rasasi', name: 'Hawas Atlantis', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Limón italiano, notas marinas, bergamota', heart: 'Melón, jazmín acuático, calone', base: 'Almizcle, madera de cedro, ámbar gris', desc: 'Edición oceánica conceptual. Más azul y salada — como zambullirse en las profundidades del Mediterráneo en pleno verano.', prices: { '2ml': 12, '5ml': 25, '10ml': 42 }, fullPrice: 180, img: 'HA' },
-  { id: 5, brand: 'Maison Alhambra', name: 'Sceptre Malachite', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Mango, limón, jengibre', heart: 'Frutas rojas, jazmín, notas amaderadas', base: 'Ámbar, pachulí, cipriol, almizcle', desc: 'Un tributo vibrante y frutal. Mango jugoso y jengibre chispeante que evolucionan hacia una base amaderada y almizclada de alta sofisticación.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 220, img: 'SM' },
-  { id: 6, brand: 'Armaf', name: 'Club de Nuit Untold', type: 'disenador', gender: 'unisex', occasion: ['noche', 'citas', 'evento'], top: 'Azafrán, jazmín', heart: 'Amberwood, ámbar gris', base: 'Resina de abeto, madera de cedro', desc: 'La joya brillante de Club de Nuit. Un perfil olfativo dominado por azafrán dulce y maderas ambaradas que deja una estela opulenta e hipnótica en el aire.', prices: { '2ml': 14, '5ml': 30, '10ml': 55 }, fullPrice: 250, img: 'CU', badge: 'New' },
-  { id: 7, brand: 'Armaf', name: 'Tag Uomo Rosso', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Lavanda, pimienta rosa, cardamomo', heart: 'Incienso, pachulí, notas terrosas', base: 'Vainilla, haba tonka, ámbar', desc: 'Un aromático cálido y dulcemente especiado con un corazón misterioso. Elegante, magnético y con excelente duración para destacar en cualquier escenario.', prices: { '2ml': 12, '5ml': 24, '10ml': 44 }, fullPrice: 190, img: 'TU' },
-  { id: 8, brand: 'Versace', name: 'Eros Flame', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas', 'evento'], top: 'Mandarina, pimienta negra, chinotto, limón, romero', heart: 'Pimienta, geranio, rosa', base: 'Vainilla, haba tonka, cedro de Texas, sándalo, pachulí, musgo de roble', desc: 'El lado ardiente y apasionado de Eros. Cítricos amargos entrelazados con especias cálidas y un fondo de vainilla seductora.', prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, fullPrice: 320, img: 'EF' },
-  { id: 9, brand: 'Valentino', name: 'Uomo Intense — Melancholia', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Mandarina, esclarea', heart: 'Iris, haba tonka', base: 'Cuero negro, vainilla', desc: 'Sofisticación pura. Un hombre envuelto en iris atalcado y cuero oscuro que evoca el refinamiento del arte italiano. Para momentos de alta elegancia.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 370, img: 'VM' },
-  { id: 10, brand: 'Valentino', name: 'Born in Roma Intense', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Infusión de vainilla Bourbon', heart: 'Lavanda', base: 'Vetiver ahumado', desc: 'Una oda intensa a la masculinidad moderna romana. Profundo, cálido y seductor — Born in Roma Intense contrasta vainilla sensual con vetiver terroso.', prices: { '2ml': 13, '5ml': 27, '10ml': 48 }, fullPrice: 350, img: 'VI' },
-  { id: 11, brand: 'Valentino', name: 'Donna Born in Roma Coral Fantasy', type: 'disenador', gender: 'femenino', occasion: ['verano', 'diario'], top: 'Kiwi, naranja brasileña', heart: 'Rosa, ambreta, jazmín de la India', base: 'Almizcle blanco, cedro de Texas', desc: 'Un atardecer en Roma. Frutal, luminoso y efervescente gracias al toque único del kiwi — el perfume de una feminidad juguetona y moderna.', prices: { '2ml': 13, '5ml': 27, '10ml': 48 }, fullPrice: 360, img: 'VCF' },
-  { id: 12, brand: 'Valentino', name: 'Donna Born in Roma Extradose', type: 'disenador', gender: 'femenino', occasion: ['noche', 'citas'], top: 'Grosella negra, bergamota', heart: 'Té de jazmín, jazmín sambac', base: 'Vainilla Bourbon, madera de gaiac', desc: 'La sobredosis de feminidad nocturna. Un floral blanco denso y embriagador anclado en una vainilla rica y lujosa para brillar en la oscuridad.', prices: { '2ml': 14, '5ml': 30, '10ml': 54 }, fullPrice: 390, img: 'VE' },
-  { id: 13, brand: 'Valentino', name: 'Donna Born in Roma Extradose EDT', type: 'disenador', gender: 'femenino', occasion: ['diario', 'verano'], top: 'Cítricos chispeantes, flor de azahar', heart: 'Jazmín ligero, nardos suaves', base: 'Vainilla blanca, almizcle transparente', desc: 'La versión etérea y diurna de Extradose. Más fresca y cristalina, pero conservando ese adn floral irresistible para el día a día limeño.', prices: { '2ml': 12, '5ml': 25, '10ml': 44 }, fullPrice: 340, img: 'VEedt' },
-  { id: 14, brand: 'Jean Paul Gaultier', name: 'Scandal Le Parfum EDT', type: 'disenador', gender: 'femenino', occasion: ['noche', 'citas', 'evento'], top: 'Jazmín sambac', heart: 'Caramelo salado', base: 'Vainilla negra', desc: 'Totalmente escandaloso. Una bomba gourmand intensa donde el jazmín se funde con un pecaminoso caramelo salado — la fragancia de la mujer sin complejos.', prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, fullPrice: 330, img: 'SC' },
-  { id: 15, brand: 'Emporio Armani', name: 'Stronger With You Absolutely', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno', 'citas'], top: 'Ron, elemí, bergamota', heart: 'Lavanda, davana', base: 'Castaña, vainilla de Madagascar, cedro, pachulí', desc: 'El más refinado de la familia SWY. Licorado, dulce y con una elegante textura amaderada — perfecto para las noches de frío y distancias cortas.', prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, fullPrice: 410, img: 'SA', badge: 'Best' },
-  { id: 16, brand: 'Emporio Armani', name: 'Stronger With You Intensely', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Pimienta rosa, enebro, violeta', heart: 'Toffee, canela, lavanda, salvia', base: 'Vainilla, haba tonka, ámbar, gamuza', desc: 'Una explosión gourmand innegable. Caramelo toffee y canela sobre un fondo ambarado que proyecta confianza, dulzura y carácter absoluto.', prices: { '2ml': 14, '5ml': 29, '10ml': 52 }, fullPrice: 420, img: 'SI' },
-  { id: 17, brand: 'Jean Paul Gaultier', name: 'Le Male Elixir EDT', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Lavanda, menta', heart: 'Vainilla, benjuí', base: 'Miel, haba tonka, tabaco', desc: 'La seducción embotellada. Un elixir dulce y denso donde la icónica lavanda de Le Male se baña en miel dorada y tabaco aterciopelado.', prices: { '2ml': 15, '5ml': 32, '10ml': 58 }, fullPrice: 380, img: 'LME', badge: 'Best' },
-  { id: 18, brand: 'Jean Paul Gaultier', name: 'Le Male Elixir Absolu', type: 'disenador', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Cardamomo tostado, pimienta negra', heart: 'Cacao oscuro, iris, tabaco absoluto', base: 'Madera de gaiac, vainilla intensa, haba tonka', desc: 'Expresión conceptual máxima. Un perfume aún más denso y lujoso, que roza la frontera nicho con notas de cacao y maderas exóticas. Para hipnotizar de cerca.', prices: { '2ml': 18, '5ml': 38, '10ml': 70 }, fullPrice: 450, img: 'LMA' },
-  { id: 19, brand: 'Jean Paul Gaultier', name: 'Le Male Le Parfum', type: 'disenador', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Cardamomo', heart: 'Lavanda, iris', base: 'Vainilla, notas orientales, notas amaderadas', desc: 'El capitán toma el mando. Elegante, atalcado y cálido gracias a un iris magistral — la firma masculina de Gaultier refinada hasta la perfección.', prices: { '2ml': 15, '5ml': 32, '10ml': 58 }, fullPrice: 400, img: 'LMP' },
-  { id: 20, brand: 'Yves Saint Laurent', name: 'Y EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Manzana, jengibre, bergamota', heart: 'Salvia, bayas de enebro, geranio', base: 'Amberwood, haba tonka, cedro, vetiver, incienso', desc: 'Fresco, frutal y oscuro a la vez. Un aromático fougère moderno y ultra versátil que brinda una de las mejores proyecciones en la perfumería de diseñador.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 390, img: 'YYSL' },
-  { id: 21, brand: 'Giorgio Armani', name: 'Acqua di Giò Profondo EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Notas marinas, Aquozone, bergamota, mandarina verde', heart: 'Romero, ciprés, lavanda, lentisco', base: 'Notas minerales, almizcle, pachulí, ámbar', desc: 'Un clavado en el mar azul profundo. Vibrante, inmensamente marino y moderno — la evolución perfecta del clásico Acqua di Giò.', prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, fullPrice: 430, img: 'ADG', badge: 'Best' },
-  { id: 22, brand: 'King of Kings', name: 'Chapter 1', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Azafrán, frambuesa, tomillo', heart: 'Incienso, jazmín nocturno', base: 'Cuero, gamuza, notas amaderadas, ámbar', desc: 'El primer capítulo de una saga oriental profunda. Un cuero frutal y majestuoso que impone presencia y reivindica la opulencia árabe clásica.', prices: { '2ml': 16, '5ml': 34, '10ml': 62 }, fullPrice: 290, img: 'KK1' },
-  { id: 23, brand: 'King of Kings', name: 'Royal Crown', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Bergamota, pimienta rosa, nuez moscada', heart: 'Oud camboyano, rosa de Damasco, pachulí', base: 'Madera de sándalo, ámbar, almizcle blanco', desc: 'La corona real del desierto. Una interpretación lujosa de la clásica combinación rosa-oud, suavizada con almizcle y maderas cremosas.', prices: { '2ml': 18, '5ml': 38, '10ml': 70 }, fullPrice: 330, img: 'KKR' },
-  { id: 24, brand: 'Jean Paul Gaultier', name: 'Le Beau Le Parfum', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano', 'citas'], top: 'Piña, iris, ciprés, jengibre', heart: 'Coco, notas amaderadas', base: 'Haba tonka, sándalo, ámbar, ámbar gris', desc: 'Un paraíso terrenal embotellado. Oscuro, dulce y tropical; la nota de coco se vuelve densa y cremosa, rodeada de haba tonka y maderas cálidas.', prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, fullPrice: 370, img: 'LBP' },
-  { id: 25, brand: 'Azzaro', name: 'The Most Wanted Parfum', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas', 'evento'], top: 'Jengibre rojo', heart: 'Notas amaderadas incandescentes, incienso', base: 'Vainilla Bourbon', desc: 'Intensidad en su estado más puro. Un oriental especiado y ardiente donde el jengibre choca con maderas profundas y una vainilla irresistible.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 350, img: 'AMW', badge: 'Pop' },
-  { id: 26, brand: 'Azzaro', name: 'The Most Wanted Intense EDP', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Cardamomo', heart: 'Toffee (caramelo derretido)', base: 'Amberwood', desc: 'Seducción dulce e infalible. Una bomba de caramelo toffee y cardamomo que proyecta masculinidad juguetona, diseñada específicamente para conquistar la noche.', prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, fullPrice: 380, img: 'AMWI' },
-  { id: 27, brand: 'Paco Rabanne', name: 'Invictus Elixir', type: 'disenador', gender: 'masculino', occasion: ['noche', 'evento', 'citas'], top: 'Lavanda, cardamomo, pimienta negra', heart: 'Incienso místico, pachulí', base: 'Vaina de vainilla, haba tonka', desc: 'La victoria llevada al extremo. Profundo, rico y ambarado — Invictus Victory Elixir es una fragancia gourmand magnética para quienes nacieron para destacar.', prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, fullPrice: 400, img: 'IE', badge: 'Best' },
-  { id: 28, brand: 'Jo Milano', name: 'Full House', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Cítricos brillantes, manzana verde', heart: 'Maderas preciosas, notas florales', base: 'Almizcle, musgo de roble, ámbar gris', desc: 'Elegancia versátil inspirada en lo clásico. Un aroma que combina frescura afrutada con un fondo maderoso carismático para una mano ganadora.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 240, img: 'FH' },
-  { id: 29, brand: 'Jo Milano', name: 'Wildcard', type: 'arabe', gender: 'unisex', occasion: ['diario', 'noche'], top: 'Bergamota, piña jugosa, manzana', heart: 'Jazmín marroquí, rosa, abedul', base: 'Pachulí, musgo de roble, ámbar gris, vainilla', desc: 'La carta impredecible. Un perfil frutal y ahumado extremadamente versátil que rinde homenaje a los reyes de la perfumería nicho contemporánea.', prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, fullPrice: 210, img: 'WC' },
-  { id: 30, brand: 'Jo Milano', name: 'Royale', type: 'arabe', gender: 'masculino', occasion: ['evento', 'noche'], top: 'Azafrán, lavanda', heart: 'Nuez moscada, maderas de agar (Oud)', base: 'Pachulí, almizcle blanco, cuero', desc: 'Para quien domina el juego. Un oud occidentalizado y especiado, perfectamente equilibrado para irradiar poder sin abrumar los sentidos.', prices: { '2ml': 16, '5ml': 34, '10ml': 62 }, fullPrice: 300, img: 'ROY' },
-  { id: 31, brand: 'Jo Milano', name: 'Bonus', type: 'arabe', gender: 'masculino', occasion: ['diario'], top: 'Pomelo, limón, menta fresca', heart: 'Jengibre, nuez moscada, jazmín', base: 'Incienso, vetiver, cedro, sándalo', desc: 'Frescura energética y maderas limpias. El cítrico aromático perfecto para el uso cotidiano, transmitiendo pulcritud y profesionalismo azul.', prices: { '2ml': 12, '5ml': 22, '10ml': 40 }, fullPrice: 160, img: 'BON' },
-  { id: 32, brand: 'Lattafa', name: 'Khamrah Clásico', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas', 'invierno'], top: 'Canela, nuez moscada, bergamota', heart: 'Dátiles, praliné, nardos, mahonial', base: 'Vainilla, haba tonka, benjuí, amberwood, mirra, akigalawood', desc: 'El gigante indiscutible de Lattafa. Un oriental gourmand opulento dominado por notas licoradas de dátiles y praliné que te envuelven en un aura irresistible.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 170, img: 'KH', badge: 'Best' },
-  { id: 33, brand: 'Lattafa', name: 'Khamrah Dukhan', type: 'arabe', gender: 'unisex', occasion: ['noche', 'invierno'], top: 'Canela ahumada, incienso, nuez moscada', heart: 'Dátiles oscuros, praliné, rosa ahumada', base: 'Vainilla, madera de oud, mirra, benjuí', desc: 'Versión conceptual intensa. Dukhan ("Humo" en árabe) oscurece la dulzura de Khamrah con misteriosas resinas y un acorde de oud e incienso ardiente.', prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, fullPrice: 180, img: 'KD' },
-  { id: 34, brand: 'Rasasi', name: 'Hawas Kobra', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Pimienta negra, bergamota oscura, cardamomo', heart: 'Ciruela intensa, lavanda, geranio', base: 'Ámbar profundo, pachulí, cuero', desc: 'Conceptual y venenoso. Transforma el frescor frutal de Hawas en una esencia oscura, especiada y nocturna diseñada para inyectar misterio y magnetismo.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 210, img: 'HK' },
-  { id: 35, brand: 'Lattafa', name: 'Khamrah Qahwa', type: 'arabe', gender: 'unisex', occasion: ['diario', 'noche'], top: 'Jengibre, canela, cardamomo', heart: 'Praliné, flores blancas, frutas confitadas', base: 'Café, vainilla, haba tonka, benjuí, almizcle', desc: 'El deleite del café árabe tostado. Qahwa mantiene el adn dulce y especiado de Khamrah, pero lo equilibra con un elegante y oscuro aroma a café recién molido.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 175, img: 'KQ' },
-  { id: 36, brand: 'Lattafa', name: 'Sublime', type: 'arabe', gender: 'femenino', occasion: ['noche', 'citas'], top: 'Manzana, lichi, rosa', heart: 'Ciruela, jazmín', base: 'Musgo de roble, vainilla, pachulí', desc: 'Una delicia frutal y exótica. Badee Al Oud Sublime desborda con un acorde de manzana y lichi sobre una base limpia y delicadamente terrosa. Alegre, dulce y elegante.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 190, img: 'SUB' },
-  { id: 37, brand: 'Lattafa', name: 'Honor & Glory', type: 'arabe', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Piña, crème brûlée', heart: 'Canela, benjuí, pimienta negra, cúrcuma', base: 'Vainilla, sándalo, cachemira, musgo', desc: 'Un festín gourmand inesperado. La jugosidad de la piña contrastada maravillosamente con el dulzor quemado de la crème brûlée y especias finas orientales.', prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, fullPrice: 150, img: 'HG' },
-  { id: 38, brand: 'Lattafa', name: 'Asad Clásico', type: 'arabe', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Pimienta negra, piña, tabaco', heart: 'Café, pachulí, iris', base: 'Ámbar, vainilla, maderas secas, benjuí, ládano', desc: 'Poderoso e inconfundible. Un especiado cálido dominado por pimienta, tabaco y vainilla seca que rinde un audaz homenaje a uno de los elixires masculinos más caros.', prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, fullPrice: 155, img: 'AS' },
-  { id: 39, brand: 'Lattafa', name: 'Asad Bourbon', type: 'arabe', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Acorde de Bourbon, cardamomo, pimienta negra', heart: 'Madera de sándalo, rosa, tabaco dulce', base: 'Cuero, vainilla Bourbon, almizcle oscuro', desc: 'Edición conceptual licorada. El león de Lattafa se madura en barricas de roble, logrando un oriental amaderado y alcohólico ideal para el invierno.', prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, fullPrice: 200, img: 'ASB' },
-  { id: 40, brand: 'Afnan', name: '9PM', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Manzana, canela, lavanda silvestre, bergamota', heart: 'Flor de azahar, lirio de los valles', base: 'Vainilla, haba tonka, ámbar, pachulí', desc: 'El rey de la noche y la fiesta. Una fragancia intensamente frutal, de manzana, vainilla y tonka con una proyección colosal que devora cualquier discoteca.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 170, img: '9PM', badge: 'Pop' },
-  { id: 41, brand: 'Afnan', name: '9PM Elixir', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Manzana asada, canela extra, cardamomo', heart: 'Cacao, flor de azahar, rosa', base: 'Vainilla densa, pachulí, maderas oscuras', desc: 'Elixir conceptual. Lleva el ADN dulce y fiestero de 9PM a una dimensión aún más profunda, viscosa y gourmand, amplificando la duración a niveles nucleares.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 220, img: '9PE' },
-  { id: 42, brand: 'Afnan', name: '9PM Night Out', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Mandarina chispeante, lavanda, pimienta rosa', heart: 'Flor de azahar, jazmín, manzana verde', base: 'Almizcle blanco, cedro, ámbar suave', desc: 'Versión conceptual refrescada. Más limpio y menos empalagoso que el original, manteniendo el carácter nocturno pero aportando una brisa afrutada más ligera.', prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, fullPrice: 190, img: '9PNO' },
-  { id: 43, brand: 'Afnan', name: '9AM Dive', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Menta, limón, grosellas negras, pimienta rosa', heart: 'Manzana, incienso, cedro', base: 'Jengibre, sándalo, pachulí, jazmín', desc: 'Un salto de frescura efervescente. Un aromático acuático que huele a gel de ducha de ultra lujo, fusionando menta, cítricos y maderas limpias.', prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, fullPrice: 145, img: 'AFNAN_9AM_DIVE2.webp' },
-  { id: 44, brand: 'Rasasi', name: 'Hawas Ice', type: 'arabe', gender: 'masculino', occasion: ['verano', 'diario'], top: 'Manzana, limón italiano, anís estrellado, bergamota', heart: 'Flor de azahar, ciruela, cardamomo', base: 'Musgo, ámbar, madera flotante, almizcle', desc: 'Aún más frutal, aún más helado. Hawas Ice amplifica la nota de manzana y ciruela, añadiendo un toque fresco de anís y una duración asombrosa para ser un aroma de verano.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 180, img: 'HI' },
-  { id: 45, brand: 'Rasasi', name: 'Hawas Tropical', type: 'arabe', gender: 'masculino', occasion: ['verano', 'diario'], top: 'Mango jugoso, piña dulce, bergamota', heart: 'Fruta de la pasión, notas acuáticas', base: 'Coco, madera de sándalo, almizcle', desc: 'Un cóctel caribeño conceptual. Mantiene el almizcle limpio del Hawas clásico y lo envuelve en una avalancha de jugosas frutas tropicales maduradas al sol.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 185, img: 'HT' },
-  { id: 46, brand: 'Rasasi', name: 'Hawas Malibu', type: 'arabe', gender: 'masculino', occasion: ['verano', 'diario'], top: 'Agua de coco, lima, sal marina', heart: 'Melón, flores blancas acuáticas', base: 'Almizcle solar, madera de cedro, arena cálida', desc: 'Escapada conceptual a la playa. Coco salado y cítricos efervescentes que capturan el espíritu relajado y bronceado de la costa oeste en un frasco.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 185, img: 'HML' },
-  { id: 47, brand: 'Rasasi', name: 'Hawas For Him', type: 'arabe', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Manzana, bergamota, limón, canela', heart: 'Notas acuáticas, ciruela, flor de azahar, cardamomo', base: 'Ámbar gris, almizcle, trozos de madera, pachulí', desc: 'El rey de los cumplidos de verano. Un acuático afrutado de rendimiento bestial, equilibrando la jugosidad de la ciruela dulce con almizcle masculino y notas marinas marinas.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 175, img: 'HFH' },
-  { id: 48, brand: 'Rasasi', name: 'Hawas Fire', type: 'arabe', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Canela intensa, pimienta rosa, bergamota asada', heart: 'Ciruela oscura, azafrán, cuero', base: 'Ámbar, pachulí terroso, notas ahumadas', desc: 'Versión conceptual invernal. Cuando cae el sol y hace frío, Hawas muta en una criatura oriental especiada de ciruela ahumada y cuero cálido.', prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, fullPrice: 200, img: 'HF' },
-  { id: 49, brand: 'Armaf', name: 'Mandarin Sky', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Mandarina, naranja, azafrán', heart: 'Caramelo, haba tonka, cempasúchil', base: 'Ambroxan, cedro, almizcle', desc: 'Cítricos dulces con carácter. Un clon fantástico que cruza la jugosidad vibrante de la mandarina con un fondo oscuro y gourmand de caramelo y haba tonka.', prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, fullPrice: 160, img: 'MS' },
-  { id: 50, brand: 'Armaf', name: 'Odyssey Aqua', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Naranja, pomelo, abrótano', heart: 'Menta fresca, lavanda', base: 'Ambroxan, ciprés, pachulí', desc: 'Fuerza verde y ozónica. Un acuático herbáceo liderado por menta y pomelo vibrante sobre una base de maderas robustas que transmite pura energía y masculinidad.', prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, fullPrice: 165, img: 'OA' },
-  { id: 51, brand: 'French Avenue', name: 'Rome Imagine Feu', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Cidra, bergamota de Calabria, naranja dulce', heart: 'Neroli de Túnez, jengibre de Nigeria, canela', base: 'Té negro chino, ambroxan, incienso', desc: 'Lujo etéreo e infinito. Una composición brillante inspirada en las grandes casas francesas, donde los cítricos de altísima calidad se asientan sobre un sofisticado acorde de té negro y ambroxan.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 230, img: 'RIF' },
-  { id: 52, brand: 'Armaf', name: 'Club de Nuit Iconic', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Pomelo, menta, limón, pimienta rosa, cilantro', heart: 'Jengibre, melón, jazmín, nuez moscada', base: 'Incienso, ámbar, cedro, sándalo, pachulí, ládano', desc: 'El rey azul de Armaf. Un todoterreno cítrico, amaderado y ligeramente ahumado que ofrece máxima versatilidad y una estela masculina, madura e innegablemente atractiva.', prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, fullPrice: 210, img: 'CDI' },
-  { id: 53, brand: 'Dumont Paris', name: 'Nitro Red', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Manzana, lavanda, bergamota', heart: 'Sandía jugosa, cedro, calamander', base: 'Ámbar, sándalo, pachulí', desc: 'Dulce, frutal y nuclear. Un aroma vibrante y jovial con una nota adictiva de sandía y manzana acaramelada, anclada en una dulzura ambarada que proyecta masivamente.', prices: { '2ml': 14, '5ml': 28, '10ml': 50 }, fullPrice: 240, img: 'NR' },
-  { id: 54, brand: 'Armaf', name: 'Club de Nuit Urban Man Elixir', type: 'disenador', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Bergamota, pimienta rosa, jazmín, flor de azahar', heart: 'Lavanda, geranio, azafrán, cempasúchil, vetiver', base: 'Ambroxan, pachulí, ámbar, cedro, ládano', desc: 'Un híbrido perfecto. Combina la frescura amaderada oscura de los reyes del diseñador con el toque especiado y afrutado de los gigantes de nicho, logrando un aroma moderno e infalible.', prices: { '2ml': 13, '5ml': 26, '10ml': 46 }, fullPrice: 220, img: 'CUE' },
-  { id: 55, brand: 'Armaf', name: 'Club de Nuit Intense EDT', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Limón, piña, bergamota, grosellas negras, manzana', heart: 'Abedul, jazmín, rosa', base: 'Almizcle, ámbar gris, pachulí, vainilla', desc: 'La leyenda de las fragancias árabes. Una salida cítrica explosiva que se seca en un espectacular aroma ahumado a madera de abedul y frutas. Proyección y duración bestiales.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 190, img: 'CDN', badge: 'Pop' },
-  { id: 56, brand: 'Al Haramain', name: 'Amber Oud Gold Edition', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas', 'evento'], top: 'Bergamota, notas verdes', heart: 'Melón, notas dulces, piña, ámbar', base: 'Vainilla, almizcle, notas amaderadas', desc: 'Un lingote de frutas de oro puro. Una avalancha de melón y piña almibarada sobre vainilla y almizcle blanco que crea un aura dulzona, radiante y extremadamente lujosa.', prices: { '2ml': 16, '5ml': 34, '10ml': 62 }, fullPrice: 280, img: 'AOG', badge: 'New' },
-  { id: 57, brand: 'French Avenue', name: 'Vulcan Feu', type: 'arabe', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Nuez moscada, canela, cardamomo', heart: 'Pachulí, madera de cipriol (nagarmota), incienso', base: 'Madera de oud, cuero negro, almizcle oscuro', desc: 'Magma oscuro y amaderado. Un oriental denso y ahumado donde maderas ricas, especias ardientes y cuero masculino forjan una fragancia de pura dominancia nocturna.', prices: { '2ml': 15, '5ml': 30, '10ml': 55 }, fullPrice: 260, img: 'VF' },
-  { id: 58, brand: 'Lattafa', name: 'Yara Pink', type: 'arabe', gender: 'femenino', occasion: ['diario', 'citas', 'verano'], top: 'Orquídea, heliotropo, naranja tangerina', heart: 'Acuerdo gourmand, frutas tropicales', base: 'Vainilla, almizcle, sándalo', desc: 'El aroma de las princesas de Lattafa. Suave, cremoso y apolvado; un batido de fresa y vainilla tropical con flores blancas. Ultra femenino, dulce y reconfortante.', prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, fullPrice: 140, img: 'YP', badge: 'Pop' },
-  { id: 59, brand: 'Lattafa', name: 'Eclaire', type: 'arabe', gender: 'femenino', occasion: ['noche', 'citas'], top: 'Caramelo, leche caliente, azúcar', heart: 'Flores blancas, miel reconfortante', base: 'Vainilla, praliné, almizcle', desc: 'Pura delicia pastelera. Un gourmand lactónico y adictivo que huele literalmente a leche caliente con caramelo y vainilla fina. Para quienes aman ser irresistibles de comer.', prices: { '2ml': 12, '5ml': 24, '10ml': 42 }, fullPrice: 180, img: 'ECL' },
-  { id: 60, brand: 'Lattafa', name: 'Haya EDP', type: 'arabe', gender: 'femenino', occasion: ['diario', 'verano'], top: 'Champán rosado, bayas rosadas, naranja sanguina, mandarina, fresia', heart: 'Gardenia, orquídea de vainilla, jazmín', base: 'Praliné, ámbar, sándalo', desc: 'Efervescencia chic y delicada. Abre con un chispeante y realista aroma a champán de fresas antes de asentarse en un corazón floral suave con un toque dulzón y jabonoso.', prices: { '2ml': 11, '5ml': 22, '10ml': 38 }, fullPrice: 145, img: 'HYP' },
-  { id: 61, brand: 'Rasasi', name: 'Hawas Verde', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano', 'citas'], top: 'Manzana verde ácida, hojas verdes, bergamota', heart: 'Ciruela fresca, flor de azahar, jazmín, salvia', base: 'Almizcle, madera de cedro, musgo de roble', desc: 'Versión conceptual botánica. Destaca la faceta más verde, jugosa y vigorizante del perfil original. Cítricos crujientes y hierbas frescas para dominar el calor con máxima elegancia.', prices: { '2ml': 12, '5ml': 25, '10ml': 42 }, fullPrice: 180, img: 'HV' }
+  { id: 1, brand: 'Xerjoff', name: 'Erba Pura', type: 'nicho', gender: 'unisex', occasion: ['diario', 'noche', 'verano'], top: 'Naranja siciliana, limón', heart: 'Frutas', base: 'Almizcle, vainilla, ámbar', desc: 'Una explosión de frutas mediterráneas sobre un corazón floral. Dulce, soleado y adictivo.', prices: { '3ml': 45, '5ml': 60, '10ml': 90 }, fullPrice: 850, img: 'EP', badge: 'Best' },
+  { id: 2, brand: 'Xerjoff', name: 'Erba Gold', type: 'nicho', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Bergamota, naranja', heart: 'Melón, manzana verde, cardamomo', base: 'Vainilla, almizcle, ámbar', desc: 'La variante dorada de Erba Pura. Más cálida, envolvente y sensual — una firma olfativa de lujo inconfundible.', prices: { '3ml': 45, '5ml': 60, '10ml': 90 }, fullPrice: 850, img: 'EG' },
+  { id: 3, brand: 'Versace', name: 'Eros EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche', 'citas', 'verano'], top: 'Menta, manzana, limón', heart: 'Ambroxan, geranio, esclarea', base: 'Vainilla, pachulí, cedro', desc: 'La esencia del amor y el deseo. Un fougère oriental vibrante y magnético — fresco al abrir, cálido y adictivo en la estela.', prices: { '3ml': 25, '5ml': 30, '10ml': 45 }, fullPrice: 330, img: 'VEros', badge: 'Best' },
+  { id: 4, brand: 'Rasasi', name: 'Hawas Atlantis', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Bergamota, limón, manzana, canela', heart: 'Notas acuáticas, ciruela, cardamomo', base: 'Ámbar gris, pachulí, almizcle', desc: 'Versión oceánica de Hawas. Más azul, más profundo — como zambullirse en el Mediterráneo en pleno verano.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 180, img: 'HA' },
+  { id: 5, brand: 'Maison Alhambra', name: 'Sceptre Malachite', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Bergamota, cardamomo verde', heart: 'Iris, rosa damascena', base: 'Vetiver, ámbar gris, almizcle', desc: 'Inspirado en joyas orientales. Un floral amaderado de alta gama que combina elegancia occidental con profundidad árabe.', prices: { '3ml': 18, '5ml': 22, '10ml': 35 }, fullPrice: 220, img: 'SM' },
+  { id: 6, brand: 'Armaf', name: 'Club de Nuit Untold', type: 'disenador', gender: 'unisex', occasion: ['noche', 'citas', 'evento'], top: 'Azafrán, jazmín', heart: 'Amberwood, ámbar gris', base: 'Resina de abeto, cedro', desc: 'La joya de la colección Club de Nuit. Unisex y opulento — un oriental frutal de gran proyección para noches de alto impacto.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 170, img: 'CU', badge: 'New' },
+  { id: 7, brand: 'Armaf', name: 'Tag Uomo Rosso', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Cardamomo, lavanda, pimienta rosa', heart: 'Cedro, pachulí', base: 'Ámbar, vainilla, haba tonka', desc: 'Un aromático fresco con un corazón masculino clásico. Elegante, seguro y con excelente duración — el traje invisible del hombre moderno.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'TU' },
+  { id: 8, brand: 'Versace', name: 'Eros Flame', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas', 'evento'], top: 'Naranja de Calabria, limón, pomelo', heart: 'Rosa, geranio pimienta negra', base: 'Tonka, guayaco, almizcle', desc: 'El lado oscuro y seductor de Eros. Oriental especiado con una fuerza ardiente — para la noche que no se olvida.', prices: { '3ml': 20, '5ml': 25, '10ml': 38 }, fullPrice: 320, img: 'EF' },
+  { id: 9, brand: 'Valentino', name: 'Born in Roma Purple Melancholia', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Cardamomo', heart: 'Coco, lavanda', base: 'Amberwood', desc: 'Austero y poético. Un hombre de iris y cuero que evoca el arte italiano — para momentos de introspección o encuentros memorables.', prices: { '3ml': 35, '5ml': 45, '10ml': 65 }, fullPrice: 370, img: 'VM' },
+  { id: 10, brand: 'Valentino', name: 'Born in Roma Intense', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Vainilla bourbon', heart: 'Lavanda', base: 'Vetiver ahumado', desc: 'Una oda a la masculinidad moderna romana. Especiado, cálido y dinámico — Born in Roma Intense es el aroma de quien llega y se hace notar.', prices: { '3ml': 35, '5ml': 45, '10ml': 65 }, fullPrice: 350, img: 'VI' },
+  { id: 11, brand: 'Valentino', name: 'Born in Roma Coral Fantasy', type: 'disenador', gender: 'femenino', occasion: ['verano', 'diario'], top: 'Manzana roja, cardamomo', heart: 'Lavanda, geranio', base: 'Tabaco, pachulí', desc: 'Una fantasía coral y mediterránea. Fresco, luminoso y femenino — el perfume de las vacaciones perfectas.', prices: { '3ml': 35, '5ml': 45, '10ml': 65 }, fullPrice: 360, img: 'VCF' },
+  { id: 12, brand: 'Valentino', name: 'Born in Roma Extradose', type: 'disenador', gender: 'femenino', occasion: ['noche', 'citas'], top: 'Especias frescas', heart: 'Lavanda intensa', base: 'Vetiver, ámbar, vainilla', desc: 'La dosis extra de feminidad. Un floral más denso y sensorial — Extradose es la declaración de quienes no temen brillar.', prices: { '3ml': 35, '5ml': 45, '10ml': 65 }, fullPrice: 390, img: 'VE' },
+  { id: 13, brand: 'Valentino', name: 'Born in Roma Intense EDT', type: 'disenador', gender: 'femenino', occasion: ['diario', 'verano'], top: 'Bergamota', heart: 'Lavanda', base: 'Vetiver, vainilla', desc: 'La versión más ligera y veraniega de Extradose. Más fresca pero igual de irresistible — perfecta para el día a día limeño.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 340, img: 'VEedt' },
+  { id: 14, brand: 'Jean Paul Gaultier', name: 'Scandal Le Parfum', type: 'disenador', gender: 'femenino', occasion: ['noche', 'citas', 'evento'], top: 'Geranio', heart: 'Haba tonka', base: 'Sándalo', desc: 'Escandaloso por naturaleza. Floral amielado con mucha actitud — la fragancia de la mujer que hace las reglas.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 330, img: 'SC' },
+  { id: 15, brand: 'Emporio Armani', name: 'Stronger With You Absolutely', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno', 'citas'], top: 'Ron, bergamota, elemí', heart: 'Lavanda, davana', base: 'Vainilla, cedro, pachulí, castaña ahumada', desc: 'El más gourmand de la familia SWY. Dulce, caramelizado y voluminoso — perfecto para el frío y las noches de otoño.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 410, img: 'SA', badge: 'Best' },
+  { id: 16, brand: 'Emporio Armani', name: 'Stronger With You Intensely', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Pimienta rosa, enebro, violeta', heart: 'Canela, lavanda, salvia', base: 'Vainilla, haba tonka, ámbar', desc: 'Más oscuro y más intenso. Un aromático amaderado de gran carácter — para el hombre que sabe exactamente lo que quiere.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 420, img: 'SI' },
+  { id: 17, brand: 'Jean Paul Gaultier', name: 'Le Male Elixir', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Menta, bergamota', heart: 'Lavanda, benjuí', base: 'Vainilla, haba tonka, miel', desc: 'La reinterpretación más oscura de Le Male. Oriental amaderado con una sensualidad magnética — el arquetipo del hombre seductor.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 380, img: 'LME', badge: 'Best' },
+  { id: 18, brand: 'Jean Paul Gaultier', name: 'Le Male Elixir Absolu', type: 'disenador', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Ciruela, canela', heart: 'Lavanda, benjuí', base: 'Haba tonka, vainilla, ámbar', desc: 'La máxima expresión del Elixir. Denso, lujoso, piel contra piel — un perfume de autor que exige ser experimentado de cerca.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 450, img: 'LMA' },
+  { id: 19, brand: 'Jean Paul Gaultier', name: 'Le Male Le Parfum', type: 'disenador', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Cardamomo', heart: 'Lavanda, iris', base: 'Vainilla', desc: 'Le Male elevado a su máxima concentración. Más profundo y persistente que el original — la firma masculina de Gaultier en su forma definitiva.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 400, img: 'LMP' },
+  { id: 20, brand: 'Yves Saint Laurent', name: 'Y EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Manzana, bergamota, jengibre', heart: 'Salvia, geranio', base: 'Haba tonka, cedro, ámbar', desc: 'Moderno y confiado. Un aromático amaderado de gran proyección que encarna al hombre de hoy — dinámico, sensible y seguro.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 390, img: 'YYSL' },
+  { id: 21, brand: 'Giorgio Armani', name: 'Acqua di Giò Profondo EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Notas marinas, mandarina verde', heart: 'Romero, lavanda', base: 'Almizcle, pachulí, notas minerales', desc: 'El acuático más vendido del mundo reinventado en profundidad. Marino y sofisticado — AdG Profondo conquista donde el original ya era rey.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 430, img: 'ADG', badge: 'Best' },
+  { id: 22, brand: 'King of Kings', name: 'Chapter 1', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Bergamota, limón, mango', heart: 'Flores blancas, notas marinas', base: 'Ámbar, almizcle', desc: 'El primer capítulo de una saga oriental. Suntuoso y majestuoso — un oud aromático que reivindica la grandeza de la perfumería árabe clásica.', prices: { '3ml': 20, '5ml': 25, '10ml': 45 }, fullPrice: 290, img: 'KK1' },
+  { id: 23, brand: 'King of Kings', name: 'Royal Crown', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Bergamota, limón, naranja siciliana', heart: 'Frutas', base: 'Azafrán, almizcle', desc: 'La corona real. Un oud opulento con un corazón de rosas y azafrán que evoca los palacios de Oriente Medio con cada spray.', prices: { '3ml': 20, '5ml': 25, '10ml': 45 }, fullPrice: 330, img: 'KKR' },
+  { id: 24, brand: 'Jean Paul Gaultier', name: 'Le Beau Le Parfum', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano', 'citas'], top: 'Piña, jengibre, iris', heart: 'Coco, notas amaderadas', base: 'Haba tonka, sándalo, ámbar gris', desc: 'Luminoso y paradisíaco. Le Beau alcanza su forma más concentrada con una combinación irresistible de madera fresca y coco solar.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 370, img: 'LBP' },
+  { id: 25, brand: 'Azzaro', name: 'The Most Wanted Parfum', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas', 'evento'], top: 'Jengibre', heart: 'Notas amaderadas', base: 'Bourbon vainilla', desc: 'El más buscado por una razón. Oriental amaderado con la masculinidad clásica de Azzaro reinterpretada para la noche contemporánea.', prices: { '3ml': 30, '5ml': 35, '10ml': 50 }, fullPrice: 350, img: 'AMW', badge: 'Pop' },
+  { id: 26, brand: 'Azzaro', name: 'The Most Wanted Intense', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Cardamomo', heart: 'Acorde de toffee', base: 'Ámbar amaderado', desc: 'Más intenso. Más oscuro. Una versión crepuscular del More Wanted que amplifica el carácter amaderado hasta el máximo.', prices: { '3ml': 30, '5ml': 35, '10ml': 50 }, fullPrice: 380, img: 'AMWI' },
+  { id: 27, brand: 'Paco Rabanne', name: 'Invictus Elixir', type: 'disenador', gender: 'masculino', occasion: ['noche', 'evento', 'citas'], top: 'Lavanda, cardamomo, pimienta negra', heart: 'Incienso, pachulí', base: 'Vainilla, haba tonka, ámbar', desc: 'El campeón se oscurece. Invictus Elixir es especiado, profundo y animal — una fragancia para quien nunca llega desapercibido.', prices: { '3ml': 35, '5ml': 45, '10ml': 60 }, fullPrice: 400, img: 'IE', badge: 'Best' },
+  { id: 28, brand: 'Jo Milano', name: 'Full House', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Cítricos, bergamota', heart: 'Jazmín, especias suaves', base: 'Ámbar, almizcle, maderas', desc: 'Inspirado en el poker de alto nivel. Un oud poderoso y charismatico que llena cualquier habitación — literal y figurativamente.', prices: { '3ml': 30, '5ml': 35, '10ml': 50 }, fullPrice: 240, img: 'FH' },
+  { id: 29, brand: 'Jo Milano', name: 'Wildcard', type: 'arabe', gender: 'unisex', occasion: ['diario', 'noche'], top: 'Bergamota, flores', heart: 'Vainilla, ambroxan', base: 'Haba tonka, maderas', desc: 'La carta comodín del juego. Un aromático frutal oriental que sorprende en cada fase — impredecible, versátil y adictivo.', prices: { '3ml': 30, '5ml': 35, '10ml': 50 }, fullPrice: 210, img: 'WC' },
+  { id: 30, brand: 'Jo Milano', name: 'Royale', type: 'arabe', gender: 'masculino', occasion: ['evento', 'noche'], top: 'Cacao, avellana', heart: 'Jazmín, cedro', base: 'Caramelo, ambroxan, musgo', desc: 'El rey de la colección. Azafrán y oud en perfecto equilibrio — un oriental de máxima categoría para ocasiones que lo merecen.', prices: { '3ml': 30, '5ml': 35, '10ml': 50 }, fullPrice: 300, img: 'ROY' },
+  { id: 31, brand: 'Jo Milano', name: 'Bonus', type: 'arabe', gender: 'masculino', occasion: ['diario'], top: 'Piña, bergamota, limón', heart: 'Jazmín, rosa', base: 'Almizcle, pachulí', desc: 'El bono diario. Un cítrico fresco oriental para el uso cotidiano — accesible, versátil y siempre agradable.', prices: { '3ml': 30, '5ml': 35, '10ml': 50 }, fullPrice: 160, img: 'BON' },
+  { id: 32, brand: 'Lattafa', name: 'Khamrah Clásico', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas', 'invierno'], top: 'Canela, nuez moscada, bergamota', heart: 'Dátiles, praliné, mahonial', base: 'Vainilla, haba tonka, ámbar', desc: 'El más famoso de Lattafa. Un oriental gourmand intensamente adictivo — vainilla, oud y ámbar en un abrazo que no quieres que termine.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 145, img: 'KH', badge: 'Best' },
+  { id: 33, brand: 'Lattafa', name: 'Khamrah Dukhan', type: 'arabe', gender: 'unisex', occasion: ['noche', 'invierno'], top: 'Especias cálidas, mandarina', heart: 'Incienso, tabaco, resinas', base: 'Ámbar, vainilla, maderas ahumadas', desc: 'La versión ahumada. Dukhan añade una profundidad casi incensada a la base khamrahiana — para quienes aman lo oscuro y misterioso.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 160, img: 'KD' },
+  { id: 34, brand: 'Rasasi', name: 'Hawas Kobra', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Jengibre, bergamota, mandarina', heart: 'Té verde, canela, neroli', base: 'Almizcle, maderas, ámbar', desc: 'La serpiente de Hawas. Más oscura y más venenosa — Kobra transforma el ADN acuático de Hawas en un oriental especiado de noches largas.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 170, img: 'HK' },
+  { id: 35, brand: 'Lattafa', name: 'Khamrah Qahwa', type: 'arabe', gender: 'unisex', occasion: ['diario', 'noche'], top: 'Canela, cardamomo, jengibre', heart: 'Café, praliné, flores blancas', base: 'Vainilla, haba tonka, almizcle', desc: 'Inspirado en el café árabe. Qahwa mezcla la calidez del café con la profundidad del oud en un oriental gourmand de mañanas y noches.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 145, img: 'KQ' },
+  { id: 36, brand: 'Lattafa', name: 'Sublime', type: 'arabe', gender: 'femenino', occasion: ['noche', 'citas'], top: 'Manzana, lichi, rosa', heart: 'Ciruela, jazmín', base: 'Vainilla, pachulí, almizcle', desc: 'Como su nombre promete. Un floral oriental femenino de alta elegancia — delicado en salida y profundo en fondo.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'SUB' },
+  { id: 37, brand: 'Lattafa', name: 'Honor & Glory', type: 'arabe', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Piña, crème brûlée', heart: 'Canela, cúrcuma, pimienta negra', base: 'Vainilla, cachemira, sándalo, musgo', desc: 'Honor y gloria en un frasco. Un aromático clásico con proyección árabe — fresco y elegante para todo ocasión.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'HG' },
+  { id: 38, brand: 'Lattafa', name: 'Asad', type: 'arabe', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Pimienta negra, piña, tabaco', heart: 'Café, iris, pachulí', base: 'Vainilla, ámbar', desc: 'El León. Un aromático amaderado oriental de carácter firme — confiado, masculino y de excelente relación calidad-precio.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'AS' },
+  { id: 39, brand: 'Lattafa', name: 'Asad Bourbon', type: 'arabe', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Pimienta rosa, lavanda, ciruela', heart: 'Cacao, nuez moscada, davana', base: 'Bourbon vainilla, ámbar', desc: 'El León con whisky. Una variante amaderada gourmand del Asad original — más cálida, más audaz, perfecta para noches frías.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 145, img: 'ASB' },
+  { id: 40, brand: 'Afnan', name: '9PM', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Bergamota, lavandín, canela, manzana', heart: 'Flor de azahar, lirio de los valles', base: 'Vainilla, haba tonka, pachulí, ámbar', desc: 'Las 9PM: la hora del encuentro. Un oriental especiado-dulce de alta proyección que combina lo mejor de la perfumería árabe y occidental.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 145, img: '9PM', badge: 'Pop' },
+  { id: 41, brand: 'Afnan', name: '9PM Elixir', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Nuez moscada, cardamomo, elemí', heart: 'Lavanda, cuero, incienso', base: 'Vainilla, pachulí, haba tonka, cedro', desc: 'El elixir de medianoche. La versión intensificada de 9PM — más oud, más oscuridad, más magnetismo. Para la noche más especial.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 175, img: '9PE' },
+  { id: 42, brand: 'Afnan', name: '9PM Night Out', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Bergamota, cardamomo, pimienta rosa', heart: 'Lavanda, flor de azahar', base: 'Vainilla, tonka, ambroxan', desc: 'La noche de salida en esencia. Más fresco y más moderno que el original — el compañero ideal cuando el destino es una fiesta de altura.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 185, img: '9PNO' },
+  { id: 43, brand: 'Afnan', name: '9AM Dive', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Limón, menta, pimienta rosa', heart: 'Manzana, incienso, cedro', base: 'Jengibre, pachulí, jazmín, sándalo', desc: 'El salto matutino al mar. Acuático, fresco y energizante — el antídoto olfativo perfecto para las mañanas limeñas.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 145, img: 'AFNAN_9AM_DIVE2.webp' },
+  { id: 44, brand: 'Rasasi', name: 'Hawas Ice', type: 'arabe', gender: 'masculino', occasion: ['verano', 'diario'], top: 'Manzana, limón, bergamota', heart: 'Flor de azahar, cardamomo, ciruela', base: 'Almizcle, ámbar, musgo', desc: 'Hawas a temperatura bajo cero. La versión más helada y refrescante — ideal para los días más calurosos de Lima.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 160, img: 'HI' },
+  { id: 45, brand: 'Rasasi', name: 'Hawas Tropical', type: 'arabe', gender: 'masculino', occasion: ['verano', 'diario'], top: 'Coco, menta, jengibre', heart: 'Acordes tropicales y cremosos', base: 'Sándalo, haba tonka, almizcle', desc: 'Un viaje instantáneo al Caribe. Hawas se viste de fruta exótica y flor tropical — ligero, jovial y extremadamente usable.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 165, img: 'HT' },
+  { id: 46, brand: 'Rasasi', name: 'Hawas Malibu', type: 'arabe', gender: 'masculino', occasion: ['verano', 'diario'], top: 'Piña, naranja, toronja', heart: 'Ámbar, iris, lavanda', base: 'Haba tonka, almizcle, pachulí', desc: 'California en una botella árabe. Coco bronceado y brisa oceánica — la esencia de un día en Malibu sin subir al avión.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 165, img: 'HML' },
+  { id: 47, brand: 'Rasasi', name: 'Hawas For Him', type: 'arabe', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Manzana, bergamota, limón, canela', heart: 'Flor de azahar, cardamomo, ciruela', base: 'Pachulí, almizcle, ámbar gris, maderas', desc: 'El Hawas original en toda su gloria. El acuático árabe más icónico — fresco, magnético y de proyección considerable.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 145, img: 'HFH' },
+  { id: 48, brand: 'Rasasi', name: 'Hawas Fire', type: 'arabe', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Salvia esclarea', heart: 'Jazmín egipcio, notas marinas', base: 'Ámbar, ámbar gris, notas minerales', desc: 'El Hawas que arde. Especiado, intenso y cálido — Fire lleva la familia Hawas al territorio del oriental de invierno.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 165, img: 'HF' },
+  { id: 49, brand: 'Armaf', name: 'Mandarin Sky', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Mandarina, naranja, azafrán', heart: 'Caramelo, haba tonka', base: 'Ambroxan, cedro', desc: 'El cielo naranja de Armaf. Un cítrico aromático ligero y refrescante — perfecto para el calor y la frescura del día.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'MS' },
+  { id: 50, brand: 'Armaf', name: 'Odyssey Aqua', type: 'disenador', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Pomelo, naranja, artemisa', heart: 'Menta, lavanda', base: 'Pachulí, ámbar', desc: 'La odisea oceánica de Armaf. Marino y moderno — un acuático de líneas limpias para el hombre que ama el frescor.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 145, img: 'OA' },
+  { id: 51, brand: 'French Avenue', name: 'Vulcan Feu', type: 'arabe', gender: 'masculino', occasion: ['noche', 'evento'], top: 'Mango, limón, jengibre', heart: 'Jazmín, notas afrutadas', base: 'Ámbar, almizcle, maderas', desc: 'Vulcán en erupción. Un oriental ahumado de tremenda intensidad — para quien quiere dejar huella sin decir una palabra.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 175, img: 'VF' },
+  { id: 52, brand: 'Bharara', name: 'Rome Imagine', type: 'arabe', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Bergamota, naranja, limón', heart: 'Neroli, jazmín, lavanda', base: 'Almizcle, ámbar, maderas', desc: 'Roma imaginada. Un cítrico aromático limpio y sofisticado — la elegancia italiana con un toque oriental.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 150, img: 'RI' },
+  { id: 53, brand: 'Dumont', name: 'Nitro Red', type: 'arabe', gender: 'masculino', occasion: ['noche', 'citas'], top: 'Sandía, manzana, bergamota', heart: 'Lavanda, notas marinas, cedro', base: 'Ámbar, pachulí, sándalo', desc: 'Explosivo y rojo. Nitro Red es la fusión entre la intensidad árabe y la elegancia parisina — un oriental frutal de gran dramatismo.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 160, img: 'NR' },
+  { id: 54, brand: 'Armaf', name: 'Club de Nuit Urban Man Elixir', type: 'disenador', gender: 'masculino', occasion: ['diario', 'citas'], top: 'Bergamota, pimienta rosa, jazmín, flor de azahar', heart: 'Lavanda, geranio, azafrán', base: 'Ambroxan, pachulí, cedro', desc: 'El elixir del hombre urbano. Fresco y frutal con una base amaderada moderna — el perfume del profesional contemporáneo.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 170, img: 'CUE' },
+  { id: 55, brand: 'Armaf', name: 'Club de Nuit Intense EDT', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Limón, piña, bergamota, manzana', heart: 'Rosa, jazmín, abedul', base: 'Vainilla, almizcle, pachulí, ámbar gris', desc: 'El hermano de Creed Aventus a precio accesible. Un frutal amaderado de proyección extrema — uno de los mejores value-for-money del mercado.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 150, img: 'CDN', badge: 'Pop' },
+  { id: 56, brand: 'Al Haramain', name: 'Amber Oud Gold Edition', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas', 'evento'], top: 'Bergamota, notas verdes', heart: 'Melón, piña, notas dulces', base: 'Almizcle, vainilla, notas amaderadas', desc: 'El oro árabe en esencia pura. Amber Oud Gold es un oriental de máxima jerarquía — oud, ámbar y azafrán en perfecta armonía dorada.', prices: { '3ml': 20, '5ml': 25, '10ml': 35 }, fullPrice: 195, img: 'AOG', badge: 'New' },
+  { id: 57, brand: 'Armaf', name: 'Club de Nuit Iconic', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Pomelo, limón, menta, pimienta rosa', heart: 'Jengibre, nuez moscada, jazmín', base: 'Sándalo, incienso, cedro', desc: 'La nueva cara icónica de Club de Nuit. Un chypre moderno de alta proyección que rinde homenaje a los grandes clásicos masculinos.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 165, img: 'CDI' },
+  { id: 58, brand: 'Lattafa', name: 'Yara Pink', type: 'arabe', gender: 'femenino', occasion: ['diario', 'citas', 'verano'], top: 'Orquídea, heliotropo, mandarina', heart: 'Frutas tropicales, acorde gourmand', base: 'Vainilla, almizcle, sándalo', desc: 'Rosa, dulce y femenina. Yara Pink es la fragancia de chica que huele a flores y que todo el mundo le pregunta qué usa.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'YP', badge: 'Pop' },
+  { id: 59, brand: 'Lattafa', name: 'Eclaire', type: 'arabe', gender: 'femenino', occasion: ['noche', 'citas'], top: 'Caramelo, leche, azúcar', heart: 'Flores blancas, miel', base: 'Vainilla, praliné, almizcle', desc: 'El relámpago de Lattafa. Un floral oriental femenino de carácter poderoso — dulce sin ser empalagoso, floral sin ser tímido.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'ECL' },
+  { id: 60, brand: 'Lattafa', name: 'Haya EDP', type: 'arabe', gender: 'femenino', occasion: ['diario', 'verano'], top: 'Champagne rosado, mandarina, naranja sanguina', heart: 'Gardenia, jazmín, orquídea vainilla', base: 'Ámbar, sándalo, castaña', desc: 'Modestia fragante. Haya es el perfume femenino árabe más cercano al estilo occidental — elegante, suave y extremadamente versátil.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'HYP' },
+  { id: 61, brand: 'Rasasi', name: 'Hawas Verde', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano', 'citas'], top: 'Limón, menta, acordes verdes', heart: 'Hierbas aromáticas', base: 'Almizcle, notas frescas', desc: 'La faceta más fresca y natural de Hawas. Un verde acuático vibrante que combina cítricos chispeantes con un corazón floral ligero y un fondo limpio de almizcle y cedro. Ideal para el día a día bajo el sol.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 175, img: 'HV' }
 ];
 function slugify(s) {
   return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -1339,13 +1392,13 @@ const PHOTOS = {
   48: 'img/perfumes/rasasi_hawas_fire.webp',
   49: 'img/perfumes/armaf_mandarin_sky.webp',
   50: 'img/perfumes/armaf_odyssey_aqua.webp',
-  51: 'img/perfumes/french_avenue_rome_imagine_feu.webp',
-  52: 'img/perfumes/armaf_club_de_nuit_iconic.webp',
+  51: 'img/perfumes/french_avenue_vulcan_feu.webp',
+  52: 'img/perfumes/french_avenue_rome_imagine_feu.webp',
   53: 'img/perfumes/dumont_paris_nitro_red.webp',
   54: 'img/perfumes/armaf_club_de_nuit_urban_man_elixir.webp',
   55: 'img/perfumes/armaf_club_de_nuit_intense_edt.webp',
   56: 'img/perfumes/al_haramain_amber_oud_gold_edition.webp',
-  57: 'img/perfumes/french_avenue_vulcan_feu.webp',
+  57: 'img/perfumes/armaf_club_de_nuit_iconic.webp',
   58: 'img/perfumes/lattafa_yara_pink.webp',
   59: 'img/perfumes/lattafa_eclaire.webp',
   60: 'img/perfumes/lattafa_haya_edp.webp',
@@ -1359,31 +1412,31 @@ const DIY_PROMOS = {
     label: 'Perfumes Árabes',
     desc: 'Lattafa, Rasasi, Afnan, Armaf y más. Combiná tus orientales favoritos.',
     formats: [
-      { id: 'a-5x3', count: 5, ml: '3 ML', price: 67.50, label: '5 × 3ML' },
-      { id: 'a-3x5', count: 3, ml: '5 ML', price: 54.00, label: '3 × 5ML' },
-      { id: 'a-6x5', count: 6, ml: '5 ML', price: 99.00, label: '6 × 5ML' },
-      { id: 'a-2x10', count: 2, ml: '10 ML', price: 58.00, label: '2 × 10ML' },
-      { id: 'a-3x10', count: 3, ml: '10 ML', price: 85.50, label: '3 × 10ML' }
+      { id: 'a-5x3', count: 5, ml: '3 ML', price: 67.50, label: '5 × 3ML', excludeBrands: ['Jo Milano', 'French Avenue', 'King of Kings', 'Al Haramain'], excludeNames: ['9PM Elixir', '9PM Night Out', 'Hawas Kobra', 'Hawas Atlantis', 'Hawas Tropical', 'Hawas Malibu', 'Hawas Fire', 'Hawas Verde'], excludeIds: [] },
+      { id: 'a-3x5', count: 3, ml: '5 ML', price: 54.00, label: '3 × 5ML', excludeBrands: ['Jo Milano', 'King of Kings', 'Al Haramain'], includeExtraIds: [49,50,7,55,6,57,54] },
+      { id: 'a-6x5', count: 6, ml: '5 ML', price: 99.00, label: '6 × 5ML', excludeBrands: ['King of Kings', 'Jo Milano', 'Al Haramain'], includeExtraIds: [49,50,7,55,6,57,54] },
+      { id: 'a-2x10', count: 2, ml: '10 ML', price: 58.00, label: '2 × 10ML', excludeBrands: ['Jo Milano', 'King of Kings'], includeExtraIds: [49,50,7,55,6,57,54] },
+      { id: 'a-3x10', count: 3, ml: '10 ML', price: 85.50, label: '3 × 10ML', excludeBrands: ['Jo Milano', 'King of Kings'], includeExtraIds: [49,50,7,55,6,57,54] }
     ]
   },
   disenador: {
     label: 'Perfumes de Diseñador',
     desc: 'Versace, Valentino, JPG, Armani y más. Tu selección de casas de lujo.',
     formats: [
-      { id: 'd-5x3', count: 5, ml: '3 ML', price: 140, label: '5 × 3ML' },
-      { id: 'd-3x5', count: 3, ml: '5 ML', price: 99, label: '3 × 5ML' },
-      { id: 'd-6x5', count: 6, ml: '5 ML', price: 189, label: '6 × 5ML' },
-      { id: 'd-2x10', count: 2, ml: '10 ML', price: 120, label: '2 × 10ML' },
-      { id: 'd-3x10', count: 3, ml: '10 ML', price: 171, label: '3 × 10ML' }
+      { id: 'd-5x3', count: 5, ml: '3 ML', price: 140, label: '5 × 3ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
+      { id: 'd-3x5', count: 3, ml: '5 ML', price: 99, label: '3 × 5ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
+      { id: 'd-6x5', count: 6, ml: '5 ML', price: 189, label: '6 × 5ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
+      { id: 'd-2x10', count: 2, ml: '10 ML', price: 120, label: '2 × 10ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
+      { id: 'd-3x10', count: 3, ml: '10 ML', price: 171, label: '3 × 10ML', excludeBrands: [], includeExtraIds: [28,29,30,31] }
     ]
   },
   nicho: {
     label: 'Perfumes Nicho',
     desc: 'Xerjoff y alta perfumería. Lo más exclusivo de la casa.',
     formats: [
-      { id: 'n-2x3', count: 2, ml: '3 ML', price: 79, label: '2 × 3ML' },
-      { id: 'n-2x5', count: 2, ml: '5 ML', price: 110, label: '2 × 5ML' },
-      { id: 'n-2x10', count: 2, ml: '10 ML', price: 165, label: '2 × 10ML' }
+      { id: 'n-2x3', count: 2, ml: '3 ML', price: 79, label: '2 × 3ML', excludeBrands: [], includeExtraIds: [] },
+      { id: 'n-2x5', count: 2, ml: '5 ML', price: 110, label: '2 × 5ML', excludeBrands: [], includeExtraIds: [] },
+      { id: 'n-2x10', count: 2, ml: '10 ML', price: 165, label: '2 × 10ML', excludeBrands: [], includeExtraIds: [] }
     ]
   }
 };
@@ -1696,58 +1749,139 @@ const FIXED_PROMOS = [
       function pulseBadge() { const b = $('cartBadge'); b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); }
 
       function openCheckout() {
-        if (cart.length === 0) { showToast('Tu carrito está vacío'); return; }
-        const summary = $('checkoutSummary');
-        summary.innerHTML = cart.map(i => {
-          if (i.type === 'bundle') {
-            return `<div class="order-line"><span class="order-line-name">${i.title} (${i.subtitle}) ×${i.qty}</span><span>S/ ${fmt(i.price * i.qty)}</span></div>`;
-          }
-          const p = PRODUCTS.find(x => x.id === i.id);
-          if (!p) return '';
-          const unit = i.ml === 'full' ? (p.fullPrice || 0) : (p.prices[i.ml] || 0);
-          const label = i.ml === 'full' ? 'Frasco' : i.ml;
-          return `<div class="order-line"><span class="order-line-name">${p.brand} ${p.name} ${label} ×${i.qty}</span><span>S/ ${fmt(unit * i.qty)}</span></div>`;
-        }).join('') + `<div class="order-line total"><span>Total</span><span>S/ ${fmt(getCartTotal())}</span></div>`;
-        ['checkoutName', 'checkoutLastName', 'checkoutDni', 'checkoutPhone', 'checkoutAddress', 'checkoutNotes'].forEach(id => $(id).value = '');
-        ['nameGroup', 'lastNameGroup', 'dniGroup', 'phoneGroup'].forEach(id => $(id).classList.remove('error'));
-        $('checkoutModalOverlay').classList.add('open'); document.body.style.overflow = 'hidden';
-        toggleCart();
-      }
+  if (cart.length === 0) { showToast('Tu carrito está vacío'); return; }
 
-      function closeCheckout() { $('checkoutModalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+  // Construir resumen con miniaturas de cada producto
+  const summary = $('checkoutSummary');
+  summary.innerHTML = cart.map(i => {
+    if (i.type === 'bundle') {
+      const thumbsHtml = i.thumbs && i.thumbs.length
+        ? `<div style="display:flex; gap:4px; margin-top:4px;">${i.thumbs.map(t => `<img src="${t.src}" alt="" style="width:32px;height:40px;object-fit:cover;border-radius:3px;border:1px solid var(--fog);" onerror="this.style.display='none'">`).join('')}</div>`
+        : '';
+      return `<div class="order-line">
+        <span class="order-line-name">📦 ${i.title} (${i.subtitle}) ×${i.qty}</span>
+        <span>S/ ${fmt(i.price * i.qty)}</span>
+        ${thumbsHtml}
+      </div>`;
+    }
+    const p = PRODUCTS.find(x => x.id === i.id);
+    if (!p) return '';
+    const unit = i.ml === 'full' ? (p.fullPrice || 0) : (p.prices[i.ml] || 0);
+    const label = i.ml === 'full' ? 'Frasco' : i.ml;
+    const imgTag = `<img src="${perfumePhoto(p)}" alt="${p.name}" style="width:32px;height:40px;object-fit:cover;border-radius:3px;border:1px solid var(--fog);" onerror="this.style.display='none'">`;
+    return `<div class="order-line" style="display:flex;align-items:center;gap:8px;">
+      ${imgTag}
+      <span class="order-line-name" style="flex:1;">${p.brand} ${p.name} ${label} ×${i.qty}</span>
+      <span>S/ ${fmt(unit * i.qty)}</span>
+    </div>`;
+  }).join('') + `<div class="order-line total"><span>Total</span><span>S/ ${fmt(getCartTotal())}</span></div>`;
 
-      function submitOrder(e) {
-        e.preventDefault();
-        const name = $('checkoutName').value.trim(), lastName = $('checkoutLastName').value.trim(), dni = $('checkoutDni').value.trim(), phone = $('checkoutPhone').value.trim(), address = $('checkoutAddress').value.trim(), notes = $('checkoutNotes').value.trim();
-        ['nameGroup', 'lastNameGroup', 'dniGroup', 'phoneGroup'].forEach(id => $(id).classList.remove('error'));
-        let valid = true;
-        if (!name) { $('nameGroup').classList.add('error'); valid = false; }
-        if (!lastName) { $('lastNameGroup').classList.add('error'); valid = false; }
-        if (!dni || dni.length < 7 || dni.length > 12) { $('dniGroup').classList.add('error'); valid = false; }
-        if (!phone || phone.replace(/\s/g, '').length < 7) { $('phoneGroup').classList.add('error'); valid = false; }
-        if (!valid) return;
-        const total = getCartTotal();
-        let msg = `✨ *PEDIDO — ELIXIA PARFUM* ✨\n━━━━━━━━━━━━━━━━━━━━━\n👤 *Cliente:* ${name} ${lastName}\n🆔 *DNI:* ${dni}\n📱 *WhatsApp:* ${phone}\n`;
-        if (address) msg += `📍 *Dirección:* ${address}\n`;
-        if (notes) msg += `📝 *Notas:* ${notes}\n`;
-        msg += `━━━━━━━━━━━━━━━━━━━━━\n📦 *Productos:*\n`;
-        cart.forEach(item => {
-          if (item.type === 'bundle') {
-            msg += `▸ *PACK:* ${item.title} (${item.subtitle}) × ${item.qty} = S/ ${fmt(item.price * item.qty)}\n`;
-            if (item.lines && item.lines.length) msg += `   Incluye: ${item.lines.join(', ')}\n`;
-            return;
-          }
-          const p = PRODUCTS.find(x => x.id === item.id);
-          if (p) {
-            const unit = item.ml === 'full' ? (p.fullPrice || 0) : (p.prices[item.ml] || 0);
-            const label = item.ml === 'full' ? 'Frasco' : item.ml;
-            msg += `▸ ${p.brand} — ${p.name}\n   ${label} × ${item.qty} = S/ ${fmt(unit * item.qty)}\n`;
-          }
+  // Limpiar campos
+  ['checkoutName','checkoutLastName','checkoutDni','checkoutPhone','checkoutEmail','checkoutAddress','checkoutDistrict','checkoutProvince','checkoutReference','checkoutNotes'].forEach(id => $(id).value = '');
+  // Limpiar errores
+  ['nameGroup','lastNameGroup','dniGroup','phoneGroup','emailGroup','addressGroup','districtGroup','provinceGroup'].forEach(id => {
+    const el = $(id); if (el) el.classList.remove('error');
+  });
+
+  $('checkoutModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  toggleCart(); // cerrar carrito
+}
+
+function closeCheckout() {
+  $('checkoutModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function submitOrder(e) {
+  e.preventDefault();
+
+  // Obtener valores
+  const name = $('checkoutName').value.trim();
+  const lastName = $('checkoutLastName').value.trim();
+  const dni = $('checkoutDni').value.trim();
+  const phone = $('checkoutPhone').value.trim();
+  const email = $('checkoutEmail').value.trim();
+  const address = $('checkoutAddress').value.trim();
+  const district = $('checkoutDistrict').value.trim();
+  const province = $('checkoutProvince').value.trim();
+  const reference = $('checkoutReference').value.trim();
+  const notes = $('checkoutNotes').value.trim();
+
+  // Limpiar errores previos
+  ['nameGroup','lastNameGroup','dniGroup','phoneGroup','emailGroup','addressGroup','districtGroup','provinceGroup'].forEach(id => {
+    const el = $(id); if (el) el.classList.remove('error');
+  });
+
+  let valid = true;
+
+  if (!name) { $('nameGroup').classList.add('error'); valid = false; }
+  if (!lastName) { $('lastNameGroup').classList.add('error'); valid = false; }
+  if (!dni || dni.length < 7 || dni.length > 12) { $('dniGroup').classList.add('error'); valid = false; }
+  if (!phone || phone.replace(/\s/g,'').length < 7) { $('phoneGroup').classList.add('error'); valid = false; }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('emailGroup').classList.add('error'); valid = false; }
+  if (!address) { $('addressGroup').classList.add('error'); valid = false; }
+  if (!district) { $('districtGroup').classList.add('error'); valid = false; }
+  if (!province) { $('provinceGroup').classList.add('error'); valid = false; }
+
+  if (!valid) return;
+
+  // Construir mensaje para WhatsApp
+  const total = getCartTotal();
+  let msg = `✨ *PEDIDO — ELIXIA PARFUM* ✨\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `👤 *Cliente:* ${name} ${lastName}\n`;
+  msg += `🆔 *DNI:* ${dni}\n`;
+  msg += `📱 *WhatsApp:* ${phone}\n`;
+  if (email) msg += `📧 *Email:* ${email}\n`;
+  msg += `📍 *Dirección:* ${address}\n`;
+  msg += `🏙️ *Distrito:* ${district}\n`;
+  msg += `🗺️ *Provincia:* ${province}\n`;
+  if (reference) msg += `🔍 *Referencia:* ${reference}\n`;
+  if (notes) msg += `📝 *Notas:* ${notes}\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `📦 *Productos:*\n`;
+
+  cart.forEach(item => {
+    if (item.type === 'bundle') {
+      msg += `▸ *PACK:* ${item.title} (${item.subtitle}) × ${item.qty} = S/ ${fmt(item.price * item.qty)}\n`;
+      if (item.lines && item.lines.length) msg += `   Incluye: ${item.lines.join(', ')}\n`;
+      // Agregar miniaturas como enlaces (opcional, WhatsApp puede no mostrar imágenes inline, pero sí el enlace)
+      if (item.thumbs && item.thumbs.length) {
+        msg += `   🖼️ Imágenes: `;
+        item.thumbs.forEach((t, idx) => {
+          msg += `${t.src} `;
         });
-        msg += `━━━━━━━━━━━━━━━━━━━━━\n💰 *TOTAL: S/ ${fmt(total)}*\n━━━━━━━━━━━━━━━━━━━━━\n_Enviado desde elixiaparfum.com_`;
-        window.open(`https://wa.me/51948743183?text=${encodeURIComponent(msg)}`, '_blank');
-        cart = []; saveCart(); updateCartUI(); closeCheckout(); showToast('¡Pedido enviado! ✓');
+        msg += `\n`;
       }
+      return;
+    }
+    const p = PRODUCTS.find(x => x.id === item.id);
+    if (p) {
+      const unit = item.ml === 'full' ? (p.fullPrice || 0) : (p.prices[item.ml] || 0);
+      const label = item.ml === 'full' ? 'Frasco' : item.ml;
+      msg += `▸ ${p.brand} — ${p.name}\n   ${label} × ${item.qty} = S/ ${fmt(unit * item.qty)}\n`;
+      // Adjuntar enlace de la imagen
+      const imgUrl = perfumePhoto(p);
+      msg += `   🖼️ Imagen: ${imgUrl}\n`;
+    }
+  });
+
+  msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `💰 *TOTAL: S/ ${fmt(total)}*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `_Enviado desde elixiaparfum.com_`;
+
+  // Abrir WhatsApp
+  window.open(`https://wa.me/51948743183?text=${encodeURIComponent(msg)}`, '_blank');
+
+  // Limpiar carrito y cerrar
+  cart = [];
+  saveCart();
+  updateCartUI();
+  closeCheckout();
+  showToast('¡Pedido enviado! ✓');
+}
 
       function filterByType(type) { stateFilter.type = type; document.querySelectorAll('#filterTypeContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === type)); renderProducts(); }
       function filterByGender(g) { stateFilter.gender = g; document.querySelectorAll('#filterGenderContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.gender === g)); renderProducts(); }
@@ -1998,50 +2132,74 @@ const FIXED_PROMOS = [
       }
 
       function renderDiyModal() {
-        const cat = DIY_PROMOS[diyState.catKey];
-        if (!cat) return;
-        const fmtObj = cat.formats.find(f => f.id === diyState.formatId);
-        const perfumes = PRODUCTS.filter(p => p.type === diyState.catKey);
-        let perfumesHtml;
-        if (fmtObj) {
-          const atMax = diyState.selected.length >= fmtObj.count;
-          perfumesHtml = `
-            <div class="diy-step-label">2 · Elige ${fmtObj.count} perfumes</div>
-            <div class="diy-counter"><strong>${diyState.selected.length}</strong> de ${fmtObj.count} seleccionados</div>
-            <div class="diy-perfumes">
-              ${perfumes.map(p => {
-            const sel = diyState.selected.includes(p.id);
-            const dis = !sel && atMax;
-            return `<div class="diy-perfume ${sel ? 'selected' : ''} ${dis ? 'disabled' : ''}" onclick="toggleDiyPerfume(${p.id})">
-                  <div class="diy-perfume-img"><img src="${perfumePhoto(p)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span style="display:none">${p.img.slice(0, 2)}</span></div>
-                  <div class="diy-perfume-brand">${p.brand}</div>
-                  <div class="diy-perfume-name">${p.name}</div>
-                </div>`;
-          }).join('')}
-            </div>`;
-        } else {
-          perfumesHtml = `<p class="diy-empty-hint">Seleccioná un formato para empezar a elegir tus perfumes.</p>`;
-        }
-        const canAdd = fmtObj && diyState.selected.length === fmtObj.count;
-        $('diyModalContent').innerHTML = `
-          <button class="modal-close" onclick="closeDiyModal()">✕</button>
-          <div class="diy-head">
-            <div class="modal-brand">Armá tu pack</div>
-            <h3>${cat.label}</h3>
-          </div>
-          <div class="diy-step-label">1 · Elige el formato</div>
-          <div class="diy-formats">
-            ${cat.formats.map(f => `<div class="diy-format ${f.id === diyState.formatId ? 'selected' : ''}" onclick="selectDiyFormat('${f.id}')">
-              <span class="diy-format-label">${f.label}</span>
-              <span class="diy-format-price">S/ ${fmt(f.price)}</span>
-            </div>`).join('')}
-          </div>
-          ${perfumesHtml}
-          <div class="diy-foot">
-            <div class="diy-total"><span>Precio pack</span>${fmtObj ? 'S/ ' + fmt(fmtObj.price) : '—'}</div>
-            <button class="btn btn-primary" ${canAdd ? '' : 'disabled'} onclick="confirmDiyPack()">Agregar al carrito</button>
-          </div>`;
+  const cat = DIY_PROMOS[diyState.catKey];
+  if (!cat) return;
+  const fmtObj = cat.formats.find(f => f.id === diyState.formatId);
+  
+  // Obtener perfumes base según tipo
+  let perfumes = PRODUCTS.filter(p => p.type === diyState.catKey);
+  
+  // Aplicar reglas de exclusión/inclusión del formato
+  if (fmtObj) {
+    if (fmtObj.excludeBrands || fmtObj.excludeNames || fmtObj.includeExtraIds) {
+      // Excluir por marca
+      if (fmtObj.excludeBrands) {
+        perfumes = perfumes.filter(p => !fmtObj.excludeBrands.includes(p.brand));
       }
+      // Excluir por nombre exacto
+      if (fmtObj.excludeNames) {
+        perfumes = perfumes.filter(p => !fmtObj.excludeNames.includes(p.name));
+      }
+      // Incluir extras (IDs específicos de otras categorías)
+      if (fmtObj.includeExtraIds && fmtObj.includeExtraIds.length > 0) {
+        const extras = PRODUCTS.filter(p => fmtObj.includeExtraIds.includes(p.id));
+        // Evitar duplicados
+        const existingIds = new Set(perfumes.map(p => p.id));
+        extras.forEach(p => { if (!existingIds.has(p.id)) perfumes.push(p); });
+      }
+    }
+  }
+  
+  let perfumesHtml;
+  if (fmtObj) {
+    const atMax = diyState.selected.length >= fmtObj.count;
+    perfumesHtml = `
+      <div class="diy-step-label">2 · Elegí ${fmtObj.count} perfumes</div>
+      <div class="diy-counter"><strong>${diyState.selected.length}</strong> de ${fmtObj.count} seleccionados</div>
+      <div class="diy-perfumes">
+        ${perfumes.map(p => {
+          const sel = diyState.selected.includes(p.id);
+          const dis = !sel && atMax;
+          return `<div class="diy-perfume ${sel ? 'selected' : ''} ${dis ? 'disabled' : ''}" onclick="toggleDiyPerfume(${p.id})">
+            <div class="diy-perfume-img"><img src="${perfumePhoto(p)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span style="display:none">${p.img.slice(0, 2)}</span></div>
+            <div class="diy-perfume-brand">${p.brand}</div>
+            <div class="diy-perfume-name">${p.name}</div>
+          </div>`;
+        }).join('')}
+      </div>`;
+  } else {
+    perfumesHtml = `<p class="diy-empty-hint">Seleccioná un formato para empezar a elegir tus perfumes.</p>`;
+  }
+  const canAdd = fmtObj && diyState.selected.length === fmtObj.count;
+  $('diyModalContent').innerHTML = `
+    <button class="modal-close" onclick="closeDiyModal()">✕</button>
+    <div class="diy-head">
+      <div class="modal-brand">Armá tu pack</div>
+      <h3>${cat.label}</h3>
+    </div>
+    <div class="diy-step-label">1 · Elegí el formato</div>
+    <div class="diy-formats">
+      ${cat.formats.map(f => `<div class="diy-format ${f.id === diyState.formatId ? 'selected' : ''}" onclick="selectDiyFormat('${f.id}')">
+        <span class="diy-format-label">${f.label}</span>
+        <span class="diy-format-price">S/ ${fmt(f.price)}</span>
+      </div>`).join('')}
+    </div>
+    ${perfumesHtml}
+    <div class="diy-foot">
+      <div class="diy-total"><span>Precio pack</span>${fmtObj ? 'S/ ' + fmt(fmtObj.price) : '—'}</div>
+      <button class="btn btn-primary" ${canAdd ? '' : 'disabled'} onclick="confirmDiyPack()">Agregar al carrito</button>
+    </div>`;
+}
 
       // ── Packs fijos (página Promociones) ──
       function renderBundles() {
