@@ -4335,18 +4335,18 @@
       }
 
       function getFilteredProducts() {
-  return PRODUCTS.filter(p => {
-    if (stateFilter.type !== 'todos' && p.type !== stateFilter.type) return false;
-    if (stateFilter.gender !== 'todos' && p.gender !== stateFilter.gender) return false;
-    if (stateFilter.occasion !== 'todos' && !p.occasion.includes(stateFilter.occasion)) return false;
-    // Excluir perfumes específicos del filtro "Diario"
-    if (stateFilter.occasion === 'diario' && [29, 35, 37, 38].includes(p.id)) return false;
-    if (stateFilter.brand !== 'todas' && p.brand !== stateFilter.brand) return false;
-    const q = stateFilter.search.toLowerCase();
-    if (q && !p.name.toLowerCase().includes(q) && !p.brand.toLowerCase().includes(q)) return false;
-    return true;
-  });
-}
+        return PRODUCTS.filter(p => {
+          if (stateFilter.type !== 'todos' && p.type !== stateFilter.type) return false;
+          if (stateFilter.gender !== 'todos' && p.gender !== stateFilter.gender) return false;
+          if (stateFilter.occasion !== 'todos' && !p.occasion.includes(stateFilter.occasion)) return false;
+          // Excluir perfumes específicos del filtro "Diario"
+          if (stateFilter.occasion === 'diario' && [29, 35, 37, 38].includes(p.id)) return false;
+          if (stateFilter.brand !== 'todas' && p.brand !== stateFilter.brand) return false;
+          const q = stateFilter.search.toLowerCase();
+          if (q && !p.name.toLowerCase().includes(q) && !p.brand.toLowerCase().includes(q)) return false;
+          return true;
+        });
+      }
 
       function renderProducts() {
         const grid = $('productsGrid'); const countEl = $('productCount');
