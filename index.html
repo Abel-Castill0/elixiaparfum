@@ -1057,6 +1057,10 @@ img, svg, video, canvas, iframe {
           <div class="filter-chips" id="filterGenderContainer"></div>
         </div>
         <div class="filter-group">
+  <span class="filter-group-label">Marca</span>
+  <div class="filter-chips" id="filterBrandContainer"></div>
+</div>
+        <div class="filter-group">
           <span class="filter-group-label">Ocasión</span>
           <div class="filter-chips" id="filterOccasionContainer"></div>
         </div>
@@ -1273,12 +1277,12 @@ img, svg, video, canvas, iframe {
 const PRODUCTS = [
   { id: 1, brand: 'Xerjoff', name: 'Erba Pura', type: 'nicho', gender: 'unisex', occasion: ['diario', 'noche', 'verano'], top: 'Naranja siciliana, limón', heart: 'Frutas', base: 'Almizcle, vainilla, ámbar', desc: 'Una explosión de frutas mediterráneas sobre un corazón floral. Dulce, soleado y adictivo.', prices: { '3ml': 45, '5ml': 60, '10ml': 90 }, fullPrice: 850, img: 'EP', badge: 'Best' },
   { id: 2, brand: 'Xerjoff', name: 'Erba Gold', type: 'nicho', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Bergamota, naranja', heart: 'Melón, manzana verde, cardamomo', base: 'Vainilla, almizcle, ámbar', desc: 'La variante dorada de Erba Pura. Más cálida, envolvente y sensual — una firma olfativa de lujo inconfundible.', prices: { '3ml': 45, '5ml': 60, '10ml': 90 }, fullPrice: 850, img: 'EG' },
-  { id: 3, brand: 'Versace', name: 'Eros EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche', 'citas', 'verano'], top: 'Menta, manzana, limón', heart: 'Ambroxan, geranio, esclarea', base: 'Vainilla, pachulí, cedro', desc: 'La esencia del amor y el deseo. Un fougère oriental vibrante y magnético — fresco al abrir, cálido y adictivo en la estela.', prices: { '3ml': 30, '5ml': 35, '10ml': 45 }, fullPrice: 330, img: 'VEros', badge: 'Best' },
+  { id: 3, brand: 'Versace', name: 'Eros EDP', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche', 'citas', 'verano'], top: 'Menta, manzana, limón', heart: 'Ambroxan, geranio, esclarea', base: 'Vainilla, pachulí, cedro', desc: 'La esencia del amor y el deseo. Un fougère oriental vibrante y magnético — fresco al abrir, cálido y adictivo en la estela.', prices: { '3ml': 20, '5ml': 25, '10ml': 45 }, fullPrice: 330, img: 'VEros', badge: 'Best' },
   { id: 4, brand: 'Rasasi', name: 'Hawas Atlantis', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano'], top: 'Bergamota, limón, manzana, canela', heart: 'Notas acuáticas, ciruela, cardamomo', base: 'Ámbar gris, pachulí, almizcle', desc: 'Versión oceánica de Hawas. Más azul, más profundo — como zambullirse en el Mediterráneo en pleno verano.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 180, img: 'HA' },
   { id: 5, brand: 'Maison Alhambra', name: 'Sceptre Malachite', type: 'arabe', gender: 'unisex', occasion: ['noche', 'citas'], top: 'Bergamota, cardamomo verde', heart: 'Iris, rosa damascena', base: 'Vetiver, ámbar gris, almizcle', desc: 'Inspirado en joyas orientales. Un floral amaderado de alta gama que combina elegancia occidental con profundidad árabe.', prices: { '3ml': 18, '5ml': 22, '10ml': 35 }, fullPrice: 220, img: 'SM' },
   { id: 6, brand: 'Armaf', name: 'Club de Nuit Untold', type: 'disenador', gender: 'unisex', occasion: ['noche', 'citas', 'evento'], top: 'Azafrán, jazmín', heart: 'Amberwood, ámbar gris', base: 'Resina de abeto, cedro', desc: 'La joya de la colección Club de Nuit. Unisex y opulento — un oriental frutal de gran proyección para noches de alto impacto.', prices: { '3ml': 30, '5ml': 35, '10ml': 30 }, fullPrice: 170, img: 'CU', badge: 'New' },
   { id: 7, brand: 'Armaf', name: 'Tag Uomo Rosso', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Cardamomo, lavanda, pimienta rosa', heart: 'Cedro, pachulí', base: 'Ámbar, vainilla, haba tonka', desc: 'Un aromático fresco con un corazón masculino clásico. Elegante, seguro y con excelente duración — el traje invisible del hombre moderno.', prices: { '3ml': 30, '5ml': 35, '10ml': 25 }, fullPrice: 140, img: 'TU' },
-  { id: 8, brand: 'Versace', name: 'Eros Flame', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas', 'evento'], top: 'Naranja de Calabria, limón, pomelo', heart: 'Rosa, geranio pimienta negra', base: 'Tonka, guayaco, almizcle', desc: 'El lado oscuro y seductor de Eros. Oriental especiado con una fuerza ardiente — para la noche que no se olvida.', prices: { '3ml': 20, '5ml': 25, '10ml': 38 }, fullPrice: 320, img: 'EF' },
+  { id: 8, brand: 'Versace', name: 'Eros Flame', type: 'disenador', gender: 'masculino', occasion: ['noche', 'citas', 'evento'], top: 'Naranja de Calabria, limón, pomelo', heart: 'Rosa, geranio pimienta negra', base: 'Tonka, guayaco, almizcle', desc: 'El lado oscuro y seductor de Eros. Oriental especiado con una fuerza ardiente — para la noche que no se olvida.', prices: { '3ml': 20, '5ml': 25, '10ml': 45 }, fullPrice: 320, img: 'EF' },
   { id: 9, brand: 'Valentino', name: 'Born in Roma Purple Melancholia', type: 'disenador', gender: 'masculino', occasion: ['noche', 'invierno'], top: 'Cardamomo', heart: 'Coco, lavanda', base: 'Amberwood', desc: 'Austero y poético. Un hombre de iris y cuero que evoca el arte italiano — para momentos de introspección o encuentros memorables.', prices: { '3ml': 30, '5ml': 35, '10ml': 65 }, fullPrice: 370, img: 'VM' },
   { id: 10, brand: 'Valentino', name: 'Born in Roma Intense', type: 'disenador', gender: 'masculino', occasion: ['diario', 'noche'], top: 'Vainilla bourbon', heart: 'Lavanda', base: 'Vetiver ahumado', desc: 'Una oda a la masculinidad moderna romana. Especiado, cálido y dinámico — Born in Roma Intense es el aroma de quien llega y se hace notar.', prices: { '3ml': 30, '5ml': 35, '10ml': 65 }, fullPrice: 350, img: 'VI' },
   { id: 11, brand: 'Valentino', name: 'Born in Roma Coral Fantasy', type: 'disenador', gender: 'femenino', occasion: ['verano', 'diario'], top: 'Manzana roja, cardamomo', heart: 'Lavanda, geranio', base: 'Tabaco, pachulí', desc: 'Una fantasía coral y mediterránea. Fresco, luminoso y femenino — el perfume de las vacaciones perfectas.', prices: { '3ml': 30, '5ml': 35, '10ml': 65 }, fullPrice: 360, img: 'VCF' },
@@ -1409,7 +1413,7 @@ const DIY_PROMOS = {
     label: 'Perfumes Árabes',
     desc: 'Lattafa, Rasasi, Afnan, Armaf y más. Combiná tus orientales favoritos.',
     formats: [
-      { id: 'a-5x3', count: 5, ml: '3 ML', price: 67.50, label: '5 × 3ML', excludeBrands: ['Jo Milano', 'French Avenue', 'King of Kings', 'Al Haramain'], excludeNames: ['9PM Elixir', '9PM Night Out', 'Hawas Kobra', 'Hawas Atlantis', 'Hawas Tropical', 'Hawas Malibu', 'Hawas Fire', 'Hawas Verde'], excludeIds: [] },
+      { id: 'a-5x3', count: 5, ml: '3 ML', price: 67.50, label: '5 × 3ML', excludeBrands: ['Jo Milano', 'French Avenue', 'King of Kings', 'Al Haramain'], excludeNames: ['9PM Elixir', '9PM Night Out', 'Hawas Kobra', 'Hawas Atlantis', 'Hawas Tropical', 'Hawas Malibu', 'Hawas Fire', 'Hawas Verde'], includeExtraIds: [49,50,7,55,6,57,54] },
       { id: 'a-3x5', count: 3, ml: '5 ML', price: 54.00, label: '3 × 5ML', excludeBrands: ['Jo Milano', 'King of Kings', 'Al Haramain'], includeExtraIds: [49,50,7,55,6,57,54] },
       { id: 'a-6x5', count: 6, ml: '5 ML', price: 99.00, label: '6 × 5ML', excludeBrands: ['King of Kings', 'Jo Milano', 'Al Haramain'], includeExtraIds: [49,50,7,55,6,57,54] },
       { id: 'a-2x10', count: 2, ml: '10 ML', price: 58.00, label: '2 × 10ML', excludeBrands: ['Jo Milano', 'King of Kings'], includeExtraIds: [49,50,7,55,6,57,54] },
@@ -1420,11 +1424,11 @@ const DIY_PROMOS = {
     label: 'Perfumes de Diseñador',
     desc: 'Versace, Valentino, JPG, Armani y más. Tu selección de casas de lujo.',
     formats: [
-      { id: 'd-5x3', count: 5, ml: '3 ML', price: 140, label: '5 × 3ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
-      { id: 'd-3x5', count: 3, ml: '5 ML', price: 99, label: '3 × 5ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
-      { id: 'd-6x5', count: 6, ml: '5 ML', price: 189, label: '6 × 5ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
-      { id: 'd-2x10', count: 2, ml: '10 ML', price: 120, label: '2 × 10ML', excludeBrands: [], includeExtraIds: [28,29,30,31] },
-      { id: 'd-3x10', count: 3, ml: '10 ML', price: 171, label: '3 × 10ML', excludeBrands: [], includeExtraIds: [28,29,30,31] }
+      { id: 'd-5x3', count: 5, ml: '3 ML', price: 140, label: '5 × 3ML', excludeBrands: [], excludeIds: [6,7,49,50,54,55,57], includeExtraIds: [28,29,30,31] },
+      { id: 'd-3x5', count: 3, ml: '5 ML', price: 99, label: '3 × 5ML', excludeBrands: [], excludeIds: [6,7,49,50,54,55,57], includeExtraIds: [28,29,30,31] },
+      { id: 'd-6x5', count: 6, ml: '5 ML', price: 189, label: '6 × 5ML', excludeBrands: [], excludeIds: [6,7,49,50,54,55,57], includeExtraIds: [28,29,30,31] },
+      { id: 'd-2x10', count: 2, ml: '10 ML', price: 120, label: '2 × 10ML', excludeBrands: [], excludeIds: [6,7,49,50,54,55,57], includeExtraIds: [28,29,30,31] },
+      { id: 'd-3x10', count: 3, ml: '10 ML', price: 171, label: '3 × 10ML', excludeBrands: [], excludeIds: [6,7,49,50,54,55,57], includeExtraIds: [28,29,30,31] }
     ]
   },
   nicho: {
@@ -1456,7 +1460,7 @@ const FIXED_PROMOS = [
   { id: 'amaderados', emoji: '🪵', name: 'Amaderados', img: 'img/promos/promo_amaderados.webp', items: ['Khamrah Qahwa', 'Stronger With You Intensely', 'Khamrah Dukhan'], prices: { '3 ML': 56, '5 ML': 72, '10 ML': 105 } }
 ];
       let cart = JSON.parse(localStorage.getItem('elixia_cart_v5') || '[]');
-      let stateFilter = { type: 'todos', gender: 'todos', occasion: 'todos', search: '' };
+      let stateFilter = { type: 'todos', gender: 'todos', occasion: 'todos', brand: 'todas', search: '' };
       const $ = id => document.getElementById(id);
       function fmt(n) { return (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, ''); }
 
@@ -1515,15 +1519,16 @@ const FIXED_PROMOS = [
       }
 
       function getFilteredProducts() {
-        return PRODUCTS.filter(p => {
-          if (stateFilter.type !== 'todos' && p.type !== stateFilter.type) return false;
-          if (stateFilter.gender !== 'todos' && p.gender !== stateFilter.gender) return false;
-          if (stateFilter.occasion !== 'todos' && !p.occasion.includes(stateFilter.occasion)) return false;
-          const q = stateFilter.search.toLowerCase();
-          if (q && !p.name.toLowerCase().includes(q) && !p.brand.toLowerCase().includes(q)) return false;
-          return true;
-        });
-      }
+  return PRODUCTS.filter(p => {
+    if (stateFilter.type !== 'todos' && p.type !== stateFilter.type) return false;
+    if (stateFilter.gender !== 'todos' && p.gender !== stateFilter.gender) return false;
+    if (stateFilter.occasion !== 'todos' && !p.occasion.includes(stateFilter.occasion)) return false;
+    if (stateFilter.brand !== 'todas' && p.brand !== stateFilter.brand) return false;
+    const q = stateFilter.search.toLowerCase();
+    if (q && !p.name.toLowerCase().includes(q) && !p.brand.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
 
       function renderProducts() {
         const grid = $('productsGrid'); const countEl = $('productCount');
@@ -1883,14 +1888,22 @@ function submitOrder(e) {
       function filterByType(type) { stateFilter.type = type; document.querySelectorAll('#filterTypeContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === type)); renderProducts(); }
       function filterByGender(g) { stateFilter.gender = g; document.querySelectorAll('#filterGenderContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.gender === g)); renderProducts(); }
       function filterByOccasion(o) { stateFilter.occasion = o; document.querySelectorAll('#filterOccasionContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.occasion === o)); renderProducts(); }
+      function filterByBrand(brand) {
+  stateFilter.brand = brand;
+  document.querySelectorAll('#filterBrandContainer .filter-chip').forEach(c => 
+    c.classList.toggle('active', c.dataset.brand === brand)
+  );
+  renderProducts(true);
+}
       function clearFilters() {
-        stateFilter = { type: 'todos', gender: 'todos', occasion: 'todos', search: '' };
-        const si = $('searchInput'); if (si) si.value = '';
-        document.querySelectorAll('#filterTypeContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === 'todos'));
-        document.querySelectorAll('#filterGenderContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.gender === 'todos'));
-        document.querySelectorAll('#filterOccasionContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.occasion === 'todos'));
-        renderProducts();
-      }
+  stateFilter = { type: 'todos', gender: 'todos', occasion: 'todos', brand: 'todas', search: '' };
+  const si = $('searchInput'); if (si) si.value = '';
+  document.querySelectorAll('#filterTypeContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === 'todos'));
+  document.querySelectorAll('#filterGenderContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.gender === 'todos'));
+  document.querySelectorAll('#filterOccasionContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.occasion === 'todos'));
+  document.querySelectorAll('#filterBrandContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.brand === 'todas'));
+  renderProducts(true);
+}
 
       function showToast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400); }
       function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('open'); }
@@ -1931,11 +1944,30 @@ function submitOrder(e) {
       }
 
       function initFilters() {
-        $('filterTypeContainer').innerHTML = ['todos', 'arabe', 'nicho', 'disenador'].map(t => `<button class="filter-chip ${t === 'todos' ? 'active' : ''}" data-filter="${t}" onclick="filterByType('${t}')">${t === 'todos' ? 'Todos' : { arabe: 'Árabe', nicho: 'Nicho', disenador: 'Diseñador' }[t]}</button>`).join('');
-        $('filterGenderContainer').innerHTML = ['todos', 'masculino', 'femenino', 'unisex'].map(g => `<button class="filter-chip ${g === 'todos' ? 'active' : ''}" data-gender="${g}" onclick="filterByGender('${g}')">${g === 'todos' ? 'Todos' : g.charAt(0).toUpperCase() + g.slice(1)}</button>`).join('');
-        $('filterOccasionContainer').innerHTML = ['todos', 'diario', 'noche', 'citas', 'verano', 'invierno', 'evento'].map(o => `<button class="filter-chip ${o === 'todos' ? 'active' : ''}" data-occasion="${o}" onclick="filterByOccasion('${o}')">${o === 'todos' ? 'Todas' : o.charAt(0).toUpperCase() + o.slice(1)}</button>`).join('');
-        $('searchInput').addEventListener('input', e => { stateFilter.search = e.target.value; renderProducts(); });
-      }
+  // Tipo
+  $('filterTypeContainer').innerHTML = ['todos','arabe','nicho','disenador'].map(t => 
+    `<button class="filter-chip ${t==='todos'?'active':''}" data-filter="${t}" onclick="filterByType('${t}')">${t==='todos'?'Todos':{arabe:'Árabe',nicho:'Nicho',disenador:'Diseñador'}[t]}</button>`
+  ).join('');
+
+  // Género
+  $('filterGenderContainer').innerHTML = ['todos','masculino','femenino','unisex'].map(g => 
+    `<button class="filter-chip ${g==='todos'?'active':''}" data-gender="${g}" onclick="filterByGender('${g}')">${g==='todos'?'Todos':g.charAt(0).toUpperCase()+g.slice(1)}</button>`
+  ).join('');
+
+  // Ocasión
+  $('filterOccasionContainer').innerHTML = ['todos','diario','noche','citas','verano','invierno','evento'].map(o => 
+    `<button class="filter-chip ${o==='todos'?'active':''}" data-occasion="${o}" onclick="filterByOccasion('${o}')">${o==='todos'?'Todas':o.charAt(0).toUpperCase()+o.slice(1)}</button>`
+  ).join('');
+
+  // Marcas (extraídas dinámicamente del catálogo, ordenadas alfabéticamente)
+  const brands = [...new Set(PRODUCTS.map(p => p.brand))].sort();
+  $('filterBrandContainer').innerHTML = 
+    `<button class="filter-chip active" data-brand="todas" onclick="filterByBrand('todas')">Todas</button>` +
+    brands.map(b => `<button class="filter-chip" data-brand="${b}" onclick="filterByBrand('${b}')">${b}</button>`).join('');
+
+  // Búsqueda
+  $('searchInput').addEventListener('input', e => { stateFilter.search = e.target.value; renderProducts(true); });
+}
 
       // ═══════════ RECOMENDADOR MEJORADO ═══════════
       function initQuiz() {
@@ -2349,6 +2381,7 @@ function submitOrder(e) {
       window.filterByGender = filterByGender;
       window.filterByOccasion = filterByOccasion;
       window.clearFilters = clearFilters;
+      window.filterByBrand = filterByBrand;
       window.openDiyBuilder = openDiyBuilder;
       window.closeDiyModal = closeDiyModal;
       window.selectDiyFormat = selectDiyFormat;
