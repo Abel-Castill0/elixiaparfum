@@ -4132,7 +4132,8 @@
         { id: 58, brand: 'Lattafa', name: 'Yara Pink', type: 'arabe', gender: 'femenino', occasion: ['diario', 'citas', 'verano'], top: 'Orquídea, heliotropo, mandarina', heart: 'Frutas tropicales, acorde gourmand', base: 'Vainilla, almizcle, sándalo', desc: 'Rosa, dulce y femenina. Yara Pink es la fragancia de chica que huele a flores y que todo el mundo le pregunta qué usa.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'YP', badge: 'Pop' },
         { id: 59, brand: 'Lattafa', name: 'Eclaire', type: 'arabe', gender: 'femenino', occasion: ['noche', 'citas'], top: 'Caramelo, leche, azúcar', heart: 'Flores blancas, miel', base: 'Vainilla, praliné, almizcle', desc: 'El relámpago de Lattafa. Un floral oriental femenino de carácter poderoso — dulce sin ser empalagoso, floral sin ser tímido.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'ECL' },
         { id: 60, brand: 'Lattafa', name: 'Haya EDP', type: 'arabe', gender: 'femenino', occasion: ['diario', 'verano'], top: 'Champagne rosado, mandarina, naranja sanguina', heart: 'Gardenia, jazmín, orquídea vainilla', base: 'Ámbar, sándalo, castaña', desc: 'Modestia fragante. Haya es el perfume femenino árabe más cercano al estilo occidental — elegante, suave y extremadamente versátil.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'HYP' },
-        { id: 61, brand: 'Rasasi', name: 'Hawas Verde', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano', 'citas'], top: 'Limón, menta, acordes verdes', heart: 'Hierbas aromáticas', base: 'Almizcle, notas frescas', desc: 'La faceta más fresca y natural de Hawas. Un verde acuático vibrante que combina cítricos chispeantes con un corazón floral ligero y un fondo limpio de almizcle y cedro. Ideal para el día a día bajo el sol.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 175, img: 'HV' }
+        { id: 61, brand: 'Rasasi', name: 'Hawas Verde', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano', 'citas'], top: 'Limón, menta, acordes verdes', heart: 'Hierbas aromáticas', base: 'Almizcle, notas frescas', desc: 'La faceta más fresca y natural de Hawas. Un verde acuático vibrante que combina cítricos chispeantes con un corazón floral ligero y un fondo limpio de almizcle y cedro. Ideal para el día a día bajo el sol.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 175, img: 'HV' },
+        { id: 62, brand: 'Lattafa', name: 'Khamrah Waha', type: 'arabe', gender: 'unisex', occasion: ['diario', 'verano', 'citas'], top: 'Sandía, menta, bergamota', heart: 'Loto, jazmín, notas acuáticas', base: 'Almizcle, sándalo, ámbar', desc: 'Un oasis de frescura en la colección Khamrah. Frutal acuática y floral, con la calidez justa del sándalo y el almizcle. Ideal para los días soleados y las noches de verano.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 145, img: 'KW' }
       ];
       function slugify(s) {
         return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -4200,7 +4201,8 @@
         58: 'img/perfumes/lattafa_yara_pink.webp',
         59: 'img/perfumes/lattafa_eclaire.webp',
         60: 'img/perfumes/lattafa_haya_edp.webp',
-        61: 'img/perfumes/rasasi_hawas_verde.webp'
+        61: 'img/perfumes/rasasi_hawas_verde.webp',
+        62: 'img/perfumes/lattafa_khamrah_waha.webp'
       };
       function perfumePhoto(p) { return PHOTOS[p.id] || `img/perfumes/${slugify(p.name)}.webp`; }
       function perfumePhotoAlt(p) { return perfumePhoto(p).replace(/\.webp$/i, '2.webp'); }
