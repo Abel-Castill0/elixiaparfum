@@ -12,20 +12,21 @@
     rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="icon" type="image/webp" href="logo.webp">
   <style>
     :root {
       --ink: #0A0A0A;
       --ink-soft: #1C1C1C;
       --ink-dim: #3D3D3D;
-      --mist: #8A8A8A;
-      --silver: #C8C8C8;
+      --mist: #666666;
+      --silver: #737373;
       --fog: #E8E8E8;
       --cloud: #F4F4F2;
       --white: #FAFAF8;
       --pure: #FFFFFF;
-      --gold: #C9A96E;
+      --gold: #86662F;
       --gold-lt: #E8D5B0;
-      --gold-dk: #9E7D48;
+      --gold-dk: #674B1F;
       --serif: 'Playfair Display', Georgia, serif;
       --sans: 'DM Sans', system-ui, sans-serif;
       --sp-1: 8px;
@@ -242,7 +243,9 @@
       width: 0;
       height: 1px;
       background: var(--ink);
-      transition: width var(--t-mid) var(--ease-out);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--t-mid) var(--ease-out);
     }
 
     .nav-links a:hover {
@@ -255,7 +258,7 @@
 
     .nav-links a.active::after,
     .nav-links a:hover::after {
-      width: 100%;
+      transform: scaleX(1);
     }
 
     .header-actions {
@@ -2713,7 +2716,7 @@
     }
 
     .form-control::placeholder {
-      color: var(--silver);
+      color: var(--ink-dim);
     }
 
     .form-group.error .form-control {
@@ -2779,8 +2782,8 @@
     }
 
     .reveal {
-      opacity: 0;
-      transform: translateY(30px);
+      opacity: 1;
+      transform: none;
     }
 
     ::-webkit-scrollbar {
@@ -3624,14 +3627,241 @@
       object-fit: cover;
       border-radius: var(--r-md);
     }
+
+    /* Accesibilidad, interacción táctil y endurecimiento responsive */
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 700;
+      padding: 10px 16px;
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      transform: translateY(-150%);
+      transition: transform var(--t-fast) var(--ease-out);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .cart-btn,
+    .hamburger,
+    .cart-close,
+    .modal-close,
+    .qty-btn,
+    .home-qty button {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .logo,
+    .footer a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .footer-social a {
+      width: 44px;
+      height: 44px;
+    }
+
+    .footer-col ul li a {
+      min-width: 44px;
+      padding-block: 8px;
+    }
+
+    .nav-links a,
+    .btn,
+    .filter-chip,
+    .btn-add,
+    .btn-add-overlay,
+    .home-promo-add,
+    .btn-add-bundle {
+      min-height: 44px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      min-width: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .filter-clear {
+      min-height: 44px;
+    }
+
+    .product-card {
+      opacity: 1;
+      transform: none;
+    }
+
+    .product-card-open {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .product-card-open:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: -4px;
+    }
+
+    .product-footer,
+    .product-badge {
+      position: relative;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .product-footer .btn-add {
+      pointer-events: auto;
+    }
+
+    .purchase-option,
+    .ml-option,
+    .diy-format,
+    .diy-perfume,
+    .bundle-size,
+    .home-promo-size,
+    .home-promo-img,
+    .rec-chip {
+      font-family: inherit;
+      color: inherit;
+      appearance: none;
+      text-align: inherit;
+    }
+
+    .home-promo-img {
+      width: 100%;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .toast {
+      max-width: calc(100vw - 32px);
+      white-space: normal;
+      text-align: center;
+      bottom: max(var(--sp-4), env(safe-area-inset-bottom));
+    }
+
+    @media (max-width: 380px) {
+      .header-inner {
+        gap: 6px;
+        padding-inline: 12px;
+      }
+
+      .logo-brand {
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .logo-img {
+        display: none;
+      }
+
+      .logo-name {
+        font-size: 0.92rem;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      .header-actions {
+        gap: 2px;
+      }
+
+      .hero-left {
+        padding-inline: 16px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.05rem, 13vw, 2.4rem);
+      }
+
+      .hero-cta-row {
+        align-items: stretch;
+      }
+
+      .hero-cta-row .btn {
+        width: 100%;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-img {
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    @media (hover: none) {
+      .product-overlay {
+        display: none;
+      }
+
+      .product-card:hover,
+      .home-promo-card:hover,
+      .builder-card:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal,
+      .product-card {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
   </style>
 </head>
-<link rel="icon" type="image/webp" href="logo.webp">
 
 <body>
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
   <header class="header" id="header">
     <div class="header-inner">
-      <a class="logo logo-brand" onclick="navigateTo('inicio')" role="button" tabindex="0">
+      <a class="logo logo-brand" href="#inicio" onclick="event.preventDefault(); navigateTo('inicio')"
+        aria-label="Ir al inicio de Elixia Parfum">
         <img src="logo.webp" alt="Elixia Parfum" class="logo-img"
           onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
         <span class="logo-text" style="display:none">ELIXIA PARFUM</span>
@@ -3639,13 +3869,17 @@
       </a>
       <nav>
         <ul class="nav-links" id="navLinks">
-          <li><a onclick="navigateTo('inicio')" class="active" data-page="inicio">Inicio</a></li>
-          <li><a onclick="navigateTo('catalogo')" data-page="catalogo">Catálogo</a></li>
-          <li><a onclick="navigateTo('promociones')" data-page="promociones">Promociones</a></li>
+          <li><a href="#inicio" onclick="event.preventDefault(); navigateTo('inicio')" class="active" data-page="inicio"
+              aria-current="page">Inicio</a></li>
+          <li><a href="#catalogo" onclick="event.preventDefault(); navigateTo('catalogo')"
+              data-page="catalogo">Catálogo</a></li>
+          <li><a href="#promociones" onclick="event.preventDefault(); navigateTo('promociones')"
+              data-page="promociones">Promociones</a></li>
         </ul>
       </nav>
       <div class="header-actions">
-        <button class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">
+        <button class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito" aria-controls="cartSidebar"
+          aria-expanded="false">
           <svg viewBox="0 0 24 24">
             <circle cx="9" cy="21" r="1" />
             <circle cx="20" cy="21" r="1" />
@@ -3653,8 +3887,8 @@
           </svg>
           <span class="cart-badge" id="cartBadge">0</span>
         </button>
-        <button class="hamburger" onclick="toggleMobileMenu()"
-          aria-label="Menú"><span></span><span></span><span></span></button>
+        <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Abrir menú" aria-controls="navLinks"
+          aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
@@ -3664,249 +3898,253 @@
     <div class="promo-marquee-track" id="promoMarqueeTrack"></div>
   </div>
 
-  <div class="page active" id="page-inicio">
-    <section class="hero">
-      <div class="hero-left">
-        <div class="hero-eyebrow" id="heroEyebrow">
-          <div class="hero-eyebrow-line"></div><span class="eyebrow">Decants originales · Envíos a todo el Perú</span>
-        </div>
-        <h1 id="heroTitle">Haz de tu<br><em>aroma</em><br>una firma</h1>
-        <p class="hero-desc" id="heroDesc">Explora las fragancias más exclusivas del mundo en formatos accesibles.
-          Decants auténticos desde 3ml para que encuentres tu firma olfativa sin compromisos.</p>
-        <div class="hero-cta-row" id="heroCta">
-          <button class="btn btn-primary btn-lg" onclick="navigateTo('catalogo')">Explorar Catálogo</button>
-          <button class="btn btn-ghost" onclick="navigateTo('promociones')">Ver Ofertas →</button>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="hero-float hero-float-1">5ml</div>
-        <div class="hero-float hero-float-2">oud</div>
-        <div class="hero-card" id="heroCard">
-          <div class="hero-card-media">
-            <span class="hero-chip">Decant · 5ml</span>
-            <span class="hero-chip-gold">Best</span>
-            <img src="inicio.webp" alt="Elixia Parfum" class="hero-card-img" decoding="async">
+  <main id="main-content" tabindex="-1">
+    <div class="page active" id="page-inicio">
+      <section class="hero">
+        <div class="hero-left">
+          <div class="hero-eyebrow" id="heroEyebrow">
+            <div class="hero-eyebrow-line"></div><span class="eyebrow">Decants originales · Envíos a todo el Perú</span>
           </div>
-          <div class="hero-card-info">
-            <span class="hero-card-brand">Calidad Garantizada</span>
-            <span class="hero-card-name">Tu esencia, nuestra pasión</span>
-            <span class="hero-card-notes">Atención personalizada, autenticidad absoluta y envíos seguros para que cada
-              elección sea única.</span>
-          </div>
-          <div class="hero-stats-modern hero-stats-4col">
-            <div class="hero-stat-m"><span class="hero-stat-m-num">80+</span><span
-                class="hero-stat-m-label">Fragancias</span></div>
-            <div class="hero-stat-m"><span class="hero-stat-m-num">100%</span><span
-                class="hero-stat-m-label">Auténticas</span></div>
-            <div class="hero-stat-m"><span class="hero-stat-m-num">4</span><span
-                class="hero-stat-m-label">Formatos</span></div>
-            <div class="hero-stat-m"><span class="hero-stat-m-num">+500</span><span
-                class="hero-stat-m-label">Clientes</span></div>
+          <h1 id="heroTitle">Haz de tu<br><em>aroma</em><br>una firma</h1>
+          <p class="hero-desc" id="heroDesc">Explora las fragancias más exclusivas del mundo en formatos accesibles.
+            Decants auténticos desde 3ml para que encuentres tu firma olfativa sin compromisos.</p>
+          <div class="hero-cta-row" id="heroCta">
+            <button class="btn btn-primary btn-lg" onclick="navigateTo('catalogo')">Explorar Catálogo</button>
+            <button class="btn btn-ghost" onclick="navigateTo('promociones')">Ver Ofertas →</button>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="hero-right">
+          <div class="hero-float hero-float-1">5ml</div>
+          <div class="hero-float hero-float-2">oud</div>
+          <div class="hero-card" id="heroCard">
+            <div class="hero-card-media">
+              <span class="hero-chip">Decant · 5ml</span>
+              <span class="hero-chip-gold">Best</span>
+              <img src="inicio.webp" alt="Elixia Parfum" class="hero-card-img" decoding="async">
+            </div>
+            <div class="hero-card-info">
+              <span class="hero-card-brand">Calidad Garantizada</span>
+              <span class="hero-card-name">Tu esencia, nuestra pasión</span>
+              <span class="hero-card-notes">Atención personalizada, autenticidad absoluta y envíos seguros para que cada
+                elección sea única.</span>
+            </div>
+            <div class="hero-stats-modern hero-stats-4col">
+              <div class="hero-stat-m"><span class="hero-stat-m-num">80+</span><span
+                  class="hero-stat-m-label">Fragancias</span></div>
+              <div class="hero-stat-m"><span class="hero-stat-m-num">100%</span><span
+                  class="hero-stat-m-label">Auténticas</span></div>
+              <div class="hero-stat-m"><span class="hero-stat-m-num">4</span><span
+                  class="hero-stat-m-label">Formatos</span></div>
+              <div class="hero-stat-m"><span class="hero-stat-m-num">+500</span><span
+                  class="hero-stat-m-label">Clientes</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <div class="marquee-strip" aria-hidden="true">
-      <div class="marquee-track" id="marqueeTrack"></div>
+      <div class="marquee-strip" aria-hidden="true">
+        <div class="marquee-track" id="marqueeTrack"></div>
+      </div>
+
+      <div class="benefits-strip">
+        <div class="benefit-cell reveal">
+          <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24">
+              <path
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg></div>
+          <div class="benefit-body">
+            <h4>Autenticidad</h4>
+            <p>Decants 100% originales extraídos directamente del frasco oficial.</p>
+          </div>
+        </div>
+        <div class="benefit-cell reveal">
+          <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24">
+              <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 3H8L6 7h12l-2-4z" />
+            </svg></div>
+          <div class="benefit-body">
+            <h4>Envío Rápido</h4>
+            <p>Entregas en 24H a todo el Perú.</p>
+          </div>
+        </div>
+        <div class="benefit-cell reveal">
+          <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24">
+              <path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg></div>
+          <div class="benefit-body">
+            <h4>Atención Personalizada</h4>
+            <p>Te asesoramos para encontrar tu fragancia perfecta.</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="section container">
+        <div class="section-head reveal">
+          <div class="section-head-left">
+            <span class="section-num">01</span>
+            <div class="eyebrow">Destacados</div>
+            <h2>Más Vendidos</h2>
+            <p class="section-subhead">Las fragancias más solicitadas por nuestros clientes.</p>
+          </div>
+          <button class="btn btn-outline" onclick="navigateTo('catalogo')">Ver Colección</button>
+        </div>
+        <div class="products-grid" id="featuredGrid"></div>
+      </section>
+
+      <section class="section home-promo-section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="section-head-left"><span class="section-num">02</span>
+              <div class="eyebrow">Packs & Ofertas</div>
+              <h2>Promociones Destacadas</h2>
+            </div><button class="btn btn-outline" onclick="navigateTo('promociones')">Ver Promociones</button>
+          </div>
+          <div class="home-promo-grid" id="homePromoGrid"></div>
+        </div>
+      </section>
+
+      <div class="quiz-section" id="quizSectionEl">
+        <div class="quiz-inner">
+          <div class="eyebrow">Recomendador</div>
+          <h2>Encuentra tu fragancia ideal</h2>
+          <div class="quiz-box">
+            <div class="quiz-progress" id="quizProgress"></div>
+            <p class="quiz-question" id="quizQuestion"></p>
+            <div class="quiz-options" id="quizOptions"></div>
+            <p class="quiz-step-indicator" id="quizStep"></p>
+            <div class="quiz-result" id="quizResult">
+              <p
+                style="font-family:var(--serif);font-size:1.1rem;color:var(--white);margin-bottom:var(--sp-2);font-style:italic;">
+                Te recomendamos</p>
+              <div class="rec-products" id="recProducts"></div>
+              <button class="btn btn-outline btn-sm"
+                style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);margin-top:var(--sp-3);"
+                onclick="resetQuiz()">Reiniciar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="benefits-strip">
-      <div class="benefit-cell reveal">
-        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24">
-            <path
-              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-          </svg></div>
-        <div class="benefit-body">
-          <h4>Autenticidad</h4>
-          <p>Decants 100% originales extraídos directamente del frasco oficial.</p>
-        </div>
-      </div>
-      <div class="benefit-cell reveal">
-        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24">
-            <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 3H8L6 7h12l-2-4z" />
-          </svg></div>
-        <div class="benefit-body">
-          <h4>Envío Rápido</h4>
-          <p>Entregas en 24H a todo el Perú.</p>
-        </div>
-      </div>
-      <div class="benefit-cell reveal">
-        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24">
-            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg></div>
-        <div class="benefit-body">
-          <h4>Atención Personalizada</h4>
-          <p>Te asesoramos para encontrar tu fragancia perfecta.</p>
-        </div>
-      </div>
-    </div>
-
-    <section class="section container">
-      <div class="section-head reveal">
-        <div class="section-head-left">
-          <span class="section-num">01</span>
-          <div class="eyebrow">Destacados</div>
-          <h2>Más Vendidos</h2>
-          <p class="section-subhead">Las fragancias más solicitadas por nuestros clientes.</p>
-        </div>
-        <button class="btn btn-outline" onclick="navigateTo('catalogo')">Ver Colección</button>
-      </div>
-      <div class="products-grid" id="featuredGrid"></div>
-    </section>
-
-    <section class="section home-promo-section">
-      <div class="container">
+    <div class="page" id="page-catalogo">
+      <div class="container section">
         <div class="section-head reveal">
           <div class="section-head-left"><span class="section-num">02</span>
-            <div class="eyebrow">Packs & Ofertas</div>
-            <h2>Promociones Destacadas</h2>
-          </div><button class="btn btn-outline" onclick="navigateTo('promociones')">Ver Promociones</button>
+            <div class="eyebrow">Colección</div>
+            <h2>Nuestros Decants</h2>
+          </div><span class="eyebrow" id="productCount" aria-live="polite"></span>
         </div>
-        <div class="home-promo-grid" id="homePromoGrid"></div>
-      </div>
-    </section>
 
-    <div class="quiz-section" id="quizSectionEl">
-      <div class="quiz-inner">
-        <div class="eyebrow">Recomendador</div>
-        <h2>Encuentra tu fragancia ideal</h2>
-        <div class="quiz-box">
-          <div class="quiz-progress" id="quizProgress"></div>
-          <p class="quiz-question" id="quizQuestion"></p>
-          <div class="quiz-options" id="quizOptions"></div>
-          <p class="quiz-step-indicator" id="quizStep"></p>
-          <div class="quiz-result" id="quizResult">
-            <p
-              style="font-family:var(--serif);font-size:1.1rem;color:var(--white);margin-bottom:var(--sp-2);font-style:italic;">
-              Te recomendamos</p>
-            <div class="rec-products" id="recProducts"></div>
-            <button class="btn btn-outline btn-sm"
-              style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);margin-top:var(--sp-3);"
-              onclick="resetQuiz()">Reiniciar</button>
+        <div class="filters-panel reveal">
+          <div class="filters-top">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M21 21l-4.3-4.3" />
+              </svg>
+              <input type="search" id="searchInput" placeholder="Buscar por nombre o marca..."
+                aria-label="Buscar perfumes por nombre o marca">
+            </div>
+            <button class="filter-clear" id="filterClear" onclick="clearFilters()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+              Limpiar filtros
+            </button>
+          </div>
+          <div class="filter-divider"></div>
+          <div class="filter-group">
+            <span class="filter-group-label">Tipo</span>
+            <div class="filter-chips" id="filterTypeContainer"></div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-group-label">Género</span>
+            <div class="filter-chips" id="filterGenderContainer"></div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-group-label">Marca</span>
+            <div class="filter-chips" id="filterBrandContainer"></div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-group-label">Ocasión</span>
+            <div class="filter-chips" id="filterOccasionContainer"></div>
+          </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </div>
+
+    <div class="page" id="page-promociones">
+      <div class="container section">
+
+        <!-- PACKS PERSONALIZADOS (DIY) -->
+        <div class="promo-section-block">
+          <div class="promo-block-head">
+            <span class="eyebrow">Armá tu pack a medida</span>
+            <h2>Packs Personalizados</h2>
+            <p>Elige la categoría, el formato y los perfumes que más te gusten. Tu armás la combinación y nosotros te
+              damos el precio de pack.</p>
+          </div>
+          <div class="builder-grid" id="builderGrid"></div>
+        </div>
+
+        <!-- PACKS SELECCIONADOS (FIJOS) -->
+        <div class="promo-section-block">
+          <div class="promo-block-head">
+            <span class="eyebrow">Combinaciones de autor</span>
+            <h2>Packs Seleccionados</h2>
+            <p>Combinaciones curadas por nuestros expertos. Elige el tamaño y sumá el pack completo al carrito.</p>
+          </div>
+          <div class="bundle-grid" id="bundleGrid"></div>
+        </div>
+
+        <!-- FRANJA DE BENEFICIOS (reemplaza Ofertas Exclusivas) -->
+        <div class="benefits-band reveal">
+          <div class="benefits-band-head">
+            <span class="eyebrow">Beneficios Elixia</span>
+            <h2>Comprá con confianza</h2>
+          </div>
+          <div class="benefits-band-grid">
+            <div class="benefit-luxe">
+              <div class="benefit-luxe-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 3H8L6 7h12l-2-4z" />
+                </svg>
+              </div>
+              <h4>Envío gratis</h4>
+              <p>Sin costo en pedidos desde <strong>S/ 150</strong>. Envíos contra entrega a todo Lima.</p>
+            </div>
+            <div class="benefit-luxe">
+              <div class="benefit-luxe-icon">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z" />
+                </svg>
+              </div>
+              <h4>5% OFF en tu primera compra</h4>
+              <p>Válido solo para <strong>NUEVOS</strong> clientes.</p>
+            </div>
+            <div class="benefit-luxe">
+              <div class="benefit-luxe-icon">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+                </svg>
+              </div>
+              <h4>Asesoría personalizada</h4>
+              <p>Te guiamos en la elección de tu fragancia ideal por <strong>WhatsApp</strong>, sin compromiso.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="page" id="page-catalogo">
-    <div class="container section">
-      <div class="section-head reveal">
-        <div class="section-head-left"><span class="section-num">02</span>
-          <div class="eyebrow">Colección</div>
-          <h2>Nuestros Decants</h2>
-        </div><span class="eyebrow" id="productCount"></span>
-      </div>
-
-      <div class="filters-panel reveal">
-        <div class="filters-top">
-          <div class="search-box">
-            <svg viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="7" />
-              <path d="M21 21l-4.3-4.3" />
-            </svg>
-            <input type="search" id="searchInput" placeholder="Buscar por nombre o marca...">
-          </div>
-          <button class="filter-clear" id="filterClear" onclick="clearFilters()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-            Limpiar filtros
-          </button>
-        </div>
-        <div class="filter-divider"></div>
-        <div class="filter-group">
-          <span class="filter-group-label">Tipo</span>
-          <div class="filter-chips" id="filterTypeContainer"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-group-label">Género</span>
-          <div class="filter-chips" id="filterGenderContainer"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-group-label">Marca</span>
-          <div class="filter-chips" id="filterBrandContainer"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-group-label">Ocasión</span>
-          <div class="filter-chips" id="filterOccasionContainer"></div>
-        </div>
-      </div>
-
-      <div class="products-grid" id="productsGrid"></div>
-    </div>
-  </div>
-
-  <div class="page" id="page-promociones">
-    <div class="container section">
-
-      <!-- PACKS PERSONALIZADOS (DIY) -->
-      <div class="promo-section-block">
-        <div class="promo-block-head">
-          <span class="eyebrow">Armá tu pack a medida</span>
-          <h2>Packs Personalizados</h2>
-          <p>Elige la categoría, el formato y los perfumes que más te gusten. Tu armás la combinación y nosotros te
-            damos el precio de pack.</p>
-        </div>
-        <div class="builder-grid" id="builderGrid"></div>
-      </div>
-
-      <!-- PACKS SELECCIONADOS (FIJOS) -->
-      <div class="promo-section-block">
-        <div class="promo-block-head">
-          <span class="eyebrow">Combinaciones de autor</span>
-          <h2>Packs Seleccionados</h2>
-          <p>Combinaciones curadas por nuestros expertos. Elige el tamaño y sumá el pack completo al carrito.</p>
-        </div>
-        <div class="bundle-grid" id="bundleGrid"></div>
-      </div>
-
-      <!-- FRANJA DE BENEFICIOS (reemplaza Ofertas Exclusivas) -->
-      <div class="benefits-band reveal">
-        <div class="benefits-band-head">
-          <span class="eyebrow">Beneficios Elixia</span>
-          <h2>Comprá con confianza</h2>
-        </div>
-        <div class="benefits-band-grid">
-          <div class="benefit-luxe">
-            <div class="benefit-luxe-icon">
-              <svg viewBox="0 0 24 24">
-                <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 3H8L6 7h12l-2-4z" />
-              </svg>
-            </div>
-            <h4>Envío gratis</h4>
-            <p>Sin costo en pedidos desde <strong>S/ 150</strong>. Envíos contra entrega a todo Lima.</p>
-          </div>
-          <div class="benefit-luxe">
-            <div class="benefit-luxe-icon">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z" />
-              </svg>
-            </div>
-            <h4>5% OFF en tu primera compra</h4>
-            <p>Válido solo para <strong>NUEVOS</strong> clientes.</p>
-          </div>
-          <div class="benefit-luxe">
-            <div class="benefit-luxe-icon">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
-              </svg>
-            </div>
-            <h4>Asesoría personalizada</h4>
-            <p>Te guiamos en la elección de tu fragancia ideal por <strong>WhatsApp</strong>, sin compromiso.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand"><a class="logo" onclick="navigateTo('inicio')">ELIXIA</a>
+        <div class="footer-brand"><a class="logo" href="#inicio"
+            onclick="event.preventDefault(); navigateTo('inicio')">ELIXIA</a>
           <p>Decants auténticos de perfumería árabe, nicho y diseñador. Tu firma olfativa en el formato que necesitas.
           </p>
           <div class="footer-social">
@@ -3939,17 +4177,20 @@
         <div class="footer-col">
           <h5>Navegar</h5>
           <ul>
-            <li><a onclick="navigateTo('inicio')">Inicio</a></li>
-            <li><a onclick="navigateTo('catalogo')">Catálogo</a></li>
-            <li><a onclick="navigateTo('promociones')">Promociones</a></li>
+            <li><a href="#inicio" onclick="event.preventDefault(); navigateTo('inicio')">Inicio</a></li>
+            <li><a href="#catalogo" onclick="event.preventDefault(); navigateTo('catalogo')">Catálogo</a></li>
+            <li><a href="#promociones" onclick="event.preventDefault(); navigateTo('promociones')">Promociones</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h5>Colecciones</h5>
           <ul>
-            <li><a onclick="navigateTo('catalogo');filterByType('arabe')">Árabes</a></li>
-            <li><a onclick="navigateTo('catalogo');filterByType('nicho')">Nicho</a></li>
-            <li><a onclick="navigateTo('catalogo');filterByType('disenador')">Diseñador</a></li>
+            <li><a href="#catalogo"
+                onclick="event.preventDefault(); navigateTo('catalogo');filterByType('arabe')">Árabes</a></li>
+            <li><a href="#catalogo"
+                onclick="event.preventDefault(); navigateTo('catalogo');filterByType('nicho')">Nicho</a></li>
+            <li><a href="#catalogo"
+                onclick="event.preventDefault(); navigateTo('catalogo');filterByType('disenador')">Diseñador</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -3972,12 +4213,13 @@
     </div>
   </footer>
 
-  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-  <aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()" aria-hidden="true"></div>
+  <aside class="cart-sidebar" id="cartSidebar" role="dialog" aria-modal="true" aria-labelledby="cartTitle"
+    aria-hidden="true">
     <div class="cart-head">
-      <h3>Tu Carrito</h3>
+      <h3 id="cartTitle">Tu Carrito</h3>
       <div class="cart-head-right"><span class="cart-count-text" id="cartCountText"></span><button class="cart-close"
-          onclick="toggleCart()">✕</button></div>
+          onclick="toggleCart()" aria-label="Cerrar carrito">✕</button></div>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-foot" id="cartFoot">
@@ -3989,7 +4231,7 @@
     </div>
   </aside>
 
-  <div class="modal-overlay" id="checkoutModalOverlay">
+  <div class="modal-overlay" id="checkoutModalOverlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" style="max-width:580px;">
       <button class="modal-close" onclick="closeCheckout()" aria-label="Cerrar">✕</button>
       <h3 id="checkoutTitle">Completá tus datos</h3>
@@ -3998,61 +4240,65 @@
       <form id="checkoutForm" onsubmit="submitOrder(event)" novalidate>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2);">
           <div class="form-group" id="nameGroup">
-            <label class="form-label">Nombre *</label>
+            <label class="form-label" for="checkoutName">Nombre *</label>
             <input class="form-control" type="text" id="checkoutName" placeholder="Tu nombre" autocomplete="given-name"
-              required>
-            <span class="form-error">Campo requerido</span>
+              aria-describedby="nameError" required>
+            <span class="form-error" id="nameError">Campo requerido</span>
           </div>
           <div class="form-group" id="lastNameGroup">
-            <label class="form-label">Apellido *</label>
+            <label class="form-label" for="checkoutLastName">Apellido *</label>
             <input class="form-control" type="text" id="checkoutLastName" placeholder="Tu apellido"
-              autocomplete="family-name" required>
-            <span class="form-error">Campo requerido</span>
+              autocomplete="family-name" aria-describedby="lastNameError" required>
+            <span class="form-error" id="lastNameError">Campo requerido</span>
           </div>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2);">
           <div class="form-group" id="dniGroup">
-            <label class="form-label">DNI / Documento *</label>
-            <input class="form-control" type="text" id="checkoutDni" placeholder="12345678" autocomplete="off" required>
-            <span class="form-error">Ingresá un DNI válido (8 dígitos)</span>
+            <label class="form-label" for="checkoutDni">DNI / Documento *</label>
+            <input class="form-control" type="text" id="checkoutDni" placeholder="12345678" autocomplete="off"
+              inputmode="numeric" maxlength="12" aria-describedby="dniError" required>
+            <span class="form-error" id="dniError">Ingresa un documento válido</span>
           </div>
           <div class="form-group" id="phoneGroup">
-            <label class="form-label">WhatsApp *</label>
+            <label class="form-label" for="checkoutPhone">WhatsApp *</label>
             <input class="form-control" type="tel" id="checkoutPhone" placeholder="948 743 183" autocomplete="tel"
-              required>
-            <span class="form-error">Número inválido</span>
+              inputmode="tel" aria-describedby="phoneError" required>
+            <span class="form-error" id="phoneError">Número inválido</span>
           </div>
         </div>
         <div class="form-group" id="emailGroup">
-          <label class="form-label">Correo electrónico (opcional)</label>
-          <input class="form-control" type="email" id="checkoutEmail" placeholder="tu@email.com" autocomplete="email">
-          <span class="form-error">Ingresá un correo válido</span>
+          <label class="form-label" for="checkoutEmail">Correo electrónico (opcional)</label>
+          <input class="form-control" type="email" id="checkoutEmail" placeholder="tu@email.com" autocomplete="email"
+            aria-describedby="emailError">
+          <span class="form-error" id="emailError">Ingresa un correo válido</span>
         </div>
         <div class="form-group" id="addressGroup">
-          <label class="form-label">Dirección de envío *</label>
+          <label class="form-label" for="checkoutAddress">Dirección de envío *</label>
           <input class="form-control" type="text" id="checkoutAddress" placeholder="Calle, número, dpto/oficina"
-            autocomplete="street-address" required>
-          <span class="form-error">Campo requerido</span>
+            autocomplete="street-address" aria-describedby="addressError" required>
+          <span class="form-error" id="addressError">Campo requerido</span>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2);">
           <div class="form-group" id="districtGroup">
-            <label class="form-label">Distrito *</label>
-            <input class="form-control" type="text" id="checkoutDistrict" placeholder="Ej: Miraflores" required>
-            <span class="form-error">Campo requerido</span>
+            <label class="form-label" for="checkoutDistrict">Distrito *</label>
+            <input class="form-control" type="text" id="checkoutDistrict" placeholder="Ej: Miraflores"
+              autocomplete="address-level3" aria-describedby="districtError" required>
+            <span class="form-error" id="districtError">Campo requerido</span>
           </div>
           <div class="form-group" id="provinceGroup">
-            <label class="form-label">Provincia *</label>
-            <input class="form-control" type="text" id="checkoutProvince" placeholder="Ej: Lima" required>
-            <span class="form-error">Campo requerido</span>
+            <label class="form-label" for="checkoutProvince">Provincia *</label>
+            <input class="form-control" type="text" id="checkoutProvince" placeholder="Ej: Lima"
+              autocomplete="address-level2" aria-describedby="provinceError" required>
+            <span class="form-error" id="provinceError">Campo requerido</span>
           </div>
         </div>
         <div class="form-group" id="referenceGroup">
-          <label class="form-label">Referencia (opcional)</label>
+          <label class="form-label" for="checkoutReference">Referencia (opcional)</label>
           <input class="form-control" type="text" id="checkoutReference"
             placeholder="Ej: frente al parque, color de casa...">
         </div>
         <div class="form-group">
-          <label class="form-label">Notas adicionales</label>
+          <label class="form-label" for="checkoutNotes">Notas adicionales</label>
           <textarea class="form-control" id="checkoutNotes" rows="2"
             placeholder="Horario de entrega, instrucciones..."></textarea>
         </div>
@@ -4061,13 +4307,15 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="productModalOverlay" onclick="closeProductModal()">
-    <div class="product-modal" id="productModalContent" onclick="event.stopPropagation()"></div>
+  <div class="modal-overlay" id="productModalOverlay" onclick="closeProductModal()" aria-hidden="true">
+    <div class="product-modal" id="productModalContent" role="dialog" aria-modal="true"
+      aria-label="Detalle del producto" onclick="event.stopPropagation()"></div>
   </div>
-  <div class="modal-overlay" id="diyModalOverlay" onclick="closeDiyModal()">
-    <div class="diy-modal" id="diyModalContent" onclick="event.stopPropagation()"></div>
+  <div class="modal-overlay" id="diyModalOverlay" onclick="closeDiyModal()" aria-hidden="true">
+    <div class="diy-modal" id="diyModalContent" role="dialog" aria-modal="true" aria-label="Armar un pack"
+      onclick="event.stopPropagation()"></div>
   </div>
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script>
     (function () {
@@ -4134,6 +4382,38 @@
         { id: 60, brand: 'Lattafa', name: 'Haya EDP', type: 'arabe', gender: 'femenino', occasion: ['diario', 'verano'], top: 'Champagne rosado, mandarina, naranja sanguina', heart: 'Gardenia, jazmín, orquídea vainilla', base: 'Ámbar, sándalo, castaña', desc: 'Modestia fragante. Haya es el perfume femenino árabe más cercano al estilo occidental — elegante, suave y extremadamente versátil.', prices: { '3ml': 15, '5ml': 18, '10ml': 25 }, fullPrice: 140, img: 'HYP' },
         { id: 61, brand: 'Rasasi', name: 'Hawas Verde', type: 'arabe', gender: 'masculino', occasion: ['diario', 'verano', 'citas'], top: 'Limón, menta, acordes verdes', heart: 'Hierbas aromáticas', base: 'Almizcle, notas frescas', desc: 'La faceta más fresca y natural de Hawas. Un verde acuático vibrante que combina cítricos chispeantes con un corazón floral ligero y un fondo limpio de almizcle y cedro. Ideal para el día a día bajo el sol.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 175, img: 'HV' },
         { id: 62, brand: 'Lattafa', name: 'Khamrah Waha', type: 'arabe', gender: 'unisex', occasion: ['diario', 'verano', 'citas'], top: 'Sandía, menta, bergamota', heart: 'Loto, jazmín, notas acuáticas', base: 'Almizcle, sándalo, ámbar', desc: 'Un oasis de frescura en la colección Khamrah. Frutal acuática y floral, con la calidez justa del sándalo y el almizcle. Ideal para los días soleados y las noches de verano.', prices: { '3ml': 18, '5ml': 20, '10ml': 30 }, fullPrice: 185, img: 'KW' }
+
+        , {
+          id: 63,
+          brand: 'Rasasi',
+          name: 'Hawas Chrome',
+          type: 'arabe',
+          gender: 'masculino',
+          occasion: ['diario', 'verano', 'citas', 'deporte'],
+          top: 'Manzana verde, bergamota, limón',
+          heart: 'Lavanda, geranio, notas marinas',
+          base: 'Almizcle, ámbar, pachulí',
+          desc: 'Una reinterpretación metálica y energética del ADN Hawas. Frescura acuática explosiva con un corazón aromático limpio y un fondo ambarado que proyecta seguridad. Ideal para el hombre activo que quiere sentirse fresco todo el día.',
+          prices: { '3ml': 18, '5ml': 20, '10ml': 30 },
+          fullPrice: 185,
+          img: 'HC'
+        },
+        {
+          id: 64,
+          brand: 'Lattafa',
+          name: 'Yara Elixir',
+          type: 'arabe',
+          gender: 'femenino',
+          occasion: ['diario', 'citas', 'fiestas', 'invierno'],
+          top: 'Naranja sanguina, frutos rojos, mandarina',
+          heart: 'Jazmín, nardo, heliotropo',
+          base: 'Vainilla, sándalo, almizcle, caramelo',
+          desc: 'La versión más golosa y concentrada de Yara. Una jugosa apertura de frutas rojas y cítricos da paso a un ramo floral cremoso que reposa sobre una base cálida de vainilla y caramelo. Adictiva, envolvente y de estela infinita.',
+          prices: { '3ml': 15, '5ml': 18, '10ml': 25 },
+          fullPrice: 135,
+          img: 'YE'
+        }
+
       ];
       function slugify(s) {
         return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -4202,7 +4482,9 @@
         59: 'img/perfumes/lattafa_eclaire.webp',
         60: 'img/perfumes/lattafa_haya_edp.webp',
         61: 'img/perfumes/rasasi_hawas_verde.webp',
-        62: 'img/perfumes/lattafa_khamrah_waha.webp'
+        62: 'img/perfumes/lattafa_khamrah_waha.webp',
+        63: 'img/perfumes/rasasi_hawas_chrome.webp',
+        64: 'img/perfumes/lattafa_yara_elixir.webp'
       };
       function perfumePhoto(p) { return PHOTOS[p.id] || `img/perfumes/${slugify(p.name)}.webp`; }
       function perfumePhotoAlt(p) { return perfumePhoto(p).replace(/\.webp$/i, '2.webp'); }
@@ -4277,22 +4559,95 @@
         { id: 'formales', emoji: '🤵', name: 'Formales', img: 'img/promos/promo_formales.webp', items: ['Club de Nuit Urban Man Elixir', 'Versace Eros Flame', 'Le Male Le Parfum'], prices: { '3 ML': 67.5, '5 ML': 86, '10 ML': 130 } },
         { id: 'amaderados', emoji: '🪵', name: 'Amaderados', img: 'img/promos/promo_amaderados.webp', items: ['Khamrah Qahwa', 'Stronger With You Intensely', 'Khamrah Dukhan'], prices: { '3 ML': 56, '5 ML': 72, '10 ML': 105 } }
       ];
-      let cart = JSON.parse(localStorage.getItem('elixia_cart_v5') || '[]');
+      let cart = [];
+      try {
+        const savedCart = JSON.parse(localStorage.getItem('elixia_cart_v5') || '[]');
+        cart = Array.isArray(savedCart) ? savedCart : [];
+      } catch (error) {
+        localStorage.removeItem('elixia_cart_v5');
+      }
       let stateFilter = { type: 'todos', gender: 'todos', occasion: 'todos', brand: 'todas', search: '' };
+      let toastTimer;
       const $ = id => document.getElementById(id);
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const focusOrigins = new WeakMap();
       function fmt(n) { return (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, ''); }
 
+      function syncBodyLock() {
+        const hasOpenLayer = document.querySelector('.modal-overlay.open, .cart-sidebar.open');
+        document.body.classList.toggle('modal-open', Boolean(hasOpenLayer));
+      }
+
+      function openLayer(id, focusSelector = '.modal-close, button, input, [href]') {
+        const layer = $(id);
+        if (!layer) return;
+        focusOrigins.set(layer, document.activeElement);
+        layer.classList.add('open');
+        layer.setAttribute('aria-hidden', 'false');
+        syncBodyLock();
+        requestAnimationFrame(() => layer.querySelector(focusSelector)?.focus());
+      }
+
+      function closeLayer(id, restoreFocus = true) {
+        const layer = $(id);
+        if (!layer) return;
+        layer.classList.remove('open');
+        layer.setAttribute('aria-hidden', 'true');
+        syncBodyLock();
+        if (restoreFocus) {
+          const origin = focusOrigins.get(layer);
+          if (origin && document.contains(origin)) origin.focus();
+        }
+      }
+
+      function animateCards(selector, options = {}) {
+        const elements = document.querySelectorAll(selector);
+        if (!elements.length) return;
+        if (!window.gsap || reduceMotion) {
+          elements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+          return;
+        }
+        window.gsap.fromTo(selector,
+          { opacity: 0, y: options.y || 28 },
+          { opacity: 1, y: 0, duration: options.duration || 0.6, stagger: options.stagger || 0.08, clearProps: 'transform' }
+        );
+      }
+
+      function activateOnKey(event) {
+        if ((event.key === 'Enter' || event.key === ' ') && event.target === event.currentTarget) {
+          event.preventDefault();
+          event.currentTarget.click();
+        }
+      }
+
       function navigateTo(page) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const target = $('page-' + page); if (target) target.classList.add('active');
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        const target = $('page-' + page);
+        if (!target) return;
+        document.querySelectorAll('.page').forEach(p => {
+          const active = p === target;
+          p.classList.toggle('active', active);
+          p.hidden = !active;
+        });
+        document.querySelectorAll('.nav-links a').forEach(a => {
+          a.classList.remove('active');
+          a.removeAttribute('aria-current');
+        });
         const active = document.querySelector(`.nav-links a[data-page="${page}"]`);
-        if (active) active.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (active) {
+          active.classList.add('active');
+          active.setAttribute('aria-current', 'page');
+        }
+        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
         if (page === 'inicio') { renderFeatured(); renderHomePromos(); if (typeof window.resetQuiz === 'function') window.resetQuiz(); }
         if (page === 'catalogo') renderProducts();
         if (page === 'promociones') { renderBuilder(); renderBundles(); }
-        document.getElementById('navLinks').classList.remove('open');
+        const nav = $('navLinks');
+        nav.classList.remove('open');
+        document.querySelector('.hamburger')?.setAttribute('aria-expanded', 'false');
+        document.querySelector('.hamburger')?.setAttribute('aria-label', 'Abrir menú');
       }
 
       function renderFeatured() {
@@ -4308,21 +4663,18 @@
 
         grid.innerHTML = feat.map(p => productCard(p)).join('');
 
-        gsap.fromTo('#featuredGrid .product-card',
-          { opacity: 0, y: 28 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, clearProps: 'transform' }
-        );
+        animateCards('#featuredGrid .product-card', { duration: 0.6, stagger: 0.1 });
       }
 
       function productCard(p) {
         const minPrice = Math.min(...Object.values(p.prices));
         const badge = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
         const typeLabel = { arabe: 'Árabe', nicho: 'Nicho', disenador: 'Diseñador' }[p.type] || '';
-        return `<div class="product-card" data-id="${p.id}" onclick="openProductModal(${p.id})">
+        return `<article class="product-card" data-id="${p.id}">
+          <button class="product-card-open" type="button" onclick="openProductModal(${p.id})" aria-label="Ver ${p.brand} ${p.name}"></button>
           <div class="product-img">${badge}
             <img class="product-photo" src="${perfumePhoto(p)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <span class="product-glyph" style="display:none">${p.img.slice(0, 2)}</span>
-            <div class="product-overlay"><button class="btn-add-overlay" onclick="event.stopPropagation(); quickAddToCart(${p.id})">+ Agregar</button></div>
           </div>
           <div class="product-info">
             <span class="product-brand">${p.brand} · ${typeLabel}</span>
@@ -4330,10 +4682,10 @@
             <span class="product-notes">${p.top}</span>
             <div class="product-footer">
               <div><span class="product-price">S/ ${minPrice}</span><span class="product-ml"> desde</span></div>
-              <button class="btn-add" onclick="event.stopPropagation(); quickAddToCart(${p.id})">+ Add</button>
+              <button class="btn-add" type="button" onclick="quickAddToCart(${p.id})" aria-label="Agregar ${p.name} de 5 ml">+ Agregar</button>
             </div>
           </div>
-        </div>`;
+        </article>`;
       }
 
       function getFilteredProducts() {
@@ -4359,14 +4711,14 @@
           return;
         }
         grid.innerHTML = filtered.map(p => productCard(p)).join('');
-        gsap.fromTo('.products-grid .product-card', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.06, clearProps: 'transform' });
+        animateCards('.products-grid .product-card', { duration: 0.55, stagger: 0.06 });
       }
 
       function openProductModal(id) {
         const p = PRODUCTS.find(x => x.id === id);
         if (!p) return;
         let selectedType = 'decant';
-        let selectedMl = '5ml';
+        let selectedMl = Object.prototype.hasOwnProperty.call(p.prices, '5ml') ? '5ml' : Object.keys(p.prices)[0];
         const overlay = $('productModalOverlay');
         overlay.querySelector('#productModalContent').innerHTML = `
         <div class="product-modal-img">
@@ -4374,7 +4726,7 @@
             <span class="product-modal-glyph" style="display:none">${p.img.slice(0, 2)}</span>
         </div>
         <div class="product-modal-body">
-            <button class="modal-close" onclick="closeProductModal()">✕</button>
+            <button class="modal-close" type="button" onclick="closeProductModal()" aria-label="Cerrar detalle">✕</button>
             <div>
                 <div class="modal-brand">${p.brand}</div>
                 <div class="modal-name">${p.name}</div>
@@ -4394,24 +4746,25 @@
             </div>
             <div class="purchase-type-selector">
                 ${p.fullPrice ? `
-                <div class="purchase-option" data-type="full" onclick="selectPurchaseType('full', this)">
+                <button type="button" class="purchase-option" data-type="full" aria-pressed="false" onclick="selectPurchaseType('full', this)">
                     <span class="purchase-label">Frasco Completo</span>
                     <span class="purchase-price">S/ ${p.fullPrice}</span>
-                </div>` : ''}
-                <div class="purchase-option selected" data-type="decant" onclick="selectPurchaseType('decant', this)">
+                </button>` : ''}
+                <button type="button" class="purchase-option selected" data-type="decant" aria-pressed="true" onclick="selectPurchaseType('decant', this)">
                     <span class="purchase-label">Decant</span>
                     <span class="purchase-price">Desde S/ ${Math.min(...Object.values(p.prices))}</span>
-                </div>
+                </button>
             </div>
             <div class="decant-options" id="decantOptionsContainer" style="display: block;">
                 <div class="ml-selector">
                     <div class="ml-selector-label">Tamaño del decant</div>
                     <div class="ml-options" id="modalMlOptions">
                         ${Object.entries(p.prices).map(([ml, price]) => `
-                            <div class="ml-option ${ml === selectedMl ? 'selected' : ''}" data-ml="${ml}" onclick="selectMl('${ml}')">
+                            <button type="button" class="ml-option ${ml === selectedMl ? 'selected' : ''}" data-ml="${ml}"
+                              aria-pressed="${ml === selectedMl}" onclick="selectMl('${ml}')">
                                 <span class="ml-option-size">${ml}</span>
                                 <span class="ml-option-price">S/ ${price}</span>
-                            </div>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
@@ -4425,17 +4778,21 @@
         modalContent._selectedType = selectedType;
         modalContent._selectedMl = selectedMl;
         modalContent._productId = id;
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        modalContent.setAttribute('aria-label', `${p.brand} ${p.name}`);
+        openLayer('productModalOverlay');
       }
 
-      function closeProductModal() { $('productModalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+      function closeProductModal() { closeLayer('productModalOverlay'); }
 
       function selectPurchaseType(type, element) {
         const modal = document.querySelector('#productModalContent');
         if (!modal) return;
-        modal.querySelectorAll('.purchase-option').forEach(opt => opt.classList.remove('selected'));
+        modal.querySelectorAll('.purchase-option').forEach(opt => {
+          opt.classList.remove('selected');
+          opt.setAttribute('aria-pressed', 'false');
+        });
         element.classList.add('selected');
+        element.setAttribute('aria-pressed', 'true');
         const decantContainer = modal.querySelector('#decantOptionsContainer');
         if (decantContainer) decantContainer.style.display = type === 'decant' ? 'block' : 'none';
         const btn = modal.querySelector('.modal-cta .btn-primary');
@@ -4455,7 +4812,11 @@
 
       function selectMl(ml) {
         const modal = document.querySelector('#productModalContent');
-        document.querySelectorAll('#modalMlOptions .ml-option').forEach(o => o.classList.toggle('selected', o.dataset.ml === ml));
+        document.querySelectorAll('#modalMlOptions .ml-option').forEach(o => {
+          const selected = o.dataset.ml === ml;
+          o.classList.toggle('selected', selected);
+          o.setAttribute('aria-pressed', String(selected));
+        });
         if (modal) modal._selectedMl = ml;
       }
 
@@ -4489,7 +4850,13 @@
         item.qty = Math.max(0, item.qty + delta);
         if (item.qty === 0) removeFromCart(key); else { saveCart(); updateCartUI(); }
       }
-      function saveCart() { localStorage.setItem('elixia_cart_v5', JSON.stringify(cart)); }
+      function saveCart() {
+        try {
+          localStorage.setItem('elixia_cart_v5', JSON.stringify(cart));
+        } catch (error) {
+          showToast('No se pudo guardar el carrito en este navegador');
+        }
+      }
       function getCartTotal() {
         return cart.reduce((sum, i) => {
           if (i.type === 'bundle') return sum + (i.price || 0) * i.qty;
@@ -4529,9 +4896,9 @@
         <div class="cart-item-name">${i.title}</div>
         ${detail}
         <div class="cart-item-controls">
-            <button class="qty-btn" onclick="updateQty('${i.key}',-1)">−</button>
+            <button class="qty-btn" onclick="updateQty('${i.key}',-1)" aria-label="Reducir cantidad de ${i.title}">−</button>
             <span class="qty-val">${i.qty}</span>
-            <button class="qty-btn" onclick="updateQty('${i.key}',1)">+</button>
+            <button class="qty-btn" onclick="updateQty('${i.key}',1)" aria-label="Aumentar cantidad de ${i.title}">+</button>
             <button class="cart-item-remove" onclick="removeFromCart('${i.key}')">Eliminar</button>
         </div>
     </div>
@@ -4547,9 +4914,9 @@
         <div class="cart-item-name">${p.name}</div>
         <div class="cart-item-ml">${i.ml === 'full' ? 'Frasco Completo' : i.ml}</div>
         <div class="cart-item-controls">
-            <button class="qty-btn" onclick="updateQty('${i.key}',-1)">−</button>
+            <button class="qty-btn" onclick="updateQty('${i.key}',-1)" aria-label="Reducir cantidad de ${p.name}">−</button>
             <span class="qty-val">${i.qty}</span>
-            <button class="qty-btn" onclick="updateQty('${i.key}',1)">+</button>
+            <button class="qty-btn" onclick="updateQty('${i.key}',1)" aria-label="Aumentar cantidad de ${p.name}">+</button>
             <button class="cart-item-remove" onclick="removeFromCart('${i.key}')">Eliminar</button>
         </div>
     </div>
@@ -4562,11 +4929,32 @@
         }
       }
 
-      function toggleCart() {
+      function setCartOpen(open, restoreFocus = true) {
         const sidebar = $('cartSidebar'); const overlay = $('cartOverlay');
-        const isOpen = sidebar.classList.contains('open');
-        if (isOpen) { sidebar.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; }
-        else { sidebar.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; updateCartUI(); }
+        const cartButton = document.querySelector('.cart-btn');
+        if (open) {
+          focusOrigins.set(sidebar, document.activeElement);
+          sidebar.classList.add('open');
+          overlay.classList.add('open');
+          sidebar.setAttribute('aria-hidden', 'false');
+          cartButton?.setAttribute('aria-expanded', 'true');
+          updateCartUI();
+          requestAnimationFrame(() => sidebar.querySelector('.cart-close')?.focus());
+        } else {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('open');
+          sidebar.setAttribute('aria-hidden', 'true');
+          cartButton?.setAttribute('aria-expanded', 'false');
+          if (restoreFocus) {
+            const origin = focusOrigins.get(sidebar);
+            if (origin && document.contains(origin)) origin.focus();
+          }
+        }
+        syncBodyLock();
+      }
+
+      function toggleCart() {
+        setCartOpen(!$('cartSidebar').classList.contains('open'));
       }
       function pulseBadge() { const b = $('cartBadge'); b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); }
 
@@ -4602,17 +4990,20 @@
         ['checkoutName', 'checkoutLastName', 'checkoutDni', 'checkoutPhone', 'checkoutEmail', 'checkoutAddress', 'checkoutDistrict', 'checkoutProvince', 'checkoutReference', 'checkoutNotes'].forEach(id => $(id).value = '');
         // Limpiar errores
         ['nameGroup', 'lastNameGroup', 'dniGroup', 'phoneGroup', 'emailGroup', 'addressGroup', 'districtGroup', 'provinceGroup'].forEach(id => {
-          const el = $(id); if (el) el.classList.remove('error');
+          const el = $(id);
+          if (el) {
+            el.classList.remove('error');
+            el.querySelector('.form-control')?.removeAttribute('aria-invalid');
+          }
         });
 
-        $('checkoutModalOverlay').classList.add('open');
-        document.body.style.overflow = 'hidden';
-        toggleCart(); // cerrar carrito
+        setCartOpen(false, false);
+        openLayer('checkoutModalOverlay', '#checkoutName');
+        focusOrigins.set($('checkoutModalOverlay'), document.querySelector('.cart-btn'));
       }
 
       function closeCheckout() {
-        $('checkoutModalOverlay').classList.remove('open');
-        document.body.style.overflow = '';
+        closeLayer('checkoutModalOverlay');
       }
 
       function submitOrder(e) {
@@ -4632,21 +5023,35 @@
 
         // Limpiar errores previos
         ['nameGroup', 'lastNameGroup', 'dniGroup', 'phoneGroup', 'emailGroup', 'addressGroup', 'districtGroup', 'provinceGroup'].forEach(id => {
-          const el = $(id); if (el) el.classList.remove('error');
+          const el = $(id);
+          if (el) {
+            el.classList.remove('error');
+            el.querySelector('.form-control')?.removeAttribute('aria-invalid');
+          }
         });
 
         let valid = true;
 
-        if (!name) { $('nameGroup').classList.add('error'); valid = false; }
-        if (!lastName) { $('lastNameGroup').classList.add('error'); valid = false; }
-        if (!dni || dni.length < 7 || dni.length > 12) { $('dniGroup').classList.add('error'); valid = false; }
-        if (!phone || phone.replace(/\s/g, '').length < 7) { $('phoneGroup').classList.add('error'); valid = false; }
-        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('emailGroup').classList.add('error'); valid = false; }
-        if (!address) { $('addressGroup').classList.add('error'); valid = false; }
-        if (!district) { $('districtGroup').classList.add('error'); valid = false; }
-        if (!province) { $('provinceGroup').classList.add('error'); valid = false; }
+        const markInvalid = groupId => {
+          const group = $(groupId);
+          group?.classList.add('error');
+          group?.querySelector('.form-control')?.setAttribute('aria-invalid', 'true');
+          valid = false;
+        };
 
-        if (!valid) return;
+        if (!name) markInvalid('nameGroup');
+        if (!lastName) markInvalid('lastNameGroup');
+        if (!/^\d{7,12}$/.test(dni)) markInvalid('dniGroup');
+        if (!/^[\d+\s()-]{7,20}$/.test(phone)) markInvalid('phoneGroup');
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) markInvalid('emailGroup');
+        if (!address) markInvalid('addressGroup');
+        if (!district) markInvalid('districtGroup');
+        if (!province) markInvalid('provinceGroup');
+
+        if (!valid) {
+          document.querySelector('.form-group.error .form-control')?.focus();
+          return;
+        }
 
         // Construir mensaje para WhatsApp
         const total = getCartTotal();
@@ -4695,7 +5100,12 @@
         msg += `_Enviado desde elixiaparfum.com_`;
 
         // Abrir WhatsApp
-        window.open(`https://wa.me/51948743183?text=${encodeURIComponent(msg)}`, '_blank');
+        const whatsappWindow = window.open(`https://wa.me/51948743183?text=${encodeURIComponent(msg)}`, '_blank');
+        if (!whatsappWindow) {
+          showToast('Permite las ventanas emergentes para abrir WhatsApp');
+          return;
+        }
+        whatsappWindow.opener = null;
 
         // Limpiar carrito y cerrar
         cart = [];
@@ -4705,28 +5115,61 @@
         showToast('¡Pedido enviado! ✓');
       }
 
-      function filterByType(type) { stateFilter.type = type; document.querySelectorAll('#filterTypeContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === type)); renderProducts(); }
-      function filterByGender(g) { stateFilter.gender = g; document.querySelectorAll('#filterGenderContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.gender === g)); renderProducts(); }
-      function filterByOccasion(o) { stateFilter.occasion = o; document.querySelectorAll('#filterOccasionContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.occasion === o)); renderProducts(); }
+      function setPressedState(elements, predicate) {
+        elements.forEach(element => {
+          const selected = predicate(element);
+          element.classList.toggle('active', selected);
+          element.setAttribute('aria-pressed', String(selected));
+        });
+      }
+
+      function filterByType(type) {
+        stateFilter.type = type;
+        setPressedState(document.querySelectorAll('#filterTypeContainer .filter-chip'), c => c.dataset.filter === type);
+        renderProducts();
+      }
+
+      function filterByGender(g) {
+        stateFilter.gender = g;
+        setPressedState(document.querySelectorAll('#filterGenderContainer .filter-chip'), c => c.dataset.gender === g);
+        renderProducts();
+      }
+
+      function filterByOccasion(o) {
+        stateFilter.occasion = o;
+        setPressedState(document.querySelectorAll('#filterOccasionContainer .filter-chip'), c => c.dataset.occasion === o);
+        renderProducts();
+      }
       function filterByBrand(brand) {
         stateFilter.brand = brand;
-        document.querySelectorAll('#filterBrandContainer .filter-chip').forEach(c =>
-          c.classList.toggle('active', c.dataset.brand === brand)
-        );
+        setPressedState(document.querySelectorAll('#filterBrandContainer .filter-chip'), c => c.dataset.brand === brand);
         renderProducts(true);
       }
       function clearFilters() {
         stateFilter = { type: 'todos', gender: 'todos', occasion: 'todos', brand: 'todas', search: '' };
         const si = $('searchInput'); if (si) si.value = '';
-        document.querySelectorAll('#filterTypeContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === 'todos'));
-        document.querySelectorAll('#filterGenderContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.gender === 'todos'));
-        document.querySelectorAll('#filterOccasionContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.occasion === 'todos'));
-        document.querySelectorAll('#filterBrandContainer .filter-chip').forEach(c => c.classList.toggle('active', c.dataset.brand === 'todas'));
+        setPressedState(document.querySelectorAll('#filterTypeContainer .filter-chip'), c => c.dataset.filter === 'todos');
+        setPressedState(document.querySelectorAll('#filterGenderContainer .filter-chip'), c => c.dataset.gender === 'todos');
+        setPressedState(document.querySelectorAll('#filterOccasionContainer .filter-chip'), c => c.dataset.occasion === 'todos');
+        setPressedState(document.querySelectorAll('#filterBrandContainer .filter-chip'), c => c.dataset.brand === 'todas');
         renderProducts(true);
       }
 
-      function showToast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400); }
-      function toggleMobileMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+      function showToast(msg) {
+        const t = $('toast');
+        clearTimeout(toastTimer);
+        t.textContent = msg;
+        t.classList.add('show');
+        toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+      }
+
+      function toggleMobileMenu() {
+        const nav = $('navLinks');
+        const button = document.querySelector('.hamburger');
+        const open = nav.classList.toggle('open');
+        button?.setAttribute('aria-expanded', String(open));
+        button?.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      }
 
       function buildMarquee() {
         const brands = ['Xerjoff', 'Rasasi', 'Lattafa', 'Armaf', 'Jean Paul Gaultier', 'Versace', 'Valentino', 'Armani', 'Paco Rabanne', 'Al Haramain', 'Jo Milano', 'Afnan', 'Azzaro', 'French Avenue', 'Dumont', 'King of Kings', 'Maison Alhambra'];
@@ -4766,24 +5209,24 @@
       function initFilters() {
         // Tipo
         $('filterTypeContainer').innerHTML = ['todos', 'arabe', 'nicho', 'disenador'].map(t =>
-          `<button class="filter-chip ${t === 'todos' ? 'active' : ''}" data-filter="${t}" onclick="filterByType('${t}')">${t === 'todos' ? 'Todos' : { arabe: 'Árabe', nicho: 'Nicho', disenador: 'Diseñador' }[t]}</button>`
+          `<button class="filter-chip ${t === 'todos' ? 'active' : ''}" data-filter="${t}" aria-pressed="${t === 'todos'}" onclick="filterByType('${t}')">${t === 'todos' ? 'Todos' : { arabe: 'Árabe', nicho: 'Nicho', disenador: 'Diseñador' }[t]}</button>`
         ).join('');
 
         // Género
         $('filterGenderContainer').innerHTML = ['todos', 'masculino', 'femenino', 'unisex'].map(g =>
-          `<button class="filter-chip ${g === 'todos' ? 'active' : ''}" data-gender="${g}" onclick="filterByGender('${g}')">${g === 'todos' ? 'Todos' : g.charAt(0).toUpperCase() + g.slice(1)}</button>`
+          `<button class="filter-chip ${g === 'todos' ? 'active' : ''}" data-gender="${g}" aria-pressed="${g === 'todos'}" onclick="filterByGender('${g}')">${g === 'todos' ? 'Todos' : g.charAt(0).toUpperCase() + g.slice(1)}</button>`
         ).join('');
 
         // Ocasión
         $('filterOccasionContainer').innerHTML = ['todos', 'diario', 'noche', 'citas', 'verano', 'invierno', 'evento'].map(o =>
-          `<button class="filter-chip ${o === 'todos' ? 'active' : ''}" data-occasion="${o}" onclick="filterByOccasion('${o}')">${o === 'todos' ? 'Todas' : o.charAt(0).toUpperCase() + o.slice(1)}</button>`
+          `<button class="filter-chip ${o === 'todos' ? 'active' : ''}" data-occasion="${o}" aria-pressed="${o === 'todos'}" onclick="filterByOccasion('${o}')">${o === 'todos' ? 'Todas' : o.charAt(0).toUpperCase() + o.slice(1)}</button>`
         ).join('');
 
         // Marcas (extraídas dinámicamente del catálogo, ordenadas alfabéticamente)
         const brands = [...new Set(PRODUCTS.map(p => p.brand))].sort();
         $('filterBrandContainer').innerHTML =
-          `<button class="filter-chip active" data-brand="todas" onclick="filterByBrand('todas')">Todas</button>` +
-          brands.map(b => `<button class="filter-chip" data-brand="${b}" onclick="filterByBrand('${b}')">${b}</button>`).join('');
+          `<button class="filter-chip active" data-brand="todas" aria-pressed="true" onclick="filterByBrand('todas')">Todas</button>` +
+          brands.map(b => `<button class="filter-chip" data-brand="${b}" aria-pressed="false" onclick="filterByBrand('${b}')">${b}</button>`).join('');
 
         // Búsqueda
         $('searchInput').addEventListener('input', e => { stateFilter.search = e.target.value; renderProducts(true); });
@@ -4893,13 +5336,13 @@
           $('recProducts').innerHTML = top.map(({ p, score }) => {
             const min = Math.min(...Object.values(p.prices));
             const match = Math.min(99, Math.round(60 + score * 4));
-            return `<div class="rec-chip" onclick="openProductModal(${p.id})">
+            return `<button type="button" class="rec-chip" onclick="openProductModal(${p.id})" aria-label="Ver recomendación ${p.name}">
               <div class="rec-chip-thumb"><img src="${perfumePhoto(p)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span style="display:none">${p.img.slice(0, 2)}</span></div>
               <div class="product-brand">${p.brand}</div>
               <div class="product-name">${p.name}</div>
               <div class="rec-chip-price">Desde S/ ${min}</div>
               <div class="rec-chip-match">${match}% match</div>
-            </div>`;
+            </button>`;
           }).join('');
         }
 
@@ -4933,7 +5376,8 @@
 
         const grid = $('builderGrid'); if (!grid) return;
         grid.innerHTML = Object.entries(DIY_PROMOS).map(([key, c]) => `
-    <div class="builder-card" onclick="openDiyBuilder('${key}')">
+    <div class="builder-card" role="button" tabindex="0" onclick="openDiyBuilder('${key}')"
+      onkeydown="activateOnKey(event)" aria-label="Personalizar ${c.label}">
       <!-- NUEVA IMAGEN DE PORTADA -->
       <div style="width:100%; aspect-ratio:16/10; overflow:hidden; border-radius:var(--r-sm); margin-bottom:12px;">
         <img src="${DIY_IMGS[key]}" alt="${c.label}" style="width:100%;height:100%;object-fit:cover;" 
@@ -4947,17 +5391,16 @@
       <div class="builder-formats-preview">
         ${c.formats.map(f => `<span class="bf-chip">${f.label} · S/ ${fmt(f.price)}</span>`).join('')}
       </div>
-      <button class="btn btn-primary btn-sm">Personalizar →</button>
+      <span class="btn btn-primary btn-sm" aria-hidden="true">Personalizar →</span>
     </div>`).join('');
       }
 
       function openDiyBuilder(catKey) {
         diyState = { catKey, formatId: null, selected: [] };
         renderDiyModal();
-        $('diyModalOverlay').classList.add('open');
-        document.body.style.overflow = 'hidden';
+        openLayer('diyModalOverlay');
       }
-      function closeDiyModal() { $('diyModalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+      function closeDiyModal() { closeLayer('diyModalOverlay'); }
       function selectDiyFormat(formatId) { diyState.formatId = formatId; diyState.selected = []; renderDiyModal(); }
 
       function toggleDiyPerfume(id) {
@@ -5028,11 +5471,12 @@
         ${perfumes.map(p => {
             const sel = diyState.selected.includes(p.id);
             const dis = !sel && atMax;
-            return `<div class="diy-perfume ${sel ? 'selected' : ''} ${dis ? 'disabled' : ''}" onclick="toggleDiyPerfume(${p.id})">
+            return `<button type="button" class="diy-perfume ${sel ? 'selected' : ''} ${dis ? 'disabled' : ''}"
+              aria-pressed="${sel}" ${dis ? 'disabled' : ''} onclick="toggleDiyPerfume(${p.id})">
             <div class="diy-perfume-img"><img src="${perfumePhoto(p)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span style="display:none">${p.img.slice(0, 2)}</span></div>
             <div class="diy-perfume-brand">${p.brand}</div>
             <div class="diy-perfume-name">${p.name}</div>
-          </div>`;
+          </button>`;
           }).join('')}
       </div>`;
         } else {
@@ -5040,17 +5484,18 @@
         }
         const canAdd = fmtObj && diyState.selected.length === fmtObj.count;
         $('diyModalContent').innerHTML = `
-    <button class="modal-close" onclick="closeDiyModal()">✕</button>
+    <button class="modal-close" type="button" onclick="closeDiyModal()" aria-label="Cerrar creador de packs">✕</button>
     <div class="diy-head">
       <div class="modal-brand">Armá tu pack</div>
       <h3>${cat.label}</h3>
     </div>
     <div class="diy-step-label">1 · Elegí el formato</div>
     <div class="diy-formats">
-      ${cat.formats.map(f => `<div class="diy-format ${f.id === diyState.formatId ? 'selected' : ''}" onclick="selectDiyFormat('${f.id}')">
+      ${cat.formats.map(f => `<button type="button" class="diy-format ${f.id === diyState.formatId ? 'selected' : ''}"
+        aria-pressed="${f.id === diyState.formatId}" onclick="selectDiyFormat('${f.id}')">
         <span class="diy-format-label">${f.label}</span>
         <span class="diy-format-price">S/ ${fmt(f.price)}</span>
-      </div>`).join('')}
+      </button>`).join('')}
     </div>
     ${perfumesHtml}
     <div class="diy-foot">
@@ -5075,10 +5520,11 @@
             </div>
             <div class="bundle-sizes">
               ${Object.entries(b.prices).map(([ml, price], idx) => `
-                <div class="bundle-size ${fixedSel[b.id] === ml ? 'selected' : ''}" data-ml="${ml}" onclick="selectFixedSize('${b.id}','${ml}')">
+                <button type="button" class="bundle-size ${fixedSel[b.id] === ml ? 'selected' : ''}" data-ml="${ml}"
+                  aria-pressed="${fixedSel[b.id] === ml}" onclick="selectFixedSize('${b.id}','${ml}')">
                   <span class="bundle-size-ml">${ml}</span>
                   <span class="bundle-size-price">S/ ${fmt(price)}</span>
-                </div>`).join('')}
+                </button>`).join('')}
             </div>
             <button class="btn-add-bundle" onclick="addFixedPromo('${b.id}')">Agregar al carrito</button>
           </div>`).join('');
@@ -5087,7 +5533,11 @@
       function selectFixedSize(id, ml) {
         fixedSel[id] = ml;
         const card = document.querySelector(`.bundle-card[data-bundle="${id}"]`);
-        if (card) card.querySelectorAll('.bundle-size').forEach(s => s.classList.toggle('selected', s.dataset.ml === ml));
+        if (card) card.querySelectorAll('.bundle-size').forEach(s => {
+          const selected = s.dataset.ml === ml;
+          s.classList.toggle('selected', selected);
+          s.setAttribute('aria-pressed', String(selected));
+        });
       }
 
       function addFixedPromo(id) {
@@ -5115,21 +5565,22 @@
         picks.forEach(b => { if (!homeSel[b.id]) homeSel[b.id] = Object.keys(b.prices)[0]; if (!homeQty[b.id]) homeQty[b.id] = 1; });
         grid.innerHTML = picks.map(b => `
           <div class="home-promo-card" data-home="${b.id}">
-            <div class="home-promo-img" onclick="navigateTo('promociones')">
+            <button type="button" class="home-promo-img" onclick="navigateTo('promociones')" aria-label="Ver promociones de ${b.name}">
               <img src="${b.img}" alt="${b.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="home-promo-fallback"><span>${b.emoji}</span></div>
               <span class="home-promo-tag">Pack</span>
-            </div>
+            </button>
             <div class="home-promo-info">
               <div class="home-promo-name">${b.name}</div>
               <div class="home-promo-items">${b.items.join(' · ')}</div>
               <div class="home-promo-controls">
                 <div class="home-promo-sizes">
                   ${Object.entries(b.prices).map(([ml, price]) => `
-                    <div class="home-promo-size ${homeSel[b.id] === ml ? 'selected' : ''}" data-ml="${ml}" onclick="selectHomeSize('${b.id}','${ml}')">
+                    <button type="button" class="home-promo-size ${homeSel[b.id] === ml ? 'selected' : ''}" data-ml="${ml}"
+                      aria-pressed="${homeSel[b.id] === ml}" onclick="selectHomeSize('${b.id}','${ml}')">
                       <span class="home-promo-size-ml">${ml}</span>
                       <span class="home-promo-size-price">S/ ${fmt(price)}</span>
-                    </div>`).join('')}
+                    </button>`).join('')}
                 </div>
                 <div class="home-promo-buy">
                   <div class="home-qty">
@@ -5142,13 +5593,17 @@
               </div>
             </div>
           </div>`).join('');
-        gsap.fromTo('#homePromoGrid .home-promo-card', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, clearProps: 'transform' });
+        animateCards('#homePromoGrid .home-promo-card', { duration: 0.6, stagger: 0.1 });
       }
 
       function selectHomeSize(id, ml) {
         homeSel[id] = ml;
         const card = document.querySelector(`.home-promo-card[data-home="${id}"]`);
-        if (card) card.querySelectorAll('.home-promo-size').forEach(s => s.classList.toggle('selected', s.dataset.ml === ml));
+        if (card) card.querySelectorAll('.home-promo-size').forEach(s => {
+          const selected = s.dataset.ml === ml;
+          s.classList.toggle('selected', selected);
+          s.setAttribute('aria-pressed', String(selected));
+        });
       }
       function changeHomeQty(id, delta) {
         homeQty[id] = Math.max(1, (homeQty[id] || 1) + delta);
@@ -5176,7 +5631,8 @@
 
       // ═══════════ ANIMACIONES ═══════════
       function initHeroAnimation() {
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        if (!window.gsap || reduceMotion) return;
+        const tl = window.gsap.timeline({ defaults: { ease: 'power3.out' } });
         tl.from('#heroEyebrow', { opacity: 0, y: 20, duration: 0.7 })
           .from('#heroTitle', { opacity: 0, y: 40, duration: 0.9 }, '-=0.4')
           .from('#heroDesc', { opacity: 0, y: 20, duration: 0.7 }, '-=0.55')
@@ -5185,9 +5641,41 @@
       }
 
       function initScrollTriggers() {
-        gsap.utils.toArray('.reveal').forEach(el => {
-          gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', clearProps: 'transform', scrollTrigger: { trigger: el, start: 'top 82%', once: true } });
+        if (!window.gsap || !window.ScrollTrigger || reduceMotion) return;
+        window.gsap.utils.toArray('.reveal').forEach(el => {
+          window.gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', clearProps: 'transform', scrollTrigger: { trigger: el, start: 'top 82%', once: true } });
         });
+      }
+
+      function getActiveLayer() {
+        return document.querySelector('.modal-overlay.open') || document.querySelector('.cart-sidebar.open');
+      }
+
+      function handleGlobalKeydown(event) {
+        const activeLayer = getActiveLayer();
+        if (event.key === 'Escape') {
+          if ($('checkoutModalOverlay').classList.contains('open')) closeCheckout();
+          else if ($('productModalOverlay').classList.contains('open')) closeProductModal();
+          else if ($('diyModalOverlay').classList.contains('open')) closeDiyModal();
+          else if ($('cartSidebar').classList.contains('open')) setCartOpen(false);
+          else if ($('navLinks').classList.contains('open')) toggleMobileMenu();
+          return;
+        }
+
+        if (event.key !== 'Tab' || !activeLayer) return;
+        const focusable = [...activeLayer.querySelectorAll(
+          'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+        )].filter(el => !el.hidden && el.getClientRects().length);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
 
       // EXPONER funciones usadas en onclick
@@ -5221,6 +5709,7 @@
       window.selectHomeSize = selectHomeSize;
       window.changeHomeQty = changeHomeQty;
       window.addHomePromo = addHomePromo;
+      window.activateOnKey = activateOnKey;
 
       function init() {
         buildMarquee();
@@ -5233,10 +5722,23 @@
         renderBuilder();
         renderBundles();
         navigateTo('inicio');
-        gsap.registerPlugin(ScrollTrigger);
+        if (window.gsap && window.ScrollTrigger && !reduceMotion) {
+          window.gsap.registerPlugin(window.ScrollTrigger);
+        }
         initHeroAnimation();
         setTimeout(initScrollTriggers, 400);
         window.addEventListener('scroll', () => { $('header').classList.toggle('scrolled', window.scrollY > 20); }, { passive: true });
+        document.addEventListener('keydown', handleGlobalKeydown);
+        document.addEventListener('click', event => {
+          const nav = $('navLinks');
+          const menuButton = document.querySelector('.hamburger');
+          if (nav.classList.contains('open') && !nav.contains(event.target) && !menuButton.contains(event.target)) {
+            toggleMobileMenu();
+          }
+        });
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 768 && $('navLinks').classList.contains('open')) toggleMobileMenu();
+        }, { passive: true });
       }
 
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
