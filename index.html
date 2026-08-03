@@ -609,8 +609,8 @@
 
     .hero-chip-gold {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 42px;
+      left: 12px;
       background: var(--gold);
       color: var(--ink);
       font-size: 0.56rem;
@@ -3731,9 +3731,16 @@
       outline-offset: -4px;
     }
 
-    .product-footer,
-    .product-badge {
+    .product-footer {
       position: relative;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: var(--sp-2);
+      left: var(--sp-2);
       z-index: 4;
       pointer-events: none;
     }
@@ -4412,6 +4419,21 @@
           prices: { '3ml': 15, '5ml': 18, '10ml': 25 },
           fullPrice: 135,
           img: 'YE'
+        },
+        {
+          id: 65,
+          brand: 'French Avenue',
+          name: 'Liquid Brun',
+          type: 'arabe',
+          gender: 'masculino',
+          occasion: ['noche', 'citas', 'invierno'],
+          top: 'Canela, bergamota, cardamomo, flor de azahar',
+          heart: 'Vainilla bourbon, elemi',
+          base: 'Almizcle, praliné, ambroxan, madera de guaiac',
+          desc: 'El elixir marrón de French Avenue. Un oriental gourmand cremoso y especiado — canela, vainilla bourbon y praliné en una estela dulce, cálida y adictiva que rinde tributo a la gran perfumería parisina con alma árabe.',
+          prices: { '3ml': 18, '5ml': 20, '10ml': 30 },
+          fullPrice: 175,
+          img: 'LB'
         }
 
       ];
@@ -4484,7 +4506,8 @@
         61: 'img/perfumes/rasasi_hawas_verde.webp',
         62: 'img/perfumes/lattafa_khamrah_waha.webp',
         63: 'img/perfumes/rasasi_hawas_chrome.webp',
-        64: 'img/perfumes/lattafa_yara_elixir.webp'
+         64: 'img/perfumes/lattafa_yara_elixir.webp',
+         65: 'img/perfumes/FRENCH_AVENEU_LIQUID_BRUN.webp'
       };
       function perfumePhoto(p) { return PHOTOS[p.id] || `img/perfumes/${slugify(p.name)}.webp`; }
       function perfumePhotoAlt(p) { return perfumePhoto(p).replace(/\.webp$/i, '2.webp'); }
