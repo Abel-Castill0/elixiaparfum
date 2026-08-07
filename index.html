@@ -4432,8 +4432,23 @@
           base: 'Almizcle, praliné, ambroxan, madera de guaiac',
           desc: 'El elixir marrón de French Avenue. Un oriental gourmand cremoso y especiado — canela, vainilla bourbon y praliné en una estela dulce, cálida y adictiva que rinde tributo a la gran perfumería parisina con alma árabe.',
           prices: { '3ml': 18, '5ml': 20, '10ml': 30 },
-          fullPrice: 185,
+          fullPrice: 175,
           img: 'LB'
+        },
+        {
+          id: 66,
+          brand: 'Yves Saint Laurent',
+          name: 'MYSLF Le Parfum',
+          type: 'disenador',
+          gender: 'masculino',
+          occasion: ['noche', 'citas', 'invierno'],
+          top: 'Pimienta negra, bergamota',
+          heart: 'Flor de azahar',
+          base: 'Vainilla bourbon, maderas cálidas, ámbar',
+          desc: 'La versión más intensa del icónico MYSLF. Un amaderado floral especiado y vainillado — pimienta negra, flor de azahar radiante y vainilla bourbon en una estela cálida, elegante y profundamente masculina.',
+          prices: { '3ml': 30, '5ml': 40, '10ml': 60 },
+          fullPrice: 400,
+          img: 'MLP'
         }
 
       ];
@@ -4507,7 +4522,8 @@
         62: 'img/perfumes/lattafa_khamrah_waha.webp',
         63: 'img/perfumes/rasasi_hawas_chrome.webp',
          64: 'img/perfumes/lattafa_yara_elixir.webp',
-         65: 'img/perfumes/FRENCH_AVENEU_LIQUID_BRUN.webp'
+         65: 'img/perfumes/FRENCH_AVENEU_LIQUID_BRUN.webp',
+         66: 'img/perfumes/YVES SAINT LAURENT - MYSELF LE PARFUM.webp'
       };
       function perfumePhoto(p) { return PHOTOS[p.id] || `img/perfumes/${slugify(p.name)}.webp`; }
       function perfumePhotoAlt(p) { return perfumePhoto(p).replace(/\.webp$/i, '2.webp'); }
@@ -4520,7 +4536,7 @@
             // Solo el 5x3 excluye Club de Nuit (excepto Intense EDT) y Al Haramain
             {
               id: 'a-5x3', count: 5, ml: '3 ML', price: 67.50, label: '5 × 3ML',
-              excludeBrands: ['Jo Milano', 'French Avenue', 'King of Kings', 'Al Haramain'],
+              excludeBrands: ['Jo Milano', 'King of Kings', 'Al Haramain'],
               excludeNames: ['9PM Elixir', '9PM Night Out', 'Hawas Kobra', 'Hawas Atlantis', 'Hawas Tropical', 'Hawas Malibu', 'Hawas Fire', 'Hawas Verde'],
               excludeIds: [6, 54, 57]
             },
