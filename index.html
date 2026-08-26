@@ -4449,6 +4449,21 @@
           prices: { '3ml': 30, '5ml': 40, '10ml': 60 },
           fullPrice: 400,
           img: 'MLP'
+        },
+        {
+          id: 67,
+          brand: 'Bharara',
+          name: 'King',
+          type: 'arabe',
+          gender: 'masculino',
+          occasion: ['diario', 'noche', 'citas'],
+          top: 'Naranja, bergamota, limón',
+          heart: 'Notas frutales',
+          base: 'Vainilla, almizcle blanco, ámbar',
+          desc: 'La realeza de Bharara en un frasco. Un frutal cítrico vibrante con una base cremosa de vainilla y almizcle — proyección bestial y estela de más de 12 horas. Inspirado en Erba Pura de Xerjoff.',
+          prices: { '3ml': 20, '5ml': 25, '10ml': 35 },
+          fullPrice: 200,
+          img: 'BK'
         }
 
       ];
@@ -4523,10 +4538,11 @@
         63: 'img/perfumes/rasasi_hawas_chrome.webp',
          64: 'img/perfumes/lattafa_yara_elixir.webp',
          65: 'img/perfumes/FRENCH_AVENEU_LIQUID_BRUN.webp',
-         66: 'img/perfumes/YVES SAINT LAURENT - MYSELF LE PARFUM.webp'
+         66: 'img/perfumes/YVES SAINT LAURENT - MYSELF LE PARFUM.webp',
+         67: 'img/perfumes/BHARARA - BHARARA KING.png'
       };
       function perfumePhoto(p) { return PHOTOS[p.id] || `img/perfumes/${slugify(p.name)}.webp`; }
-      function perfumePhotoAlt(p) { return perfumePhoto(p).replace(/\.webp$/i, '2.webp'); }
+      function perfumePhotoAlt(p) { return perfumePhoto(p).replace(/\.webp$/i, '2.webp').replace(/\.png$/i, '2.png'); }
 
       const DIY_PROMOS = {
         arabe: {
