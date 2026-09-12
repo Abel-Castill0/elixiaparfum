@@ -1204,6 +1204,35 @@
       z-index: 3;
     }
 
+    .badge-coming-soon {
+      background: var(--ink);
+      color: var(--gold-lt);
+      border-color: var(--ink);
+      font-style: italic;
+      letter-spacing: 0.06em;
+    }
+
+    .product-coming-soon-cta {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mist);
+      padding: 7px 16px;
+      border: 1px solid var(--fog);
+      border-radius: var(--r-xs);
+      background: transparent;
+      cursor: default;
+      font-family: var(--sans);
+      opacity: 0.7;
+    }
+
+    .product-no-price {
+      font-size: 0.78rem;
+      color: var(--mist);
+      font-style: italic;
+    }
+
     .product-info {
       padding: var(--sp-2) var(--sp-2) var(--sp-3);
       flex: 1;
@@ -4464,6 +4493,69 @@
           prices: { '3ml': 20, '5ml': 25, '10ml': 35 },
           fullPrice: 200,
           img: 'BK'
+        },
+        {
+          id: 68,
+          brand: 'Armaf',
+          name: 'Arabian Sky',
+          type: 'arabe',
+          gender: 'masculino',
+          occasion: ['noche', 'citas', 'invierno'],
+          top: 'Bergamota, azafrán',
+          heart: 'Rosa, oud',
+          base: 'Ámbar, musgo, haba tonka',
+          desc: 'Una composición oriental elegante que fusiona bergamota y azafrán con un corazón de rosa y oud sobre una base cálida de ámbar y haba tonka.',
+          prices: {},
+          fullPrice: null,
+          available: false,
+          img: 'ASky'
+        },
+        {
+          id: 69,
+          brand: 'Givenchy',
+          name: 'Gentleman Réserve Privée EDP',
+          type: 'disenador',
+          gender: 'masculino',
+          occasion: ['noche', 'citas', 'evento', 'invierno'],
+          top: 'Bergamota, pera',
+          heart: 'Lavanda, iris',
+          base: 'Vainilla, haba tonka, maderas',
+          desc: 'La reserva privada de Gentleman. Un amaderado florales sofisticado con iris, lavanda y una base envolvente de vainilla y haba tonka — elegancia francesa en su máxima expresión.',
+          prices: {},
+          fullPrice: null,
+          available: false,
+          img: 'GRP'
+        },
+        {
+          id: 70,
+          brand: 'Dolce & Gabbana',
+          name: 'The One EDP',
+          type: 'disenador',
+          gender: 'femenino',
+          occasion: ['noche', 'citas', 'invierno'],
+          top: 'Bergamota, lichi, gardenia',
+          heart: 'Jazmín, lirio, peonía',
+          base: 'Vainilla, almizcle, ámbar',
+          desc: 'The One en su concentración más pura. Un floral oriental femenino de sofisticación italiana — bergamota, jazmín y vainilla en una sinfonía de elegancia atemporal.',
+          prices: {},
+          fullPrice: null,
+          available: false,
+          img: 'DGO'
+        },
+        {
+          id: 71,
+          brand: 'Montale Paris',
+          name: 'Arabians Tonka',
+          type: 'nicho',
+          gender: 'unisex',
+          occasion: ['noche', 'citas', 'invierno'],
+          top: 'Bergamota, azafrán',
+          heart: 'Rosa, oud',
+          base: 'Ámbar, musgo de roble, haba tonka, azúcar moreno, cuero, almizcle blanco',
+          desc: 'Una composición oriental gourmand intensa donde la rosa y el oud se encuentran con azafrán, haba tonka y un fondo cálido de ámbar, cuero y almizcle.',
+          prices: {},
+          fullPrice: null,
+          img: 'ATonka'
         }
 
       ];
@@ -4539,10 +4631,23 @@
          64: 'img/perfumes/lattafa_yara_elixir.webp',
          65: 'img/perfumes/FRENCH_AVENEU_LIQUID_BRUN.webp',
          66: 'img/perfumes/YVES SAINT LAURENT - MYSELF LE PARFUM.webp',
-         67: 'img/perfumes/BHARARA - BHARARA KING.png'
+         67: 'img/perfumes/BHARARA - BHARARA KING.png',
+         68: 'img/perfumes/ARMAF - ARABIAN SKY.png',
+         69: 'img/perfumes/GIVENCHY -GIVENCHY GENTLEMAN RESERVE PRIVEE EDP.png',
+         70: 'img/perfumes/DOLCE & GABBANA - DOLCE & GABBANA THE ONE EDP.png',
+         71: 'img/perfumes/MÓNTALE PARIS - ARABIANS TONKA.png'
+      };
+      const ALT_PHOTOS = {
+         68: 'img/perfumes/ARMAF - ARABIAN SKY (2).png',
+         69: 'img/perfumes/GIVENCHY -GIVENCHY GENTLEMAN RESERVE PRIVEE EDP (2).png',
+         70: 'img/perfumes/DOLCE & GABBANA - DOLCE & GABBANA THE ONE EDP 2.png',
+         71: 'img/perfumes/MÓNTALE PARIS - ARABIANS TONKA (2).png'
       };
       function perfumePhoto(p) { return PHOTOS[p.id] || `img/perfumes/${slugify(p.name)}.webp`; }
-      function perfumePhotoAlt(p) { return perfumePhoto(p).replace(/\.webp$/i, '2.webp').replace(/\.png$/i, '2.png'); }
+      function perfumePhotoAlt(p) {
+        if (ALT_PHOTOS[p.id]) return ALT_PHOTOS[p.id];
+        return perfumePhoto(p).replace(/\.webp$/i, '2.webp').replace(/\.png$/i, '2.png');
+      }
 
       const DIY_PROMOS = {
         arabe: {
@@ -4722,9 +4827,20 @@
       }
 
       function productCard(p) {
-        const minPrice = Math.min(...Object.values(p.prices));
-        const badge = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
+        const isComingSoon = p.available === false;
+        const hasPrices = p.prices && Object.keys(p.prices).length > 0;
+        const minPrice = hasPrices ? Math.min(...Object.values(p.prices)) : null;
+        const isUnavailable = isComingSoon || !hasPrices;
+        const badge = isComingSoon
+          ? `<span class="product-badge badge-coming-soon">Próximamente</span>`
+          : (p.badge ? `<span class="product-badge">${p.badge}</span>` : '');
         const typeLabel = { arabe: 'Árabe', nicho: 'Nicho', disenador: 'Diseñador' }[p.type] || '';
+        const priceHtml = isUnavailable
+          ? `<span class="product-no-price">${isComingSoon ? 'Próximamente' : 'Precio por confirmar'}</span>`
+          : `<span class="product-price">S/ ${minPrice}</span><span class="product-ml"> desde</span>`;
+        const ctaHtml = isUnavailable
+          ? `<span class="product-coming-soon-cta" aria-disabled="true">${isComingSoon ? 'Próximamente' : 'Precio por confirmar'}</span>`
+          : `<button class="btn-add" type="button" onclick="quickAddToCart(${p.id})" aria-label="Agregar ${p.name} de 5 ml">+ Agregar</button>`;
         return `<article class="product-card" data-id="${p.id}">
           <button class="product-card-open" type="button" onclick="openProductModal(${p.id})" aria-label="Ver ${p.brand} ${p.name}"></button>
           <div class="product-img">${badge}
@@ -4736,8 +4852,8 @@
             <span class="product-name">${p.name}</span>
             <span class="product-notes">${p.top}</span>
             <div class="product-footer">
-              <div><span class="product-price">S/ ${minPrice}</span><span class="product-ml"> desde</span></div>
-              <button class="btn-add" type="button" onclick="quickAddToCart(${p.id})" aria-label="Agregar ${p.name} de 5 ml">+ Agregar</button>
+              <div>${priceHtml}</div>
+              ${ctaHtml}
             </div>
           </div>
         </article>`;
@@ -4772,33 +4888,17 @@
       function openProductModal(id) {
         const p = PRODUCTS.find(x => x.id === id);
         if (!p) return;
+        const isUnavailable = p.available === false || !p.prices || !Object.keys(p.prices).length;
+        const isComingSoon = p.available === false;
         let selectedType = 'decant';
-        let selectedMl = Object.prototype.hasOwnProperty.call(p.prices, '5ml') ? '5ml' : Object.keys(p.prices)[0];
+        let selectedMl = (p.prices && Object.prototype.hasOwnProperty.call(p.prices, '5ml')) ? '5ml' : (p.prices && Object.keys(p.prices).length > 0 ? Object.keys(p.prices)[0] : null);
         const overlay = $('productModalOverlay');
-        overlay.querySelector('#productModalContent').innerHTML = `
-        <div class="product-modal-img">
-            <img id="modalMainImg" src="${perfumePhotoAlt(p)}" alt="${p.name}" onerror="this.onerror=null;this.src='${perfumePhoto(p)}';this.dataset.fallback='1'">
-            <span class="product-modal-glyph" style="display:none">${p.img.slice(0, 2)}</span>
-        </div>
-        <div class="product-modal-body">
-            <button class="modal-close" type="button" onclick="closeProductModal()" aria-label="Cerrar detalle">✕</button>
-            <div>
-                <div class="modal-brand">${p.brand}</div>
-                <div class="modal-name">${p.name}</div>
-                <div style="display:flex;gap:6px;margin-top:8px">
-                    <span class="modal-type-badge">${{ arabe: 'Árabe', nicho: 'Nicho', disenador: 'Diseñador' }[p.type]}</span>
-                    <span class="modal-type-badge">${p.gender}</span>
-                </div>
-            </div>
-            <p class="modal-desc">${p.desc}</p>
-            <div class="modal-notes">
-                <div class="modal-notes-title">Pirámide olfativa</div>
-                <div class="notes-row">
-                    <div class="note-group"><span class="note-label">Salida</span><span class="note-value">${p.top}</span></div>
-                    <div class="note-group"><span class="note-label">Corazón</span><span class="note-value">${p.heart}</span></div>
-                    <div class="note-group"><span class="note-label">Fondo</span><span class="note-value">${p.base}</span></div>
-                </div>
-            </div>
+        const hasPrices = p.prices && Object.keys(p.prices).length > 0;
+        const unavailableMsg = isComingSoon ? 'Próximamente · Aún no disponible' : 'Precio por confirmar';
+        const purchaseHtml = isUnavailable ? `
+            <div style="padding:var(--sp-2);background:var(--cloud);border-radius:var(--r-sm);text-align:center;">
+              <span style="font-family:var(--serif);font-size:1rem;color:var(--ink);font-style:italic;">${unavailableMsg}</span>
+            </div>` : `
             <div class="purchase-type-selector">
                 ${p.fullPrice ? `
                 <button type="button" class="purchase-option" data-type="full" aria-pressed="false" onclick="selectPurchaseType('full', this)">
@@ -4809,7 +4909,8 @@
                     <span class="purchase-label">Decant</span>
                     <span class="purchase-price">Desde S/ ${Math.min(...Object.values(p.prices))}</span>
                 </button>
-            </div>
+            </div>`;
+        const decantHtml = isUnavailable ? '' : `
             <div class="decant-options" id="decantOptionsContainer" style="display: block;">
                 <div class="ml-selector">
                     <div class="ml-selector-label">Tamaño del decant</div>
@@ -4823,11 +4924,43 @@
                         `).join('')}
                     </div>
                 </div>
-            </div>
+            </div>`;
+        const ctaHtml = isUnavailable ? `
+            <div class="modal-cta">
+                <button class="btn btn-outline" onclick="closeProductModal()">Cerrar</button>
+            </div>` : `
             <div class="modal-cta">
                 <button class="btn btn-primary" onclick="addToCartModal(${id})">Agregar Decant</button>
                 <button class="btn btn-outline" onclick="closeProductModal()">Cerrar</button>
+            </div>`;
+        overlay.querySelector('#productModalContent').innerHTML = `
+        <div class="product-modal-img">
+            <img id="modalMainImg" src="${perfumePhotoAlt(p)}" alt="${p.name}" onerror="this.onerror=null;this.src='${perfumePhoto(p)}';this.dataset.fallback='1'">
+            <span class="product-modal-glyph" style="display:none">${p.img.slice(0, 2)}</span>
+        </div>
+        <div class="product-modal-body">
+            <button class="modal-close" type="button" onclick="closeProductModal()" aria-label="Cerrar detalle">✕</button>
+            <div>
+                <div class="modal-brand">${p.brand}</div>
+                <div class="modal-name">${p.name}</div>
+                <div style="display:flex;gap:6px;margin-top:8px">
+                    <span class="modal-type-badge">${{ arabe: 'Árabe', nicho: 'Nicho', disenador: 'Diseñador' }[p.type]}</span>
+                    <span class="modal-type-badge">${p.gender}</span>
+                    ${isComingSoon ? '<span class="modal-type-badge badge-coming-soon">Próximamente</span>' : ''}
+                </div>
             </div>
+            <p class="modal-desc">${p.desc}</p>
+            <div class="modal-notes">
+                <div class="modal-notes-title">Pirámide olfativa</div>
+                <div class="notes-row">
+                    <div class="note-group"><span class="note-label">Salida</span><span class="note-value">${p.top}</span></div>
+                    <div class="note-group"><span class="note-label">Corazón</span><span class="note-value">${p.heart}</span></div>
+                    <div class="note-group"><span class="note-label">Fondo</span><span class="note-value">${p.base}</span></div>
+                </div>
+            </div>
+            ${purchaseHtml}
+            ${decantHtml}
+            ${ctaHtml}
         </div>`;
         const modalContent = overlay.querySelector('#productModalContent');
         modalContent._selectedType = selectedType;
@@ -4878,17 +5011,30 @@
       function addToCartModal(id) {
         const modal = document.querySelector('#productModalContent');
         if (!modal) return;
+        const p = PRODUCTS.find(x => x.id === id);
+        if (!p || p.available === false || !p.prices || !Object.keys(p.prices).length) {
+          showToast('Este producto no está disponible actualmente');
+          return;
+        }
         const type = modal._selectedType || 'decant';
         if (type === 'full') addToCart(id, 'full');
         else addToCart(id, modal._selectedMl || '5ml');
         closeProductModal();
       }
 
-      function quickAddToCart(id) { addToCart(id, '5ml'); }
+      function quickAddToCart(id) {
+        const p = PRODUCTS.find(x => x.id === id);
+        if (!p || p.available === false || !p.prices || !Object.keys(p.prices).length) {
+          showToast('Este producto no está disponible actualmente');
+          return;
+        }
+        addToCart(id, '5ml');
+      }
 
       function addToCart(id, ml) {
         const p = PRODUCTS.find(x => x.id === id);
         if (!p) return;
+        if (p.available === false || !p.prices || !Object.keys(p.prices).length) return;
         if (ml === 'full' && !p.fullPrice) return;
         const key = ml === 'full' ? `${id}_full` : `${id}_${ml}`;
         const existing = cart.find(i => i.key === key);
@@ -5227,7 +5373,7 @@
       }
 
       function buildMarquee() {
-        const brands = ['Xerjoff', 'Rasasi', 'Lattafa', 'Armaf', 'Jean Paul Gaultier', 'Versace', 'Valentino', 'Armani', 'Paco Rabanne', 'Al Haramain', 'Jo Milano', 'Afnan', 'Azzaro', 'French Avenue', 'Dumont', 'King of Kings', 'Maison Alhambra'];
+        const brands = ['Xerjoff', 'Rasasi', 'Lattafa', 'Armaf', 'Jean Paul Gaultier', 'Versace', 'Valentino', 'Armani', 'Paco Rabanne', 'Al Haramain', 'Jo Milano', 'Afnan', 'Azzaro', 'French Avenue', 'Dumont', 'King of Kings', 'Maison Alhambra', 'Givenchy', 'Dolce & Gabbana', 'Montale Paris', 'Bharara'];
         $('marqueeTrack').innerHTML = [...brands, ...brands].map(b => `<span class="marquee-item">${b}</span>`).join('');
       }
 
@@ -5389,13 +5535,15 @@
           scored.sort((a, b) => b.score - a.score);
           const top = scored.slice(0, 3);
           $('recProducts').innerHTML = top.map(({ p, score }) => {
-            const min = Math.min(...Object.values(p.prices));
+            const hasPrices = p.prices && Object.keys(p.prices).length > 0;
+            const min = hasPrices ? Math.min(...Object.values(p.prices)) : null;
             const match = Math.min(99, Math.round(60 + score * 4));
+            const priceHtml = min !== null ? `<div class="rec-chip-price">Desde S/ ${min}</div>` : `<div class="rec-chip-price">Consultar precio</div>`;
             return `<button type="button" class="rec-chip" onclick="openProductModal(${p.id})" aria-label="Ver recomendación ${p.name}">
               <div class="rec-chip-thumb"><img src="${perfumePhoto(p)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span style="display:none">${p.img.slice(0, 2)}</span></div>
               <div class="product-brand">${p.brand}</div>
               <div class="product-name">${p.name}</div>
-              <div class="rec-chip-price">Desde S/ ${min}</div>
+              ${priceHtml}
               <div class="rec-chip-match">${match}% match</div>
             </button>`;
           }).join('');
@@ -5491,8 +5639,8 @@
         if (!cat) return;
         const fmtObj = cat.formats.find(f => f.id === diyState.formatId);
 
-        // Obtener perfumes base según tipo
-        let perfumes = PRODUCTS.filter(p => p.type === diyState.catKey);
+        // Obtener perfumes base según tipo (excluir no disponibles)
+        let perfumes = PRODUCTS.filter(p => p.type === diyState.catKey && p.available !== false);
 
         // Aplicar reglas de exclusión/inclusión del formato
         if (fmtObj) {
