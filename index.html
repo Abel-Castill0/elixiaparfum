@@ -4505,9 +4505,12 @@
           heart: 'Lavanda, geranio, ylang-ylang, caramelo',
           base: 'Pachulí, vetiver, cedro, almizcle, cuero, ámbar',
           desc: 'Una fragancia rica y sofisticada que abre con cítricos vibrantes, piña y pimienta, evoluciona hacia un corazón aromático de lavanda, geranio, ylang-ylang y caramelo, y descansa sobre un fondo profundo de maderas, cuero, almizcle y ámbar.',
-          prices: {},
+          prices: {
+            '3ml': 18,
+            '5ml': 20,
+            '10ml': 35
+          },
           fullPrice: null,
-          available: false,
           img: 'ASky'
         },
         {
@@ -4521,9 +4524,12 @@
           heart: 'Castaña, iris, benjuí',
           base: 'Cedro de Virginia, vetiver, pachulí',
           desc: 'Un amaderado floral ambarado inspirado en el whisky. La bergamota y el absoluto de whisky abren paso a un corazón sofisticado de castaña, iris y benjuí, sobre un fondo elegante de cedro, vetiver y pachulí.',
-          prices: {},
+          prices: {
+            '3ml': 25,
+            '5ml': 30,
+            '10ml': 50
+          },
           fullPrice: null,
-          available: false,
           img: 'GRP'
         },
         {
@@ -4537,9 +4543,12 @@
           heart: 'Lirio Madonna, rosa, muguete, jazmín',
           base: 'Vainilla, vetiver de Haití, ámbar, almizcle',
           desc: 'Un floral ambarado femenino elegante y sofisticado. Mandarina, bergamota, lichi y melocotón blanco abren una composición que evoluciona hacia flores blancas y rosa, sobre un fondo sensual de vainilla, vetiver, ámbar y almizcle.',
-          prices: {},
+          prices: {
+            '3ml': 20,
+            '5ml': 25,
+            '10ml': 40
+          },
           fullPrice: null,
-          available: false,
           img: 'DGO'
         },
         {
@@ -4560,6 +4569,25 @@
           },
           fullPrice: null,
           img: 'ATonka'
+        },
+        {
+          id: 72,
+          brand: 'Armaf',
+          name: 'Dunescape',
+          type: 'arabe',
+          gender: 'unisex',
+          occasion: ['diario', 'verano'],
+          top: 'Limón, mandarina, bergamota, naranja sanguina, jengibre, enebro, salvia',
+          heart: 'Cashmeran, acorde ozónico, geranio, rosa, manzana',
+          base: 'Ámbar seco, almizcle, sándalo',
+          desc: 'Una fragancia fresca y luminosa que combina cítricos vibrantes, jengibre y aromáticos con un corazón ozónico y floral, sobre una base limpia y elegante de ámbar, almizcle y sándalo.',
+          prices: {
+            '3ml': 18,
+            '5ml': 20,
+            '10ml': 30
+          },
+          fullPrice: null,
+          img: 'Dune'
         }
 
       ];
@@ -4639,13 +4667,15 @@
          68: 'img/perfumes/ARMAF - ARABIAN SKY.png',
          69: 'img/perfumes/GIVENCHY -GIVENCHY GENTLEMAN RESERVE PRIVEE EDP.png',
          70: 'img/perfumes/DOLCE & GABBANA - DOLCE & GABBANA THE ONE EDP.png',
-         71: 'img/perfumes/MÓNTALE PARIS - ARABIANS TONKA.png'
+         71: 'img/perfumes/MÓNTALE PARIS - ARABIANS TONKA.png',
+         72: 'img/perfumes/ARMAF - DUNESCAPE.png'
       };
       const ALT_PHOTOS = {
          68: 'img/perfumes/ARMAF - ARABIAN SKY (2).png',
          69: 'img/perfumes/GIVENCHY -GIVENCHY GENTLEMAN RESERVE PRIVEE EDP (2).png',
          70: 'img/perfumes/DOLCE & GABBANA - DOLCE & GABBANA THE ONE EDP 2.png',
-         71: 'img/perfumes/MÓNTALE PARIS - ARABIANS TONKA (2).png'
+         71: 'img/perfumes/MÓNTALE PARIS - ARABIANS TONKA (2).png',
+         72: 'img/perfumes/ARMAF - DUNESCAPE (2).png'
       };
       function perfumePhoto(p) { return PHOTOS[p.id] || `img/perfumes/${slugify(p.name)}.webp`; }
       function perfumePhotoAlt(p) {
