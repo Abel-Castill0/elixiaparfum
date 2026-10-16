@@ -4683,34 +4683,32 @@
         return perfumePhoto(p).replace(/\.webp$/i, '2.webp').replace(/\.png$/i, '2.png');
       }
 
+      // Packs Árabes — exclusión única y compartida por TODOS los formatos árabes.
+      // Estos 5 productos siguen en el catálogo general (búsqueda, filtros y compra individual);
+      // solo dejan de ser opciones dentro de los packs personalizados árabes.
+      const ARAB_PACK_EXCLUDED_IDS = new Set([22, 23, 56, 67, 68]);
+
       const DIY_PROMOS = {
         arabe: {
           label: 'Perfumes Árabes',
           desc: 'Lattafa, Rasasi, Afnan, Armaf y más. Combiná tus orientales favoritos.',
           formats: [
-            // Solo el 5x3 excluye Club de Nuit (excepto Intense EDT) y Al Haramain
+            // Todos los formatos árabes comparten el mismo conjunto elegible:
+            // type === 'arabe' + disponible + sin ARAB_PACK_EXCLUDED_IDS
             {
-              id: 'a-5x3', count: 5, ml: '3 ML', price: 67.50, label: '5 × 3ML',
-              excludeBrands: ['Jo Milano', 'King of Kings', 'Al Haramain'],
-              excludeNames: ['9PM Elixir', '9PM Night Out', 'Hawas Kobra', 'Hawas Atlantis', 'Hawas Tropical', 'Hawas Malibu', 'Hawas Fire', 'Hawas Verde'],
-              excludeIds: [6, 54, 57]
-            },
-            // 3x5, 6x5, 2x10, 3x10: Gold Edition incluido, sin restricciones extra
-            {
-              id: 'a-3x5', count: 3, ml: '5 ML', price: 54.00, label: '3 × 5ML',
-              excludeBrands: ['Jo Milano']
+              id: 'a-5x3', count: 5, ml: '3 ML', price: 85, label: '5 × 3ML'
             },
             {
-              id: 'a-6x5', count: 6, ml: '5 ML', price: 99.00, label: '6 × 5ML',
-              excludeBrands: ['Jo Milano']
+              id: 'a-3x5', count: 3, ml: '5 ML', price: 55.5, label: '3 × 5ML'
             },
             {
-              id: 'a-2x10', count: 2, ml: '10 ML', price: 58.00, label: '2 × 10ML',
-              excludeBrands: ['Jo Milano']
+              id: 'a-6x5', count: 6, ml: '5 ML', price: 111, label: '6 × 5ML'
             },
             {
-              id: 'a-3x10', count: 3, ml: '10 ML', price: 85.50, label: '3 × 10ML',
-              excludeBrands: ['Jo Milano']
+              id: 'a-2x10', count: 2, ml: '10 ML', price: 58.00, label: '2 × 10ML'
+            },
+            {
+              id: 'a-3x10', count: 3, ml: '10 ML', price: 85.50, label: '3 × 10ML'
             }
           ]
         },
@@ -5675,6 +5673,12 @@
 
         // Obtener perfumes base según tipo (excluir no disponibles)
         let perfumes = PRODUCTS.filter(p => p.type === diyState.catKey && p.available !== false);
+
+        // Packs Árabes: única regla de elegibilidad compartida por todos los formatos.
+        // Sin exclusiones por marca, nombre, género, precio ni existencia de otras categorías.
+        if (diyState.catKey === 'arabe') {
+          perfumes = perfumes.filter(p => !ARAB_PACK_EXCLUDED_IDS.has(p.id));
+        }
 
         // Aplicar reglas de exclusión/inclusión del formato
         if (fmtObj) {
